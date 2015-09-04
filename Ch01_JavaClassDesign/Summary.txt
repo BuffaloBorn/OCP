@@ -1,0 +1,94 @@
+Abstract Classes
+Master the following points about abstract classes and abstract methods, as they might well come up in the OCPJP 7 exam:
+		•	The abstract keyword can be applied to a class or a method but not to a field.
+		•	An abstract class cannot be instantiated. You can, however, create reference variables of an abstract class type.
+		    In fact, you can create objects of the classes derived from an abstract class and make the abstract class references refer to the created derived class objects.
+		•   An abstract class can extend another abstract class or can implement an interface.
+		•	An abstract class can be derived from a concrete class! Although the language allows it, it is not a good idea to do so.
+		•	An abstract class need not declare an abstract method, which means it is not necessary for an abstract class to have methods declared as abstract.
+		    However, if a class has an abstract method, it should be declared as an abstract class.
+		•	A subclass of an abstract class needs to provide implementation of all the abstract methods;
+		    otherwise you need to declare that subclass as an abstract class.
+		•   An abstract class may have methods or fields declared static.
+
+Final Methods and Variables
+Master the following points, as they might well come up in the OCPJP 7 exam:
+        •   The final modifier can be applied to a class, method, or variable.
+		•	All methods of a final class are implicitly final (hence non-overridable).
+		•	A final variable can be assigned only once. If a variable declaration defines a variable as final but did not initialize it, then it is referred to as blank final.
+		    You need to initialize a blank final all the constructors you have defined in the class; otherwise the compiler will complain.
+		•	The keyword final can even be applied to parameters. The value of a final parameter cannot be changed once assigned.
+		    Here, it is important to note that the “value” is implicitly understood for primitive types.
+		    However, the “value” for an object refers to the object reference, not its state.
+		    Therefore, you can change the internal state of the passed final object, but you cannot change the reference itself.
+
+Static Block
+		•	The main() method, where the main execution of the program starts, is always declared static.
+            Why? If it were an instance method, it would be impossible to invoke it. You’d have to start the program to be able to create an instance and then call the method, right?
+		•	You cannot override a static method provided in a base class. Why? Based on the instance type, the method call is resolved with runtime polymorphism.
+		    Since static methods are associated with a class (and not with an instance), you cannot override static methods, and runtime polymorphism is not possible with static methods.
+		•	A static method cannot use the this keyword in its body. Why? Remember that static methods are associated with a class and not an instance.
+		    Only instance methods have an implicit reference associated with them; hence class methods do not have a this reference associated with them.
+		•	A static method cannot use the super keyword in its body. Why? You use the super keyword for invoking the base class method from the overriding method in the derived class.
+		    Since you cannot override static methods, you cannot use the super keyword in its body.
+		•	Since static methods cannot access instance variables (non-static variables), they are most suited for utility functions.
+		    For example, all methods in the java.util.math library are static.
+		•	Calling a static method is considered to be slightly more efficient compared to calling an instance method.
+		    This is because the complier need not pass the implicit this object reference while calling a static method, unlike an instance method.
+
+
+ ________________________________________________________
+|           |               |           |               |
+|           |     Static    |Non-static |   Anonymus    |
+|___________|_______________|___________|_______________|
+|           | Static nested |           |               |
+| Non-local |     class     |Inner class| (Not posible) |
+|___________|_______________|___________|_______________|
+|           |               |Local inner|   Anonimus    |
+|   Local   | (Not posible) |   class   |   inner class |
+|___________|_______________|___________|_______________|
+
+Static Nested Classes (or Interfaces)
+	Here are some notable aspects of static nested classes (and interfaces) that will help you on the OCPJP 7 exam:
+		•	The accessibility (public, protected, etc.) of the static nested class is defined by the outer class.The name of the static nested class is expressed with
+		•	OuterClassName.NestedClassNamesyntax.When you define an inner nested class (or interface) inside an interface, the nested class 
+		•	is declared implicitly public and static. This point is easy to remember: any field in an interface is implicitly declared public and static, and static nested classes have this same behavior.Static nested classes can be declared 
+		•	abstract or final.Static nested classes can extend another class or it can be used as a base class.
+		•	Static nested classes can have static members. (As you’ll see shortly, this statement does not 
+		•	apply to other kinds of nested classes.)Static nested classes can access the members of the outer class (only static members, 
+		•	obviously).The outer class can also access the members (even private members) of the nested class 
+		•	through an object of nested class. If you don’t declare an instance of the nested class, the outer class cannot access nested class elements directly.
+
+every inner class is associated with an instance of the outer class. in other words, an inner class is always associated with an enclosing object.
+
+Points to Remember
+	Here are some important rules about inner classes and interfaces that might prove useful in the OCPJP 7 exam: The accessibility (
+		•	public, protected, etc.) of the inner class is defined by the outer class.Just like top-level classes, an inner class can extend a class or can implement interfaces. 
+		•	Similarly, an inner class can be extended by other classes, and an inner interface can be implemented or extended by other classes or interfaces.An inner class can be declared 
+		•	final or abstract.Inner classes can have inner classes, but you’ll have a hard time reading or understanding 
+		•	such complex nesting of classes. (Meaning: Avoid them!)
+You can pass only final variables to a local inner class.
+Points to Remember
+	The following points about local classes are apt to come up in the OCPJP 7 exam:You can create a non-static local class inside a body of code. Interfaces cannot have local 
+		•	classes, and you cannot create local interfaces. Local classes are accessible only from the body of the code in which the class is defined. The 
+		•	local classes are completely inaccessible outside the body of the code in which the class is defined.You can extend a class or implement interfaces while defining a local class.
+		•	A local class can access all the variables available in the body of the code in which it is defined. 
+		•	You can pass only final variables to a local inner class.
+Points to Remember
+	These points about anonymous classes concern questions that might be asked on the OPCJP 7 exam:Anonymous classes are defined in the 
+		•	new expression itself, so you cannot create multiple objects of an anonymous class.You cannot explicitly extend a class or explicitly implement interfaces when defining an 
+		•	anonymous class.
+a constructor in an enum class can only be specified as private.
+
+Points to Remember
+	Enums are implicitly declared public, static, and final, which means you cannot extend them.
+		•	When you define an enumeration, it implicitly inherits from 
+		•	java.lang.Enum. Internally, enumerations are converted to classes. Further, enumeration constants are instances of the enumeration class for which the constant is declared as a member.You can apply the 
+		•	valueOf() and name() methods to the enum element to return the name of the enum element.If you declare an enum within a class, then it is by default static.
+		•	You cannot use the new operator on enum data types, even inside the enum class.
+		•	You can compare two enumerations for equality using == operator. 
+		•	When an enumeration constant’s 
+		•	toString() method is invoked, it prints the name of the enumeration constant.The static 
+		•	values() method in the Enum class returns an array of the enumeration constants when called on an enumeration type.Enumeration constants cannot be cloned. An attempt to do so will result in a 
+		•	CloneNotSupportedException.If enumeration constants are from two different enumerations, the 
+		•	equals() method does not return true.
