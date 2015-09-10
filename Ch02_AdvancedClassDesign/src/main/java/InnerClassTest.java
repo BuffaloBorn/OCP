@@ -3,8 +3,8 @@
  */
 class Shape {
     private static String hiddenStaticField = "Hidden field";
-    public static class Color {
-        public static String string;
+    public class Color {
+//        public static String string;
         private int red, green, blue;
 
         public Color() {
@@ -56,14 +56,15 @@ class Shape {
     }
 
     public static void main(String[] args) {
-        Color color = new Color();
-        color.blue = 10;
+//        Color color = new Color();
+//        color.blue = 10;
+        Color color = new Shape().new Color();
     }
 }
 
 public class InnerClassTest {
     public static void main(String[] args) {
-        Shape.Color color = new Shape.Color(5, 6, 8);
+        Shape.Color color = new Shape().new Color(5, 6, 8);
         String s = color.getHiddenField();
 //        Shape.Color color1 = new Shape().Color(); // Нельзя создавать через экземпляр внешнего класса!!!
         System.out.println(color);
