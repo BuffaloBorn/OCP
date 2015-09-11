@@ -1,0 +1,54 @@
+
+Wildcard Guidelines:
+1.  An "in" variable serves up data to the code. Imagine a copy method with two arguments: copy(src, dest). The src argument provides the data to be copied, so it is the "in" parameter.
+2.  An "out" variable holds data for use elsewhere. In the copy example, copy(src, dest), the dest argument accepts data, so it is the "out" parameter.
+    *   An "in" variable is defined with an upper bounded wildcard, using the extends keyword.
+    *   An "out" variable is defined with a lower bounded wildcard, using the super keyword.
+    *   In the case where the "in" variable can be accessed using methods defined in the Object class, use an unbounded wildcard.
+    *   In the case where the code needs to access the variable as both an "in" and an "out" variable, do not use a wildcard.
+
+These guidelines do not apply to a method's return type. Using a wildcard as a return type should be avoided because it forces programmers using the code to deal with wildcards.
+
+A list defined by List<? extends ...> can be informally thought of as read-only,
+    *   You can add null.
+    *   You can invoke clear.
+    *   You can get the iterator and invoke remove.
+    *   You can capture the wildcard and write elements that you've read from the list.
+
+During the type erasure process, the Java compiler erases all type parameters and replaces each with its first bound if the type parameter is bounded, or Object if the type parameter is unbounded.
+
+Restrictions on Generics
+    *   When creating a Pair object, you cannot substitute a primitive type for the type parameter
+    You cannot create an instance of a type parameter.
+    As a workaround, you can create an object of a type parameter through reflection
+    Cannot Declare Static Fields Whose Types are Type Parameters
+    Cannot Use Casts or instanceof with Parameterized Types
+    Typically, you cannot cast to a parameterized type unless it is parameterized by unbounded wildcards.
+    You cannot create arrays of parameterized types.
+    Cannot Create, Catch, or Throw Objects of Parameterized Types
+    A method cannot catch an instance of a type parameter:
+    Cannot Overload a Method Where the Formal Parameter Types of Each Overload Erase to the Same Raw Type
+    
+    GENERICS
+    It’s possible to define or declare generic methods in an interface or a class even if the class or 
+• the interface itself is not generic.A generic class used without type arguments is known as a 
+• raw type. Of course, raw  types are not type safe. Java supports raw types so that it is possible to use the generic  type in code that is older than Java 5 (note that generics were introduced in Java 5).  The compiler generates a warning when you use raw types in your code. You may use  @SuppressWarnings({ "unchecked" }) to suppress the warning associated with raw types.
+• List<?> is a supertype of any List type, which means you can pass List<Integer>, or List<String>, or even List<Object> where List<?> is expected.Implementation of generics is static in nature, which means that the Java compiler interprets 
+• the generics specified in the source code and replaces the generic code with concrete types. This is referred to as type erasure. After compilation, the code looks similar to what a developer would have written with concrete types. Essentially, the use of generics offers two advantages: first, it introduces an abstraction, which enables you to write generic implementation; second, it allows you to write generic implementation with type safety.There are many limitations of generic types due to type erasure. A few important ones are as 
+• follows:
+
+• You cannot instantiate a generic type using new operator. For example, assuming mem is a field, the following statement will result in a compiler error:
+    T mem = new T(); // wrong usage - compiler error
+
+• You cannot instantiate an array of a generic type. For example, assuming mem is a field, the following statement will result in a compiler error:
+    T[] amem = new T[100]; // wrong usage - compiler error
+• You can declare non-static fields of type T , but not of static fields of type T . For example,
+    class X<T> {
+        T instanceMem; // okay
+        static T statMem; // wrong usage - compiler error
+    }
+
+• It is not possible to have generic exception classes; as a result, the following will not compile:
+    class GenericException<T> extends Throwable { } // wrong usage - compiler error
+• You cannot instantiate a generic type with primitive types—in other words, List<int> cannot be instantiated. However, you can use boxed primitive types.
+• The meaning of "extends" and "super" changes in the context of generics. For instance, when you say <? extends X>, you refer to all types that extend X and the type X itself.
