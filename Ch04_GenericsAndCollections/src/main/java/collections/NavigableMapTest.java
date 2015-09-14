@@ -19,3 +19,4 @@ public class NavigableMapTest {
         System.out.println("The lowest mark is: " + examScores.firstEntry());
     }
 }
+
