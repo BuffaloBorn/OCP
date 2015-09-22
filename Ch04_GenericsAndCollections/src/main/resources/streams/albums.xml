@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alboms xmlns="http://insightfullogic.com/java8/entities" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <album>
+        <name>The Dark Side of the Moon</name>
+        <musicians>
+            <musician>
+                <name>Pink Floyd</name>
+                <nationality>Великобритания</nationality>
+                <members>
+                    <member>
+                        <name>Сид Барретт</name>
+                        <nationality>Великобритания</nationality>
+                    </member>
+                    <member>
+                        <name>Роджер Уотерс</name>
+                        <nationality>Великобритания</nationality>
+                    </member>
+                    <member>
+                        <name>Дэвид Гилмор</name>
+                        <nationality>Великобритания</nationality>
+                    </member>
+                    <member>
+                        <name>Ричард Райт</name>
+                        <nationality>Великобритания</nationality>
+                    </member>
+                    <member>
+                        <name>Ник Мэйсон</name>
+                        <nationality>Великобритания</nationality>
+                    </member>
+                </members>
+            </musician>
+        </musicians>
+        <tracks>
+            <track>
+                <name>Speak to Me</name>
+                <length>90</length>
+            </track>
+            <track>
+                <name>Breathe</name>
+                <length>143</length>
+            </track>
+            <track>
+                <name>On the Run</name>
+                <length>216</length>
+            </track>
+            <track>
+                <name>Time</name>
+                <length>421</length>
+            </track>
+            <track>
+                <name>The Great Gig in the Sky</name>
+                <length>276</length>
+            </track>
+            <track>
+                <name>Money</name>
+                <length>382</length>
+            </track>
+            <track>
+                <name>Us and Them</name>
+                <length>466</length>
+            </track>
+            <track>
+                <name>Any Colour You Like</name>
+                <length>205</length>
+            </track>
+            <track>
+                <name>Brain Damage</name>
+                <length>228</length>
+            </track>
+            <track>
+                <name>Eclipse</name>
+                <length>123</length>
+            </track>
+        </tracks>
+    </album>
+</alboms>

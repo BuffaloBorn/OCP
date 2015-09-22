@@ -37,6 +37,6 @@ class Test {
         List<? super String> list = new ArrayList<>();
         list.add("sdf");
 //        err.setError();
-        err.setError("Last error");
+//        err.setError("Last error");
     }
 }

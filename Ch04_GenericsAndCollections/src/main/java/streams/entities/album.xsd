@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://insightfullogic.com/java8/entities"
+            xmlns:e="http://insightfullogic.com/java8/entities"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified"
+            version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            Описание объектной модели по музыкантам и альбомам
+        </xsd:documentation>
+    </xsd:annotation>
+
+    <complexType name="AlbumType">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="musicians" minOccurs="1" maxOccurs="unbounded">
+                <complexType>
+                    <sequence maxOccurs="unbounded">
+                        <element name="musician" type="e:ArtistType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="tracks">
+                <complexType>
+                    <sequence maxOccurs="unbounded">
+                        <element name="track" type="e:TrackType"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="ArtistType">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="nationality" type="string"/>
+            <element name="members" nillable="true" minOccurs="0" maxOccurs="unbounded">
+                <complexType>
+                    <sequence maxOccurs="unbounded">
+                        <element name="member" type="e:ArtistType"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="TrackType">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="length" type="int"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="AlbumListType">
+        <sequence maxOccurs="unbounded">
+            <element name="album" type="e:AlbumType"/>
+        </sequence>
+    </complexType>
+
+    <element name="alboms" type="e:AlbumListType"/>
+
+</xsd:schema>
