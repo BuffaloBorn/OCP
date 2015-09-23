@@ -6,6 +6,7 @@ import streams.entities.Track;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by vitaly on 21.09.15.
@@ -241,7 +242,7 @@ public final class TestData {
     public static List<Artist> toList(String country, String... artistNames) {
         List<Artist> artistList = new ArrayList<>(artistNames.length);
         for (String artistName : artistNames) {
-            artistList.add(new Artist(country, artistName));
+            artistList.add(new Artist(artistName, country));
         }
 
         return artistList;
@@ -249,6 +250,10 @@ public final class TestData {
 
     public static List<Album> getAlbums() {
         return ALBUMS;
+    }
+
+    public static Stream<Album> getAlbumStream() {
+        return getAlbums().stream();
     }
 
     public static void main(String[] args) {
