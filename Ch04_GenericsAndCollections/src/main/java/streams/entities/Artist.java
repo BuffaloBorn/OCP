@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toList;
  * 
  * @author Richard Warburton
  */
-public final class Artist {
+public class Artist {
     
     private String name;
     private List<Artist> members;

@@ -6,10 +6,7 @@ import streams.entities.Artist;
 import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.IntPredicate;
+import java.util.function.*;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.averagingDouble;
@@ -30,6 +27,27 @@ public class Exercises {
         Stream<Artist> stream = artist.isSolo() ? Stream.of(artist) : artist.getMembers();
 
         return stream.map(artistInfoMapper).collect(toList());
+    }
+
+    public static <T,R> Stream<R> map(Stream<T> stream, Function<T, R> mapper) {
+        List<R> result = new LinkedList<>();
+        stream.reduce(((acc, element) -> {result.add(mapper.apply(element));
+            return acc;}));
+        return result.stream();
+    }
+
+    public static <T,R> Stream<R> map2(Stream<T> stream, Function<T, R> mapper) {
+        return stream.reduce(new LinkedList<R>(),
+                            (acc, element) -> {acc.add(mapper.apply(element)); return acc;
+        }, (list, list2) -> list).stream();
+
+    }
+
+    public static <T> Stream<T> filter(Stream<T> stream, Predicate<T> predicate) {
+        List<T> result = new LinkedList<>();
+        stream.reduce(((acc, element) -> {if (predicate.test(element)) result.add(element);
+            return acc;}));
+        return result.stream();
     }
 
     public static void main(String[] args) {
@@ -56,5 +74,16 @@ public class Exercises {
         List<String> strings = Arrays.asList("asldjfa sadfakjsdfla 111111111111asdfasdfa asdfas dfas dfasdfasdfa asdfasdfasdf".split("\\W+"));
         Optional<String> maxString = strings.stream().max(Comparator.comparing(String::length));
         System.out.printf("The biggest string is=%s\n", maxString);
+
+//       8
+        Stream<String> stream = strings.stream();
+        List<Integer> integers = map2(stream, String::length).collect(toList());
+        System.out.println(integers);
+
+//        9
+        stream = strings.stream();
+        List<String> shortStrings = filter(stream, s -> s.length() < 10).collect(toList());
+        System.out.println(shortStrings);
     }
+
 }
