@@ -3,6 +3,8 @@ package streams.ch05;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.*;
@@ -23,5 +25,9 @@ public class Examples {
         assertEquals(numbers, sameOrder);
         assertNotEquals(numbersUnsorted, hashOrder);
         assertEquals(numbers, sorted);
+
+        List<Integer> integerList = IntStream.range(0, numbersUnsorted.size()).mapToObj(numbersUnsorted::get).collect(toList());
+        System.out.println(integerList);
+
     }
 }
