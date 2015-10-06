@@ -72,3 +72,12 @@ public class InnerClassTest {
         System.out.println();
     }
 }
+
+interface I {
+    default void foo() {
+        class C {
+            public static final String string = "";
+
+        }
+    }
+}

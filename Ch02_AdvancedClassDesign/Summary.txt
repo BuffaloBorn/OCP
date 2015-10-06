@@ -50,14 +50,16 @@ Static Block
 
 Static Nested Classes (or Interfaces)
 	Here are some notable aspects of static nested classes (and interfaces) that will help you on the OCPJP 7 exam:
-		•	The accessibility (public, protected, etc.) of the static nested class is defined by the outer class.The name of the static nested class is expressed with
-		•	OuterClassName.NestedClassNamesyntax.When you define an inner nested class (or interface) inside an interface, the nested class
-		•	is declared implicitly public and static. This point is easy to remember: any field in an interface is implicitly declared public and static, and static nested classes have this same behavior.Static nested classes can be declared
-		•	abstract or final.Static nested classes can extend another class or it can be used as a base class.
-		•	Static nested classes can have static members. (As you’ll see shortly, this statement does not
-		•	apply to other kinds of nested classes.)Static nested classes can access the members of the outer class (only static members,
-		•	obviously).The outer class can also access the members (even private members) of the nested class
-		•	through an object of nested class. If you don’t declare an instance of the nested class, the outer class cannot access nested class elements directly.
+		•	The accessibility (public, protected, etc.) of the static nested class is defined by the outer class.
+		•	The name of the static nested class is expressed withOuterClassName.NestedClassNamesyntax.
+		•	When you define an inner nested class (or interface) inside an interface, the nested class is declared implicitly public and static.
+			This point is easy to remember: any field in an interface is implicitly declared public and static, and static nested classes have this same behavior.
+		•	Static nested classes can be declared abstract or final.
+		•	Static nested classes can extend another class or it can be used as a base class.
+		•	Static nested classes can have static members. (As you’ll see shortly, this statement does not apply to other kinds of nested classes.)
+		•	Static nested classes can access the members of the outer class (only static members, obviously).
+		•	The outer class can also access the members (even private members) of the nested class through an object of nested class.
+			If you don’t declare an instance of the nested class, the outer class cannot access nested class elements directly.
 
 Every inner class is associated with an instance of the outer class. in other words, an inner class is always associated with an enclosing object.
 
@@ -72,13 +74,13 @@ Inner Classes
 
 Local Inner Classes
 	The following points about local classes are apt to come up in the OCPJP 7 exam:
-		•	You can create a non-static local class inside a body of code. Interfaces cannot have local classes, and you cannot create local interfaces.
+		•	You can create a non-static local class inside a body of code. Interfaces can have local classes in default methods, and you cannot create local interfaces.
 		•	Local classes are accessible only from the body of the code in which the class is defined.
 		    The local classes are completely inaccessible outside the body of the code in which the class is defined.
 		•	You can extend a class or implement interfaces while defining a local class.
 		•	A local class can access all the variables available in the body of the code in which it is defined.
 		    You can pass only final(effectively final) variables to a local inner class.
-        •	A local class can be static or member!
+        •	A local class can be static or member! It depends from method declaration.
         •	A local class can have static members provided that they are constant variables.
         •	You cannot declare static initializers or member interfaces in a local class.
 
