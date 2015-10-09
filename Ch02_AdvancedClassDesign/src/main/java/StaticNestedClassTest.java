@@ -1,3 +1,12 @@
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /**
  * Created by Vitaly on 06.09.2015.
  */
@@ -12,7 +21,7 @@ class Circle extends Shape {
     }
 
     public class Point {
-//        public static String string;
+        //        public static String string;
         private int x, y;
 
         public Point() {
@@ -54,11 +63,86 @@ class Circle extends Shape {
     }
 }
 
+interface A {
+    String text = "a";
+
+    default void foo() {
+        System.out.println(text);
+    }
+}
+
+interface B {
+    String text = "b";
+
+    //    default void foo() {
+//        System.out.println(text);
+//    }
+    void foo();
+
+}
+
+class Parent implements A {
+
+}
+
+//class Implementator extends Parent implements A, B {
+//
+//}
+
 public class StaticNestedClassTest {
     public static void main(String[] args) {
         Circle circle = new Circle(10, 10, 8);
         System.out.println(circle);
         Circle.Point point = circle.getCenter();
         System.out.println(point.getCircle() == circle);
+//        new Implementator().foo();
+
+        List<Integer> integers = IntStream.range(0, 10).boxed().collect(Collectors.toList());
+//        Collector collector = new ShuffleCollector<>() {
+//        };
+    List<Integer> shuffleInts = integers.stream().collect(new ShuffleCollector<>());
+        System.out.println(shuffleInts);
+    }
+
+    public static class ShuffleCollector<T> implements Collector<T, List<T>, List<T>> {
+        private final Random random = new Random();
+
+        @Override
+        public Supplier<List<T>> supplier() {
+            return ArrayList::new;
+        }
+
+        @Override
+        public BiConsumer<List<T>, T> accumulator() {
+            return (list, value) -> {
+                T oldValue;
+                if (list.size() != 0) {
+                    int randomIndex = random.nextInt(list.size());
+                    oldValue = list.set(randomIndex, value);
+                } else {
+                    oldValue = value;
+                }
+
+                list.add(oldValue);
+            };
+        }
+
+        @Override
+        public BinaryOperator<List<T>> combiner() {
+            return (list, list2) -> {
+                list.addAll(list2);
+                return list;
+            };
+        }
+
+        @Override
+        public Function<List<T>, List<T>> finisher() {
+            return Function.identity();
+        }
+
+        @Override
+        public Set<Characteristics> characteristics() {
+            return Collections.emptySet();
+        }
     }
 }

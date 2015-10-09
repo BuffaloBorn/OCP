@@ -6,3 +6,11 @@ package OCP;
 public class A{
     protected int i;
 }
+
+enum E implements Runnable {
+    ;
+
+    public void run() {
+
+    }
+}

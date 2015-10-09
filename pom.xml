@@ -18,6 +18,7 @@
     <module>Ch10_Localization</module>
     <module>Ch11_Threads</module>
     <module>Ch12_Concurrency</module>
+    <module>Ch06_Exceptions_And_Assertions</module>
   </modules>
   <packaging>pom</packaging>
 

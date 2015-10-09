@@ -1,0 +1,14 @@
+A try-with-resources statement can have catch and finally blocks just like an ordinary try statement.
+In a try-with-resources statement, any catch or finally block is run after the resources declared have been closed.
+
+f an exception is thrown from the try block and one or more exceptions are thrown from the try-with-resources statement,
+then those exceptions thrown from the try-with-resources statement are suppressed, and the exception thrown by the block is the one that is thrown by the writeToFileZipFileContents method.
+You can retrieve these suppressed exceptions by calling the Throwable.getSuppressed method from the exception thrown by the try block.
+
+REASONS TO CREATE OWN EXCEPTION:
+    *   Do you need an exception type that isn't represented by those in the Java platform?
+    *   Would it help users if they could differentiate your exceptions from those thrown by classes written by other vendors?
+    *   Does your code throw more than one related exception?
+    *   If you use someone else's exceptions, will users have access to those exceptions? A similar question is, should your package be independent and self-contained?
+
+If a client can reasonably be expected to recover from an exception, make it a checked exception. If a client cannot do anything to recover from the exception, make it an unchecked exception.

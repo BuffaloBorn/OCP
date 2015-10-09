@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Ch01_JavaClassDesign</artifactId>
+    <artifactId>Ch06_Exceptions_And_Assertions</artifactId>
     <packaging>jar</packaging>
 
-    <name>Ch01_JavaClassDesign</name>
+    <name>Ch06_Exceptions_And_Assertions</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -23,11 +23,6 @@
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
         </dependency>
     </dependencies>
 </project>

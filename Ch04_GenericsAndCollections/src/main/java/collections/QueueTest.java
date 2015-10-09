@@ -1,8 +1,6 @@
 package collections;
 
-import java.util.ArrayDeque;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -13,26 +11,68 @@ import static java.lang.Math.*;
  * Created by Vitaly on 13.09.2015.
  */
 public class QueueTest {
+    private static Deque<String> getDeque() {
+        final ArrayDeque<String> deque = new ArrayDeque<>(Arrays.asList("ABCDEFG".split("")));
+        System.out.println(deque);
+        return deque;
+    }
+
+    private static void printSectionName(String sectionName) {
+        System.out.printf("----------------------------------------------------%s----------------------------------------------------\n", sectionName);
+    }
+
+    public static void queueTest() {
+        printSectionName("QUEUE");
+        Queue<String> queue = getDeque();
+        System.out.println("queue.element() = " + queue.element());
+        System.out.println("queue.peek() = " + queue.peek());
+        System.out.println("queue.remove() = " + queue.remove());
+        System.out.println(queue);
+        System.out.println("queue.poll() = " + queue.poll());
+        System.out.println(queue);
+        System.out.println("queue.offer(\"Z\") = " + queue.offer("Z"));
+        System.out.println(queue);
+    }
+
+    public static void dequeTest() {
+        printSectionName("DEQUE");
+        Deque<String> deque = getDeque();
+        System.out.println("deque.addFirst(\"0\")");
+        deque.addFirst("0");
+        System.out.println(deque);
+        System.out.println("deque.addLast(\"9\")");
+        deque.addLast("9");
+        System.out.println(deque);
+        System.out.println("deque.removeLast() = " + deque.removeLast());
+        System.out.println("deque.removeFirst() = " + deque.removeFirst());
+        System.out.println(deque);
+        System.out.println("deque.pop() = " + deque.pop());
+        System.out.println(deque);
+        System.out.println("deque.poll() = " + deque.poll());
+        System.out.println(deque);
+        System.out.println("deque.push(\"X\")");
+        deque.push("X");
+        System.out.println(deque);
+//        System.out.println("deque.offer(\"Z\") = " + deque.offer("Z"));
+    }
+
+
     public static void main(String[] args) {
-        Queue<String> loginSequence = new LinkedList<>();
-        loginSequence.add("Harrison");
-        loginSequence.add("McCartney");
-        loginSequence.add("Starr");
-        loginSequence.add("Lennon");
-        System.out.println(loginSequence);
-        while (!loginSequence.isEmpty())
-            System.out.println(loginSequence.remove());
-
-        ArrayDeque<String> deque = new ArrayDeque<>();
-        deque.add("Vitaly");
-        deque.add("Dmitry");
-        deque.add("Alexandr");
-        double p = PI;
-
-//        timer(0, 10);
-        System.out.println(-(Integer.MIN_VALUE + 0));
-        Object o = 5;
-        Integer i = (Integer) o;
+//        Queue<String> loginSequence = new LinkedList<>();
+//        loginSequence.add("Harrison");
+//        loginSequence.add("McCartney");
+//        loginSequence.add("Starr");
+//        loginSequence.add("Lennon");
+//        System.out.println(loginSequence);
+//        while (!loginSequence.isEmpty())
+//            System.out.println(loginSequence.remove());
+//
+//        ArrayDeque<String> deque = new ArrayDeque<>();
+//        deque.add("Vitaly");
+//        deque.add("Dmitry");
+//        deque.add("Alexandr");
+        queueTest();
+        dequeTest();
     }
 
     public static void timer(int start, int end) {

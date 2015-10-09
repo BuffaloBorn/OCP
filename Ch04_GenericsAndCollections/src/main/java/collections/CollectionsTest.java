@@ -1,5 +1,6 @@
 package collections;
 
+import java.io.PrintStream;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -11,6 +12,7 @@ import java.util.stream.Stream;
  * Created by Vitaly on 13.09.2015.
  */
 public class CollectionsTest {
+
     public static void main(String[] args) {
         List list = new ArrayList<>();
         Collections.addAll(list, 1, 2, 5, 8, 6, 7, 3, 5, 8, 2, 4, 8, 2, 4);
