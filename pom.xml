@@ -19,6 +19,7 @@
     <module>Ch11_Threads</module>
     <module>Ch12_Concurrency</module>
     <module>Ch06_Exceptions_And_Assertions</module>
+    <module>Ch07_Date_Time_Api</module>
   </modules>
   <packaging>pom</packaging>
 

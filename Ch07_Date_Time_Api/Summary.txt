@@ -1,0 +1,14 @@
+All classes, interfaces, and enums for the Date-Time API are in the java.time package and four of its subpackages:
+    • java.time contains frequently used classes. LocalDate, LocalTime, LocalDateTime, ZonedDateTime, Period, Duration, and Instant classes are in this package. Classes in this package are based on ISO standards.
+    • java.time.chrono contains classes supporting non-ISO calendar systems, for example,  Hijrah calendar, ThaiBuddhist calendar, etc.
+    • java.time.format contains classes for formatting and parsing dates and times.
+    • java.time.temporal contains classes for accessing components of dates and times. It also contains classes that acts like date-time adjusters.
+    • java.time.zone contains classes supporting time zones and zone rules.
+
+The ofXXX() Methods создают экземпляр класса на основании введеных данных
+The from() Methods создает экземпляр на основании другого экземпляра
+The withXXX() Methods создает копию с установлеными данными
+The getXXX( ) Methods Просто геттеры
+The toXXX( ) Methods методы для конвертации даты в что-то другое
+The atXXX( ) Methods позволяют построить новые дату время на основании уже существующего + определенные уточнения
+The plusXXX( ) and minusXXX( ) Methods добавляется удаляет к копии даты

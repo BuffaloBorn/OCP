@@ -105,6 +105,53 @@ public class Exercises {
 //        List list = stringToWords(string);
 //        System.out.println(list);
 //        System.out.println(list.size());
+        int i = 10;
+        assert false : "Blya!!!";
+        assert true : "Blya!!!";
         System.out.println(validateExpression(")("));
+
+    }
+}
+
+
+abstract class Father {
+
+    //Определение абстрактного метода
+    //Перегрузка (Имя метода одинаковое, а типы или количество входящих параметров разное. На возвращаемое значение похуй.)
+    public abstract Number foo(int i);
+
+    //Перегрузка
+    public int foo(int x, int y) {
+        System.out.println("Father.foo(int, int)");
+        return x;
+    }
+
+    //Перегрузка
+    public void foo() {
+        System.out.println("Father.foo()");
+    }
+}
+
+class Son extends Father {
+
+    //Реализация абстрактного метода родителя(для этого необходимо совпадение сигнатур методов(имя и количество и типы входящих параметров)
+    // + ковариантные(такой же тип или один из его потомков, в данном примепе Integer это потомок Number, но можно было бы использоавать просто Number) типы возвращаемых значений)
+    // По другому это можно назвать перегрузкой абстрактного метода
+    @Override
+    public Integer foo(int i) {
+        System.out.println("Son.foo(int)");
+        return null;
+    }
+
+    //Это просто перегрузка, правила такие же как в примере выше.
+    @Override
+    public void foo() {
+        super.foo();
+    }
+
+    //Перегрузка
+    public double foo(double d) {
+        System.out.println("Son.foo(double)");
+        return 0;
     }
 }
