@@ -12,3 +12,14 @@ The getXXX( ) Methods Просто геттеры
 The toXXX( ) Methods методы для конвертации даты в что-то другое
 The atXXX( ) Methods позволяют построить новые дату время на основании уже существующего + определенные уточнения
 The plusXXX( ) and minusXXX( ) Methods добавляется удаляет к копии даты
+
+
+A time zone has a unique textual ID, which can be specified in three formats:• In this format, the zone ID is specified in terms of zone offset, which can be “Z” , “+hh:mm:ss” , • or “-hh:mm:ss” , for example, “+06:00” .In this format, the zone ID is prefixed with “UTC” , “GMT” , or “UT” and followed by a zone • offset, for example, “UTC+06:00” .In this format, the zone ID is specified by using a region, for example, “ America/Chicago” .
+
+ZoneId = ZoneOffset + ZoneRules
+LocalDateTime = LocalDate + LocalTime
+OffsetTime = LocalTime + ZoneOffset
+OffsetDateTime = LocalDateTime + ZoneOffset
+ZonedDateTime = LocalDateTime + ZoneId
+
+• amount as the gap. For example, if you want to construct a zoned datetime for the time zone America/Chicago for March 10, 2013 at 02:30:00, you will get March 10, 2013 at 3:30:00. The time is moved forward by an hour, which is equal to the gap of an hour.If the local datetime falls in the middle of the overlap, the time is valid. In the gap, two • zone offsets exist: one the earlier offset that existed before moving the clock backward and one the later offset that exists after moving the clock backward. By default, for the time in the gap, the zone offset that existed earlier is used. The ZonedDateTime class contains withEarlierOffsetAtOverlap() and withLaterOffsetAtOverlap(), which let you select the desired zone offset if the time falls in the overlap.
