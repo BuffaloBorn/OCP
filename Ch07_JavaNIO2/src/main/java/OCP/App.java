@@ -18,6 +18,7 @@ public class App
 {
     public static final String ROOT_PATH_NAME = "Ch07_JavaNIO2/src/main/resources/";
     public static final Path ROOT_PATH = Paths.get(ROOT_PATH_NAME);
+    public static Path SUMMARY_PATH = App.ROOT_PATH.resolve("Summary.txt");
 
     public static void main( String[] args ) throws IOException {
         Path p01 = Paths.get("/home/vitaly");
