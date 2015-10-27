@@ -1,9 +1,14 @@
 package OCP;
 
+import java.io.IOException;
 import java.net.URI;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.PosixFileAttributes;
+import java.util.EnumSet;
 
 /**
  * Hello world!
@@ -11,11 +16,12 @@ import java.nio.file.Paths;
  */
 public class App
 {
-    public static final String ROOT_PATH = "Ch07_JavaNIO2/src/main/resources/";
+    public static final String ROOT_PATH_NAME = "Ch07_JavaNIO2/src/main/resources/";
+    public static final Path ROOT_PATH = Paths.get(ROOT_PATH_NAME);
 
-    public static void main( String[] args ) {
+    public static void main( String[] args ) throws IOException {
         Path p01 = Paths.get("/home/vitaly");
-//        Path p02 = Paths.get(URI.create("/home/vitaly/Загрузки/Master_snov [mbookz.net].txt"));
+        Path p02 = Paths.get("/home/vitaly/IdeaProjects/openeplatformM/ivis-oeplatform-client/target/maven-status");
 //        Path p03 = Paths.get(URI.create("file:///home/vitaly/Загрузки/Master_snov [mbookz.net].txt"));
         Path p04 = FileSystems.getDefault().getPath("/home/vitaly/Загрузки/Master_snov [mbookz.net].txt");
         Path p05 = Paths.get(System.getProperty("user.home"), "Загрузки", "Master_snov [mbookz.net].txt");
@@ -50,6 +56,11 @@ public class App
         for (Path path : p00) {
             System.out.println(path);
         }
+
+        BasicFileAttributes attributes = Files.readAttributes(p02, BasicFileAttributes.class);
+        System.out.println(attributes.fileKey());
+
+        System.out.println(ROOT_PATH);
 
     }
 }
