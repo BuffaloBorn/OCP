@@ -16,9 +16,10 @@ public class ExplicitChanelWrite {
         try(FileChannel fChannel = (FileChannel)
                 Files.newByteChannel(App.ROOT_PATH.resolve("writeTest.txt"),
                         StandardOpenOption.WRITE,
+//                        StandardOpenOption.APPEND,
                         StandardOpenOption.CREATE)) {
             ByteBuffer buffer = ByteBuffer.allocate(27);
-            for (byte i = 'A'; i < 'Z' + 1; i++) {
+            for (byte i = 'a'; i < 'z' + 1; i++) {
                 buffer.put(i);
             }
 

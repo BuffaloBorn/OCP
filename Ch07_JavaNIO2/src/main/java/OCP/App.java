@@ -2,13 +2,11 @@ package OCP;
 
 import java.io.IOException;
 import java.net.URI;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.util.EnumSet;
+import java.util.stream.Stream;
 
 /**
  * Hello world!
@@ -62,6 +60,10 @@ public class App
         System.out.println(attributes.fileKey());
 
         System.out.println(ROOT_PATH);
+        System.out.println("===================================================");
+
+        Stream<Path> rootStream = Files.list(Paths.get(""));
+        rootStream.sorted().forEach(System.out::println);
 
     }
 }
