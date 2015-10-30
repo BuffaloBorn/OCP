@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+ "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Fejk - Fejk personnummer med namn, adress, lösenord, IP-adress och fler uppgifter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Fejkade uppgifter. Falskt personnummer, adress, telefon, IP-nummer, lösenord med mera. Inte äkta utan fejk.">
+<meta name="keywords" content="fejk, personnummer, generator, IP-adress, IP-nummer, lösenord, IP-kontroll, PIN-kod, falsk identitet, adress, telefonnummer, födelsedag, födelsedatum">
+<meta name="robots" content="noarchive">
+<link href="style.css" rel="stylesheet" type="text/css" media="screen">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<div id="content">
+<h1 class="header">Fejkade uppgifter</h1>
+<div id="ident">
+<p>Uppgifterna nedan är <strong>fejk</strong> och eventuell liknelse med någon är en tillfällighet.</p>
+<table summary="tabellen visar en påhittad identitet" class="table-center list-spacing ident">
+<tr class="d0">
+     <td>Namn:</td>
+     <td>Alexius Tornberg</td>
+</tr>
+<tr class="d1">
+    <td>Gata:</td>
+    <td>Gunnabo gård</td>
+</tr>
+<tr class="d0">
+    <td>Postort:</td>
+    <td>647 31  MARIEFRED</td>
+</tr>
+<tr class="d1">
+    <td>Telefon:</td>
+    <td>0159-2908736</td>
+</tr>
+<tr class="d0">
+    <td>Mail:</td>
+    <td><a href="http://mailinator.com/maildir.jsp?email=alexius.tornberg">alexius.tornberg@mailinator.com</a></td>
+</tr>
+<tr class="d1">
+    <td>Ålder:</td>
+    <td>18 år</td>
+</tr>
+<tr class="d0">
+    <td>Födelsedatum:</td>
+    <td>1997-08-28</td>
+</tr>
+<tr class="d1">
+    <td><a href="/personnummer">Personnummer</a>:</td>
+    <td>970828-3370</td>
+</tr>
+<tr class="d0">
+    <td>IP-adress:</td>
+    <td><a href="/ip?adress=81.227.153.214">81.227.153.214</a></td>
+</tr>
+<tr class="d1">
+    <td>PIN-kod:</td>
+    <td>8877</td>
+</tr>
+<tr class="d0">
+    <td>Lösenord:</td>
+    <td>u8xm}cTd</td>
+</tr>
+<tr class="d1">
+    <td>Skostorlek:</td>
+    <td>42</td>
+</tr>
+</table>
+</div>
+<p>Ladda om sidan för att slumpa fram nya uppgifter med <a href="/personnummer">personnummer</a>. E-postadressen fungerar utan lösenord och kan användas för att slippa spam till din vanliga adress.</p>
+<p>Kolla <a href="/ip">IP-kontroll</a> för ditt <a href="/ip?adress=46.174.165.162">IP-nummer</a>.
+</p>
+<p>Vill du bli spårad på Internet? Testa hur din webbläsare är inställd med <a href="/dnt">Do Not Track testet</a> (DNT).
+</p>
+<h2 class="header">Söktjänster för information</h2>
+Riktiga personuppgifter och upplysning köpes numera lätt hos diverse webbtjänster som <a href="http://www.upplysning.se/">Upplysning.se</a> och <a href="http://www.ratsit.se/">Ratsit</a> på grund av eller tack vare nuvarande lagstiftning. Läs Datainspektionens pressmeddelande <a href="http://www.datainspektionen.se/press/nyheter/2006/Lillebror-vet-allt-om-dina-skulder/">Lillebror vet allt om dina skulder</a>.
+<ul>
+<li>Leta hos <a href="https://foretagsfakta.bolagsverket.se/">Bolagsverket</a> för att ta reda på organisationsnummer, företagsnamn, bolagsform samt län.</li>
+<li>Kontrollera momsregistreringsnummer/VAT-nummer och få fram mer info från <a href="http://ec.europa.eu/taxation_customs/vies/vieshome.do">VAT Information Exchange System</a>.</li>
+<li>Hitta på ett nytt efternamn hos Patent- och registreringsverket med hjälp av deras <a href="http://was.prv.se/NAMTWeb/">efternamnsförslag</a>.</li>
+</ul>
+<h2 class="header">Fler länkar</h2>
+<ul>
+<li><a href="/tor">Använd och stöd Tor</a></li>
+<li><a href="http://piratbyran.org/bevismaskinen/">Bevismaskinen</a> bygger bevisningen.</li>
+<li><a href="http://sv.wikipedia.org/wiki/PKU-registret">Gå ur PKU-registret</a>.</li>
+<li>Sidan fejk.se inspirerades av Linux programmet <a href="http://packages.debian.org/stable/misc/rig">Random Identity Generator (RIG)</a>.</li>
+<li>En liknande sida med val för flera länder är <a href="http://fakenamegenerator.com/">Fake Name Generator</a>.</li>
+</ul>
+<hr>
+<p class=text-foot>Nu är det torsdag, 29 oktober 2015 klockan 10:25 i vecka 44.
+Idag har Viola namnsdag. Lola, Violet, Violetta och Violette har nästan namnsdag.
+<br><a href="/">fejk</a> 1.1.6. Kommentarer? Hör av dig till <a href="mailto:kontakt@fejk.se">kontakt@fejk.se</a>.<br>
+<!-- Skicka mail till a2an7t1oe7-1a7a1o2e2@junkmail.se om du vill bli svartlistad, dvs låt bli. Mail <a href="mailto:a2an7t1oe7-1a7a1o2e2@junkmail.se">no contact</a> if you want to be blacklisted, hint don't. -->
+</p></div>
+<!-- Begin Creeper-->
+<a href="https://gnuheter.com/creeper/senaste" title="Creeper"><img src="https://gnuheter.com/creeper/image" alt="Creeper" width="80" height="15" border="0"/></a>
+<!-- End Creeper-->
+</body>
+</html>

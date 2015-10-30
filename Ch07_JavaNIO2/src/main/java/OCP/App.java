@@ -2,11 +2,17 @@ package OCP;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.PosixFileAttributes;
+import java.nio.file.attribute.UserDefinedFileAttributeView;
+import java.nio.file.attribute.UserPrincipal;
 import java.util.EnumSet;
 import java.util.stream.Stream;
+
+import static java.nio.file.Files.*;
 
 /**
  * Hello world!
@@ -56,14 +62,44 @@ public class App
             System.out.println(path);
         }
 
-        BasicFileAttributes attributes = Files.readAttributes(p02, BasicFileAttributes.class);
+        BasicFileAttributes attributes = readAttributes(p02, BasicFileAttributes.class);
         System.out.println(attributes.fileKey());
 
         System.out.println(ROOT_PATH);
         System.out.println("===================================================");
 
-        Stream<Path> rootStream = Files.list(Paths.get(""));
+        Stream<Path> rootStream = list(Paths.get(""));
         rootStream.sorted().forEach(System.out::println);
 
+        Path log = Paths.get("/home/vitaly/Загрузки/hs_err_pid24341.log");
+        Path log2 = Paths.get("/home/vitaly/IdeaProjects/OCP/Ch07_JavaNIO2/src/main/resources/hs_err_pid24341.log");
+        System.out.println("Files.exists(log) = " + exists(log));
+        System.out.println("Files.notExists(log) = " + notExists(log));
+        boolean isRegularFile = isRegularFile(log) && isReadable(log);// && isExecutable(log);
+        System.out.println(isRegularFile);
+        System.out.println(log.equals(log2));
+        System.out.println(Files.isSameFile(log, log2));
+        attributes = Files.readAttributes(log, BasicFileAttributes.class);
+        PosixFileAttributes attributes2 = Files.readAttributes(log2, PosixFileAttributes.class);
+        Object fileKey = attributes.fileKey();
+        Object fileKe2 = attributes2.fileKey();
+        System.out.println(fileKey.equals(fileKe2));
+        final UserPrincipal owner = attributes2.owner();
+        System.out.println(log.getFileSystem().getUserPrincipalLookupService().lookupPrincipalByName("vitaly"));
+        System.out.println("owner = " + owner);
+//        UserDefinedFileAttributeView view = Files.getFileAttributeView(log, UserDefinedFileAttributeView.class);
+//        String name = "ow ner";
+//        ByteBuffer buf = ByteBuffer.allocate(view.size(name));
+//        view.read(name, buf);
+//        buf.flip();
+//        String value = Charset.defaultCharset().decode(buf).toString();
+//        System.out.println(value);
+        final FileStore fileStore = Files.getFileStore(log);
+        System.out.println(fileStore.getTotalSpace() - fileStore.getUsableSpace());
+
+
+
+//        soutv
+//        soutv
     }
 }

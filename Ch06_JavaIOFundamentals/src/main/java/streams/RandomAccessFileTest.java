@@ -13,7 +13,7 @@ import java.io.RandomAccessFile;
 public class RandomAccessFileTest {
     public static void main(String[] args) throws IOException {
 
-        try(RandomAccessFile raf = new RandomAccessFile(App.ROOT_PATH + "raf.txt", "rw");) {
+        try(RandomAccessFile raf = new RandomAccessFile(App.ROOT_PATH_NAME + "raf.txt", "rw");) {
             raf.seek(raf.length());
             DataOutput out = raf;
             out.writeUTF("sdfsdf");
