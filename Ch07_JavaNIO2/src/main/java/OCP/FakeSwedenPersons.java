@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -19,46 +22,36 @@ import org.apache.http.util.EntityUtils;
  * Created by vitaly on 29.10.15.
  */
 public class FakeSwedenPersons {
-
     public static void main(String[] args) throws IOException {
-        final String startURL = "https://fejk.se/";
-        Map<String, String> dictionary = getSwedenDictionary();
-        Pattern pattern = Pattern.compile("<tr.+>\\s*<td>(?:<a.*?>)?([\\w-Åö]+)(?:</a>)?:.*\\s*<td>(?:<a.*?>)?(.*?)(?:</a>)?</td>", Pattern.MULTILINE + Pattern.CASE_INSENSITIVE);
-        List<Map<String, String>> swedenPersons = new ArrayList<>();
-
-        try(PageGetter pageGetter = new PageGetter(startURL)){
-            for (int i = 0; i < 30; i++) {
-                String page = pageGetter.getText();
-                Map<String, String> swede = new LinkedHashMap<>();
-                swedenPersons.add(swede);
-
-                Matcher matcher = pattern.matcher(page);
-                while (matcher.find()) {
-                    String key = dictionary.get(matcher.group(1));
-                    if (key != null) {
-                        final String value = matcher.group(2);
-                        swede.put(key, value);
-                        System.out.printf("%-40s", value);
-                    }
-                }
-                System.out.println();
-            }
-        }
-//        String page = getPage(startURL);
-////        String page = getFakePage();
-//        Map<String, String> swede = new LinkedHashMap<>();
-//        swedenPersons.add(swede);
+//        final String startURL = "https://fejk.se/";
+//        Map<String, String> dictionary = getSwedenDictionary();
+//        Pattern pattern = Pattern.compile("<tr.+>\\s*<td>(?:<a.*?>)?([\\w-Åö]+)(?:</a>)?:.*\\s*<td>(?:<a.*?>)?(.*?)(?:</a>)?</td>", Pattern.MULTILINE + Pattern.CASE_INSENSITIVE);
+//        List<Map<String, String>> swedenPersons = new ArrayList<>();
 //
-//        Matcher matcher = pattern.matcher(page);
-//        while (matcher.find()) {
-//            String key = dictionary.get(matcher.group(1));
-//            if (key != null) {
-//                swede.put(key, matcher.group(2));
+//        try(PageGetter pageGetter = new PageGetter(startURL)){
+//            for (int i = 0; i < 30; i++) {
+//                String page = pageGetter.getText();
+//                Map<String, String> swede = new LinkedHashMap<>();
+//                swedenPersons.add(swede);
+//
+//                Matcher matcher = pattern.matcher(page);
+//                while (matcher.find()) {
+//                    String key = dictionary.get(matcher.group(1));
+//                    if (key != null) {
+//                        final String value = matcher.group(2);
+//                        swede.put(key, value);
+//                        System.out.printf("%-40s", value);
+//                    }
+//                }
+//                System.out.println();
 //            }
-////            System.out.printf("Key: %s; Value: %s%n", matcher.group(1), matcher.group(2));
 //        }
-//
-//        System.out.println(swede);
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        for (int i = 0; i < 10; i++) {
+            executorService.submit(new PersonMapperTask());
+        }
+
+        executorService.shutdown();
     }
 
     public static Map<String, String> getSwedenDictionary() {
@@ -236,4 +229,72 @@ class PageGetter implements AutoCloseable{
     public void close(){
         httpclient.getConnectionManager().shutdown();
     }
+}
+
+class PersonMapperTask implements Callable<List<Map<String, String>>> {
+    private final int personCount;
+    private static final String startURL = "https://fejk.se/";
+    private static final Map<String, String> dictionary = getSwedenDictionary();
+    private Pattern pattern = Pattern.compile("<tr.+>\\s*<td>(?:<a.*?>)?([\\w-Åö]+)(?:</a>)?:.*\\s*<td>(?:<a.*?>)?(.*?)(?:</a>)?</td>", Pattern.MULTILINE + Pattern.CASE_INSENSITIVE);
+//    private final PageGetter pageGetter;
+
+    public PersonMapperTask() {
+        this(new PageGetter(startURL));
+    }
+
+    public PersonMapperTask(PageGetter pageGetter) {
+        this(pageGetter, 5);
+    }
+
+    PersonMapperTask(PageGetter pageGetter, int personCount) {
+        this.personCount = personCount;
+//        this.pageGetter = pageGetter;
+    }
+
+    @Override
+    public List<Map<String, String>> call() throws Exception {
+        List<Map<String, String>> result = new ArrayList<>();
+
+//        for (int j = 0; j < personCount && !Thread.currentThread().isInterrupted(); j++) {
+            try(PageGetter pageGetter = new PageGetter(startURL)){
+                for (int i = 0; i < personCount && !Thread.currentThread().isInterrupted(); i++) {
+                    String page = pageGetter.getText();
+                    Map<String, String> swede = new LinkedHashMap<>();
+                    result.add(swede);
+
+                    Matcher matcher = pattern.matcher(page);
+                    while (matcher.find()) {
+                        String key = dictionary.get(matcher.group(1));
+                        if (key != null) {
+                            final String value = matcher.group(2);
+                            swede.put(key, value);
+                            System.out.printf("%-40s", value);
+                        }
+                    }
+                    System.out.println();
+                }
+            }
+//        }
+
+        return result;
+    }
+
+    public static Map<String, String> getSwedenDictionary() {
+        Map<String, String> map = new HashMap<>();
+        map.put("Namn", "Name");
+        map.put("Gata", "Street");
+        map.put("Postort", "City");
+        map.put("Telefon", "Phone");
+        map.put("Mail", "Mail");
+        map.put("Ålder", "Age");
+        map.put("Födelsedatum", "Birthday");
+        map.put("Personnummer", "PersonalId");
+        map.put("IP-adres", "IpAddress");
+        map.put("PIN-kod", "PinCode");
+        map.put("Lösenord", "Password");
+        map.put("Skostorlek", "ShoeSize");
+
+        return map;
+    }
+
 }
