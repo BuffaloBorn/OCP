@@ -1,6 +1,8 @@
 package ekel;
 
+import ekel.generators.AtomicEvenGenerator;
 import ekel.generators.EvenGenerator;
+import ekel.generators.MutexEvenGenerator;
 import ekel.generators.SynchronizedEvenGenerator;
 import ekel.utils.IntGenerator;
 
@@ -63,6 +65,8 @@ public class EvenChecker implements Runnable {
     public static void main(String[] args) {
         test(new EvenGenerator());
         test(new SynchronizedEvenGenerator());
+        test(new MutexEvenGenerator());
+        test(new AtomicEvenGenerator());
     }
 
     private static void test(IntGenerator evenGenerator) {
