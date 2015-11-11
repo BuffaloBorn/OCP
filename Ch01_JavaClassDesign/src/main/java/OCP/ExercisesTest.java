@@ -7,22 +7,22 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static OCP.Exercises.*;
 import static org.junit.Assert.*;
 
 /**
  * Created by vitaly on 09.10.15.
  */
 public class ExercisesTest {
+    private static Decision decision = new Decision();
 
     @Test
     public void testStringToWords() throws Exception {
         List<String> standard = Arrays.asList("A", "AA", "ABC", "89AA", "100");
-        assertEquals(Collections.emptyList(), stringToWords("!@#$%^&   %##$^%$&$%^#& @#$%@#$~!@#$%^&*()+=/*|\\;:,.?'"));
-        assertEquals(standard, stringToWords("A;AA,   =ABC,(*&89AA,)(&*100  "));
-        assertEquals(standard, stringToWords("A;AA,    =ABC,(  *&  89AA,)  (&*100  "));
-        assertEquals(Collections.singletonList("A"), stringToWords("  A "));
-        assertEquals(Collections.singletonList("A"), stringToWords("  A "));
+        assertEquals(Collections.emptyList(), decision.stringToWords("!@#$%^&   %##$^%$&$%^#& @#$%@#$~!@#$%^&*()+=/*|\\;:,.?'"));
+        assertEquals(standard, decision.stringToWords("A;AA,   =ABC,(*&89AA,)(&*100  "));
+        assertEquals(standard, decision.stringToWords("A;AA,    =ABC,(  *&  89AA,)  (&*100  "));
+        assertEquals(Collections.singletonList("A"), decision.stringToWords("  A "));
+        assertEquals(Collections.singletonList("A"), decision.stringToWords("  A "));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class ExercisesTest {
         validExpressions.add("(((()))(()()))");
         validExpressions.add("()()()()()()(())((()))");
 
-        validExpressions.forEach(s -> assertTrue(s, validateExpression(s)));
+        validExpressions.forEach(s -> assertTrue(s, decision.validateExpression(s)));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class ExercisesTest {
         inValidExpressions.add("({}(()");
         inValidExpressions.add("()-()-()-()-()-(()");
 
-        inValidExpressions.forEach(s -> assertFalse(s, validateExpression(s)));
+        inValidExpressions.forEach(s -> assertFalse(s, decision.validateExpression(s)));
     }
 
 }
