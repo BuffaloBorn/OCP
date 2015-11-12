@@ -1,34 +1,95 @@
 package OCP;
 
+import sun.misc.Regexp;
+
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Test {
-    public static void bar() {
-////    1. Найти три косяка в коде
-//        int a = 3 / 2;
-//        short s = 6;
-//        a = (a / s);
+    static class Homer {
+        public final String name = "Homer Simpson";
+
+        public void saySomthing() {
+            System.out.println("D'oh!");
+        }
+
+        public static void wasssaaap() {
+            System.out.println("Homer wasssaaap!");
+        }
+
+    }
+
+    static class Bart extends Homer {
+        public final String name = "Bart Simpson";
+
+        public void saySomthing() {
+            System.out.println("Ay caramba!");
+        }
+
+        public static void wasssaaap() {
+            System.out.println("Bart wasssaaap!");
+        }
+    }
+
+    public static void main(String... args) {
+//    public static void test() {
+////        1. Найти три косяка в коде
+//        int anInt = 3 / 2;
+//        short aShort = 6;
+//        long aLong = 6;
+//        anInt = anInt + aLong;
 //        foo(5);
 //        byte b1 = 2 + 2;
 //        byte b2 = b1 + 3;
 //
 ////        2. Что будет выведено на экран?
-//        System.out.println("String" == new String("String"));              //
-//        System.out.println("String" == "String");                          //
-//        System.out.println("String" >= "String");                          //
-//        System.out.println(new String("String") == new String("String"));  //
+//        System.out.println("String" == String.valueOf("String"));             //
+//        System.out.println("String" == "String");                             //
+//        System.out.println("String" >= "String");                             //
+//        System.out.println(new String("String") == new String("String"));     //
 //
 //        String string = "012345";
 //        string.substring(2);
-//        System.out.println(string);                                        //
+//        System.out.println(string);                                           //
+//
+////        3. Какой метод вызовется?
+//        bar(5);                                                               //
+//
+////        4. Что выведется на экран?
+//        Homer bart = new Bart();                                              //
+//        bart.saySomthing();                                                   //
+//        bart.wasssaaap();                                                     //
+//        System.out.println(bart.name);                                        //
+//
+////          5. Что выведется на экран?
+//        List<Integer> integers = new ArrayList<>();
+//        integers.add(1);
+//        integers.add(3);
+//        List<Number> numbers = integers;
+//        System.out.println(numbers);
+    }
+
+    public static void foo(byte b) {
+    }
+
+    public static void bar(long l) {
+        System.out.println("Test.bar(long l)");
+    }
+
+    public static void bar(Integer i) {
+        System.out.println("Test.bar(Integer i)");
+    }
+
+    public static void bar(int... ints) {
+        System.out.println("Test.bar(int... ints)");
     }
 }
 
 
 abstract class Task {
-//    2. разбить строку на слова
+    //    2. разбить строку на слова
 //    Словом считается последовательность символов произвольной длинны состоящая из:
 //        1. символов латинского алфавита
 //        2. цифр
@@ -36,64 +97,26 @@ abstract class Task {
 //    все остальные символи считаются разделителями
     public abstract List<String> stringToWords(String string);
 
-//    3. Проверить правильность скобок в выражении
+    //    3. Проверить правильность скобок в выражении
 //    каждая открывающая скобка "(" должна иметь соответствующую закрывающую скобку ")"
 //    между скобками может находится любая последовательность символов, либо вложенных скобок.
 //    пример: x = f * (n - 1 / 3 + sqrt(8)) + (y * x - 5 * (y * (n - 4)))
     public abstract boolean validateExpression(String string);
 
-
-    public static void foo(byte b) {}
 }
 
 //Реализовать класс
 public class Decision extends Task {
     @Override
     public List<String> stringToWords(String string) {
-        int j = 0;
-        char[][] word = new char[string.length()][256];
-
-        for (int i=0; i<string.length(); i++){
-            if ((string.charAt(i) < 'z'+1) && (string.charAt(i) > 'a'-1) && (string.charAt(i) != '_') && (string.charAt(i) > '1'-1) && (string.charAt(i) != '9'+1)){
-                word [j][i] = string.charAt(i);
-            } else{
-                j++;
-                i++;
-            }
-        }
-
         return null;
     }
 
     @Override
     public boolean validateExpression(String string) {
-        int k =0;
-        int a = 1;
-        boolean validity = false;
-        for (int i=0; i<string.length(); i++){
-            if (string.charAt(i) == '('){
-                k++;
-            }
-            if (string.charAt(i) == ')'){
-                k = k-1;
-            }
-            if (k < 0){
-                a = a*0;
-            }
-        }
-        if (k == 0){
-            validity = true;
-        }
-        if (a == 0){
-            validity = false;
-        }
-        return validity;
+        return false;
     }
 
-    public static void main(String[] args) {
-        Decision decision = new Decision();
-        System.out.print(decision.validateExpression(")("));
-    }
 }
 
 abstract class Father {
@@ -136,4 +159,6 @@ class Son extends Father {
         System.out.println("Son.foo(double)");
         return 0;
     }
+
+
 }
