@@ -23,7 +23,9 @@ class Counter {
         if (rnd.nextBoolean()) {
             try {
                 TimeUnit.MILLISECONDS.sleep(rnd.nextInt(500));
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
 
         return count = temp + 1;
@@ -150,7 +152,9 @@ class EnvironmentRunner implements Runnable {
             sensor.alertDevice();
             try {
                 TimeUnit.MILLISECONDS.sleep(rnd.nextInt(500));
-            } catch (InterruptedException ignore) {return; }
+            } catch (InterruptedException ignore) {
+                return;
+            }
         }
     }
 }
