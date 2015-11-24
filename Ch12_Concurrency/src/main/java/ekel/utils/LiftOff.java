@@ -35,4 +35,17 @@ public class LiftOff implements Runnable {
 
         System.out.printf("#%d(Liftoff!), ", id);
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public int getCountDown() {
+        return countDown;
+
+    }
+
+    public void setCountDown(int countDown) {
+        this.countDown = countDown;
+    }
 }
