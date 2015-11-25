@@ -1,6 +1,7 @@
 package collections;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -71,8 +72,17 @@ public class QueueTest {
 //        deque.add("Vitaly");
 //        deque.add("Dmitry");
 //        deque.add("Alexandr");
-        queueTest();
-        dequeTest();
+
+//        queueTest();
+//        dequeTest();
+
+        Queue<Integer> queue = new ArrayDeque<>(1);
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Adding " + i);
+            System.out.println(queue.add(i));
+//            System.out.println(queue.offer(i));
+        }
+        System.out.println(queue);
     }
 
     public static void timer(int start, int end) {
