@@ -12,11 +12,19 @@ public abstract class AbstractWorker implements Runnable {
                 doWork();
             }
         } catch (InterruptedException e) {
-            System.out.println(getClass().getSimpleName() + " interrupted.");
+            interrupting();
         }finally {
-            System.out.println(getClass().getSimpleName() + " ended.");
+            finalizing();
         }
 
+    }
+
+    protected void finalizing() {
+        System.out.println(getClass().getSimpleName() + " ended.");
+    }
+
+    protected void interrupting() {
+        System.out.println(getClass().getSimpleName() + " interrupted.");
     }
 
     public abstract void doWork() throws InterruptedException;

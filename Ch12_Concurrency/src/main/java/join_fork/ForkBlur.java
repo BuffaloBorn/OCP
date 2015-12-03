@@ -1,11 +1,13 @@
+package join_fork;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.RecursiveTask;
 
 /**
  * Created by vitaly on 03.11.15.
@@ -133,5 +135,36 @@ class ForkBlurTest {
         ImageIO.write(blurredImage, "jpg", dstFile);
 
         System.out.println("Output image: " + dstName);
+    }
+}
+
+class A extends RecursiveAction {
+    @Override
+    protected void compute() {
+
+    }
+}
+
+class B extends RecursiveTask<String> {
+    @Override
+    protected String compute() {
+        return null;
+    }
+}
+
+class C extends ForkJoinTask<String> {
+    @Override
+    public String getRawResult() {
+        return null;
+    }
+
+    @Override
+    protected void setRawResult(String value) {
+
+    }
+
+    @Override
+    protected boolean exec() {
+        return false;
     }
 }
