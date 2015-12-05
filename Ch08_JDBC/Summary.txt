@@ -1,0 +1,15 @@
+Types of drivers:
+    • JDBC-ODBC bridge drivers (type 1): You may already know about ODBC (Open Database Connectivity), which is a portable middleware API written in C for accessing databases.
+        The first category belongs to the drivers that are designed to work with ODBC drivers; they play the role of a bridge from a Java application to an ODBC driver .
+        Such drivers are useful especially in cases when the ODBC driver for the DBMS is available. The JDBC driver calls the ODBC native calls using Java Native Interface (JNI).
+        The drivers from this category might not be suitable for applets since often client-side software and an ODBC driver are required for this bridge to work properly.
+    • Native-API driver (type 2): The database drivers belonging to this category use client-side libraries of a specific database and convert JDBC calls to native database calls.
+        Mostly, these drivers are not written entirely in Java, and hence are not portable. These drivers are not suitable for Java applets since they require proprietary
+        client software installed on client machines. However, these drivers are typically faster than type 1 drivers.
+    • The network-protocol driver (type 3): This type of database driver implements a three-tier  architecture where JDBC calls are converted to native database calls via a middleware implementation.
+        In other words, the driver calls database middleware and the middleware actually converts JDBC calls to database specific native calls. Typically, the driver is implemented in Java, which does not require any other client implementation at client side; hence they could be employed in Internet-based applications. However, these drivers are typically slower than type 2 drivers.
+    • Native-protocol driver (type 4): Such drivers are implemented in Java completely, so they are platform independent.
+        Drivers belonging to this category directly make database specific calls over the network without any support of additional client side libraries.
+        These drivers are the most flexible database drivers among all other database types. These drivers perform better than other driver types. However,
+        these drivers may be lacking in covering the security aspects of database access.
+

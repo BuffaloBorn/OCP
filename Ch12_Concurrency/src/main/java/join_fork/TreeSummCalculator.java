@@ -1,9 +1,7 @@
 package join_fork;
 
 import java.util.*;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ForkJoinTask;
-import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.*;
 
 /**
  * Created by vitaly on 02.12.15.
@@ -42,9 +40,10 @@ public class TreeSummCalculator extends RecursiveTask<Integer> {
         ForkJoinTask<Integer> mainTask = new TreeSummCalculator(tree);
         ForkJoinPool forkJoinPool = new ForkJoinPool();
         System.out.println(forkJoinPool.invoke(mainTask));
-        Map<String, List<Integer>> map = new HashMap<>();
+        ConcurrentMap<String, List<Integer>> map = new ConcurrentHashMap<>();
         List<Integer> list = map.computeIfAbsent("A", s -> new ArrayList<>(Collections.singletonList(1)));
-        List<Integer> list2 = map.compute();
+
+//        List<Integer> list2 = map.compute("A", (s, integers) -> {if ()return integers;});
     }
 }
 
