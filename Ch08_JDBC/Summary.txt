@@ -13,3 +13,5 @@ Types of drivers:
         These drivers are the most flexible database drivers among all other database types. These drivers perform better than other driver types. However,
         these drivers may be lacking in covering the security aspects of database access.
 
+Points to Remember
+• The boolean absolute(int) method in ResultSet moves the cursor to the passed row number in that ResultSet object. If the row number is positive, it moves to that position from the beginning of the ResultSet object; if  the row number is negative, it moves to that position from the end of the ResultSet object. Assume that there are 10 entries in the ResultSet object. Calling absolute(3) will move the cursor to the third row. Calling absolute(−3) will move the cursor to  the 10–3, seventh row. If you give out of range values, the cursor will move to either beginning or end.In a • ResultSet object, calling absolute(1) is equivalent to calling first(), and calling absolute(−1) is equivalent to calling last().
