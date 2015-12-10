@@ -13,15 +13,17 @@ import java.util.stream.StreamSupport;
  * Created by vitaly on 03.12.15.
  */
 public class DbConnect {
+    public static String dbUrl = "jdbc:mysql://localhost:3306/";
+    public static String dbName = "db_address_book";
+    public static String userName = "root";
+    public static String password = "415263";
+
     public static void main(String[] args) {
         getConnection();
     }
 
     public static Connection getConnection() {
-        String dbUrl = "jdbc:mysql://localhost:3306/";
-        String dbName = "db_address_book";
-        String userName = "root";
-        String password = "415263";
+
 
         try {
             Connection connection = DriverManager.getConnection(dbUrl + dbName, userName, password);

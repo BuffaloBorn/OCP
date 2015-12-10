@@ -1,4 +1,5 @@
 Types of drivers:
+    
     • JDBC-ODBC bridge drivers (type 1): You may already know about ODBC (Open Database Connectivity), which is a portable middleware API written in C for accessing databases.
         The first category belongs to the drivers that are designed to work with ODBC drivers; they play the role of a bridge from a Java application to an ODBC driver .
         Such drivers are useful especially in cases when the ODBC driver for the DBMS is available. The JDBC driver calls the ODBC native calls using Java Native Interface (JNI).
@@ -7,11 +8,40 @@ Types of drivers:
         Mostly, these drivers are not written entirely in Java, and hence are not portable. These drivers are not suitable for Java applets since they require proprietary
         client software installed on client machines. However, these drivers are typically faster than type 1 drivers.
     • The network-protocol driver (type 3): This type of database driver implements a three-tier  architecture where JDBC calls are converted to native database calls via a middleware implementation.
-        In other words, the driver calls database middleware and the middleware actually converts JDBC calls to database specific native calls. Typically, the driver is implemented in Java, which does not require any other client implementation at client side; hence they could be employed in Internet-based applications. However, these drivers are typically slower than type 2 drivers.
+        In other words, the driver calls database middleware and the middleware actually converts JDBC calls to database specific native calls.
+        Typically, the driver is implemented in Java, which does not require any other client implementation at client side; hence they could be employed in Internet-based applications.
+        However, these drivers are typically slower than type 2 drivers.
     • Native-protocol driver (type 4): Such drivers are implemented in Java completely, so they are platform independent.
         Drivers belonging to this category directly make database specific calls over the network without any support of additional client side libraries.
         These drivers are the most flexible database drivers among all other database types. These drivers perform better than other driver types. However,
         these drivers may be lacking in covering the security aspects of database access.
 
-Points to Remember
-• The boolean absolute(int) method in ResultSet moves the cursor to the passed row number in that ResultSet object. If the row number is positive, it moves to that position from the beginning of the ResultSet object; if  the row number is negative, it moves to that position from the end of the ResultSet object. Assume that there are 10 entries in the ResultSet object. Calling absolute(3) will move the cursor to the third row. Calling absolute(−3) will move the cursor to  the 10–3, seventh row. If you give out of range values, the cursor will move to either beginning or end.In a • ResultSet object, calling absolute(1) is equivalent to calling first(), and calling absolute(−1) is equivalent to calling last().
+Points to Remember:
+
+    • The boolean absolute(int) method in ResultSet moves the cursor to the passed row number in that ResultSet object.
+        If the row number is positive, it moves to that position from the beginning of the ResultSet object;
+        if  the row number is negative, it moves to that position from the end of the ResultSet object.
+        Assume that there are 10 entries in the ResultSet object. Calling absolute(3) will move the cursor to the third row. Calling absolute(−3) will move the cursor to  the 10–3, seventh row.
+        If you give out of range values, the cursor will move to either beginning or end.
+    • In a ResultSet object, calling absolute(1) is equivalent to calling first(), and calling absolute(−1) is equivalent to calling last().
+
+Points to Remember:  
+    • You can use column name or column index with ResultSet methods. The index you use is the index of the ResultSet object, not the column number in the database table.
+    • A Statement object closes the current ResultSet object if
+        a) the Statement object is closed,
+        b) is re-executed, or
+        c) is made to retrieve the next set of result.
+        That means it is not necessary to call close() explicitly with ResultSet object; however, it is good practice to call close() once you are done with the object.
+    • You may use the column name of a ResultSet object without worrying about the case:  getXXX() methods accept case insensitive column names to retrieve the associated value.
+    • Think of a case when you have two columns in a ResultSet object with the same name. How you can retrieve the associated values using the column name?
+        If you use a column name to retrieve the value, it will always point to the first column that matches with the given name.
+        Hence, you have to use column index in this case to retrieve values associated with both columns.
+    • You might remember that the PreparedStatement interface inherits from Statement. However, PreparedStatement overrides all flavors of execute() methods.
+        For instance, the behavior of executeUpdate() might be different from its base method.
+    • It is your responsibility to issue a correct SQL command; a JDBC Statement will not check for its correctness. For example, if there is a syntax error in the SQL command string,
+    then you will not get a compiler error. Rather, you’ll get a MySQLSyntaxErrorException at runtime.
+    • You may call the appropriate get() method immediately after inserting a row using the insertRow() method. However, the values of the row are undefined.
+    • You may cancel any update you made using the method cancelRowUpdates(). However, you must call this method before calling the method updateRow(). In all other cases, it has no impact on the row.
+    • While connecting to the database, you need to specify the correct username and password. If the provided username or password is not correct,
+        you will get a SQLException.
+    • JDBC 4.1 introduces the capability to use try-with-resources statement to close resources (Connection, ResultSet, and Statement) automatically.
