@@ -16,6 +16,6 @@ public class CandidateLocales {
             System.out.println("Loaded resource bundle for the locale: " + baseName + "." + rbLocaleName);
         }
 
-//        System.out.println(bundle.getString("greeting"));
+//        Sy stem.out.println(bundle.getString("greeting"));
     }
 }
