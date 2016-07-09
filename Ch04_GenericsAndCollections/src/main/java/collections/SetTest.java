@@ -1,9 +1,6 @@
 package collections;
 
-import java.util.Arrays;
-import java.util.NavigableSet;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Created by vitaly on 07.10.15.
@@ -30,6 +27,10 @@ public class SetTest {
         System.out.println("sortedSet.subSet(\"f\", \"h\") = " + sortedSet.subSet("f", "h"));
         System.out.println("sortedSet.tailSet(\"h\") = " + sortedSet.tailSet("h"));
         System.out.println("sortedSet.headSet(\"h\") = " + sortedSet.headSet("h"));
+
+//        sortedSet.clear();
+//        System.out.println("sortedSet.first() = " + sortedSet.first());
+
     }
 
     public static void navigatableSetTest() {
@@ -44,9 +45,14 @@ public class SetTest {
         System.out.println("navigableSet.pollFirst() = " + navigableSet.pollFirst());
         System.out.println("navigableSet.pollLast() = " + navigableSet.pollLast());
         System.out.println(navigableSet);
+        System.out.println("headSet(i)" + navigableSet.headSet("i"));
+        System.out.println("tailSet(i)" + navigableSet.tailSet("i"));
+
     }
     public static void main(String[] args) {
         sortedSetTest();
         navigatableSetTest();
+        Set<String> set = new HashSet<>();
+        System.out.println("Allows null: " + set.add(null)); //Not sorted collections allows null
     }
 }

@@ -9,15 +9,15 @@ import java.util.List;
  */
 public class GenericTest1 {
     static {
-        final Class<?> aClass = new Object() {
-        }.getClass();
-        System.out.println(aClass.getEnclosingMethod());
+        final Class<?> aClass = new Object(){}.getClass();
+        System.out.println(aClass.getEnclosingMethod()); //null
     }
+
+    //Получение текущего метода в котором выполняется код :)
     public static <S> Class<?> convert(S s) {
 //        Object.class.newInstance()
 //        return T.class.getConstructor().newInstance();
-        final Class<?> aClass = new Object() {
-        }.getClass();
+        final Class<?> aClass = new Object(){}.getClass();
         final Method enclosingMethod = aClass.getEnclosingMethod();
         System.out.println(enclosingMethod.getGenericParameterTypes());
         System.out.println(aClass.getEnclosingMethod());
@@ -34,11 +34,10 @@ public class GenericTest1 {
         List<? extends B>  list6 = new ArrayList<>();
         Class<?> c = GenericTest1.<Integer>convert(10);
         System.out.println(c.getEnclosingMethod().getName());
-//        List<Number> list6 = new ArrayList<Integer>();
-//        List<Integer> list7 = new ArrayList<Number>();
-//        List<> list = new ArrayList<String>();
-
-//        list6.add(new B());
+//        List<Number> list7 = new ArrayList<Integer>(); //Несовпадение параметров
+//        List<Integer> list8 = new ArrayList<Number>();//-//-//
+//        List<> list = new ArrayList<String>(); //diamond operator должен стоять в конце
+//        list6.add(new B());// list6 immutable
     }
 }
 

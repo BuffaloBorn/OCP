@@ -20,7 +20,7 @@ public class UpperBoundedWildcards {
         integers.add(10);
         integers.add(11);
         List<? extends Number> someList = integers;
-//        someList.add(new Integer(10)); //Fail Нельзя модифицировать состояния дженерика с wildcard
+//        someList.add(new Integer(10)); //Fail Нельзя модифицировать состояния дженерика с wildcard extends
         Number value = someList.get(0); //Получать значения можно
         System.out.println(value);
     }

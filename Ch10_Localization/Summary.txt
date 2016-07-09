@@ -1,4 +1,37 @@
 There are four different kinds of locale codes in this output:
-Just one code, as in the last entry shown above: hu for Hungarian.• Two codes separated by underscore, as in the first locale shown, ms_MY, where ms stands for • Malaysia and MY stands for Malay.Three codes separated by underscores, as in no_NO_NY where no stands for Norway, NO for • Norwegian, and NY for Nynorsk.Two or three initial codes separated by underscores and the final one by # or _#, as in  • th_TH_TH_#u-nu-thai, which we’ll discuss now. Here is how these locale names are encoded:language + "_" + country + "_" + (variant + "_#" | "#") + script + "-" + extensionsFor the locale code of th_TH_TH_#u-nu-thai, The language code is th (Thai) and it is always written in lowercase.• The country code is TH (Thailand) and it is always written in uppercase.• The variant name is TH; here it repeats the country code, but it could be any string.• The script name is an empty string here; if given, it will be a four-letter string with the first • letter in uppercase and the rest in lowercase (e.g., Latn).The extension follows the # or _# character; it is u-nu-thai in this example.•
+• Just one code, as in the last entry shown above: hu for Hungarian.
+• Two codes separated by underscore, as in the first locale shown, ms_MY, where ms stands for Malaysia and MY stands for Malay.
+• Three codes separated by underscores, as in no_NO_NY where no stands for Norway, NO for Norwegian, and NY for Nynorsk.
+• Two or three initial codes separated by underscores and the final one by # or _#, as in th_TH_TH_#u-nu-thai, which we’ll discuss now.
+•  Here is how these locale names are encoded:language + "_" + country + "_" + (variant + "_#" | "#") + script + "-" + extensionsFor the locale
+    code of th_TH_TH_#u-nu-thai, The language code is th (Thai) and it is always written in lowercase.
+• The country code is TH (Thailand) and it is always written in uppercase.
+• The variant name is TH; here it repeats the country code, but it could be any string.
+• The script name is an empty string here; if given, it will be a four-letter string with the first letter in uppercase and the rest in lowercase (e.g., Latn).
+• The extension follows the # or _# character; it is u-nu-thai in this example.
 
-packagequalifier.bundlename + "_" + language + "_" + country + "_" + (variant + "_#" | "#") + script + "-" + extensionsHere is the description of the elements in this fully qualified name: • packagequalifier: The name of the package (or the subpackages) in which the resource bundle is provided.• bundlename: The name of the resource bundle that you’ll use in the program to refer and  load it.• language: A two-letter abbreviation typically given in lowercase for the locale’s language  (in rare cases, it could be three letters as well).• country: A two letter abbreviation typically given in uppercase for the locale’s country (in rare cases, it could be three letters as well).• variant: An arbitrary list of variants (in lowercase or uppercase) to differentiate locales when you need more than one locale for a language and country combination.
+packagequalifier.bundlename + "_" + language + "_" + country + "_" + (variant + "_#" | "#") + script + "-" + extensionsHere is the description of the elements in this fully qualified name: 
+• packagequalifier: The name of the package (or the subpackages) in which the resource bundle is provided.
+• bundlename: The name of the resource bundle that you’ll use in the program to refer and  load it.
+• language: A two-letter abbreviation typically given in lowercase for the locale’s language  (in rare cases, it could be three letters as well).
+• country: A two letter abbreviation typically given in uppercase for the locale’s country (in rare cases, it could be three letters as well).
+• variant: An arbitrary list of variants (in lowercase or uppercase) to differentiate locales when you need more than one locale for a language and country combination.
+
+* разделители для properties files "=" ":" " "
+* if line begins with # or !, it is a comment.
+
+Picking a resource bundle for French in France with default locale US English
+Step    Looks for File          Reason
+1       Zoo_fr_FR.java          The requested locale
+2       Zoo_fr_FR.properties    The requested locale
+3       Zoo_fr.java             The language we requested with no country
+4       Zoo_fr.properties       The language we requested with no country
+5       Zoo_en_US.java          The default locale
+6       Zoo_en_US.properties    The default locale
+7       Zoo_en.java             The default language with no country
+8       Zoo_en.properties       The default language with no country
+9       Zoo.java                No locale at all—the default bundle
+10      Zoo.properties          No locale at all—the default bundle
+11      If still not found, throw MissingResourceException.
+
+* The parse method parses only the beginning of a string. After it reaches a character that cannot be parsed, the parsing stops and the value is returned.

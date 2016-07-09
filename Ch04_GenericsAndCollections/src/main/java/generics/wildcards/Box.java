@@ -28,7 +28,7 @@ public class Box<T> {
     public void set(T u) {
 
     }
-//    public <XYZ extends Y & Z & X >void foo(XYZ xyz) { } // Класс должен быть первым и только один
-//    public <XYZ extends X & Box & Y & Z>void foo2(XYZ xyz) { }
+//    public <XYZ extends Y & Z & X >void foo(XYZ xyz) { } // Класс должен быть первым...
+//    public <XYZ extends X & Box & Y & Z>void foo2(XYZ xyz) { } ...и только один
 
 }

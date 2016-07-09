@@ -17,9 +17,9 @@ A list defined by List<? extends ...> can be informally thought of as read-only,
 
 During the type erasure process, the Java compiler erases all type parameters and replaces each with its first bound if the type parameter is bounded, or Object if the type parameter is unbounded.
 
-Restrictions on Generics
-    *   When creating a Pair object, you cannot substitute a primitive type for the type parameter
-    *   You cannot create an instance of a type parameter.
+RESTRICTIONS ON GENERICS
+    *   When creating a Pair object, you cannot substitute a primitive type for the type parameter A<int, char>
+    *   You cannot create an instance of a type parameter new T().
     *   As a workaround, you can create an object of a type parameter through reflection
     *   Cannot Declare Static Fields Whose Types are Type Parameters
     *   Cannot Use Casts or instanceof with Parameterized Types
@@ -29,10 +29,10 @@ Restrictions on Generics
     *   A method cannot catch an instance of a type parameter:
     *   Cannot Overload a Method Where the Formal Parameter Types of Each Overload Erase to the Same Raw Type
     *   Avoid mixing raw types with generic types.
-    
+
 GENERICS
     •   It’s possible to define or declare generic methods in an interface or a class even if the class or the interface itself is not generic.
-    •   A generic class used without type arguments is known as araw type. Of course, raw  types are not type safe.
+    •   A generic class used without type arguments is known as a raw type. Of course, raw  types are not type safe.
         Java supports raw types so that it is possible to use the generic  type in code that is older than Java 5 (note that generics were introduced in Java 5).
         The compiler generates a warning when you use raw types in your code. You may use  @SuppressWarnings({"unchecked"}) to suppress the warning associated with raw types.
     •   List<?> is a supertype of any List type, which means you can pass List<Integer>, or List<String>, or even List<Object> where List<?> is expected.
@@ -56,4 +56,146 @@ GENERICS
         •   You cannot instantiate a generic type with primitive types—in other words, List<int> cannot be instantiated. However, you can use boxed primitive types.
         •   The meaning of "extends" and "super" changes in the context of generics. For instance, when you say <? extends X>, you refer to all types that extend X and the type X itself.
 
-Collections
+COLLECTIONS
+
+COLLECTION
+        boolean	add(E e)
+        boolean	addAll(Collection<? extends E> c)
+        void	clear()
+        boolean	contains(Object o)
+        boolean	containsAll(Collection<?> c)
+        boolean	isEmpty()
+        boolean	remove(Object o)
+        boolean	removeAll(Collection<?> c)
+        boolean	retainAll(Collection<?> c) Retains only the elements in this collection that are contained in the specified collection (optional operation).
+        int	size()
+        Object[]	toArray()
+        <T> T[]	toArray(T[] a)
+default boolean	removeIf(Predicate<? super E> filter)
+default Stream<E>	parallelStream()
+default Spliterator<E>	spliterator()
+default Stream<E>	stream()
+
+LIST
+        void	add(int index, E element)
+        boolean	addAll(int index, Collection<? extends E> c)
+        E	get(int index)
+        int	indexOf(Object o)
+        int	lastIndexOf(Object o)
+        ListIterator<E>	listIterator()
+        ListIterator<E>	listIterator(int index) Returns a list iterator over the elements in this list (in proper sequence), starting at the specified position in the list.
+        E	remove(int index)
+        E	set(int index, E element)
+        List<E>	subList(int fromIndex, int toIndex) Returns a view of the portion of this list between the specified fromIndex, inclusive, and toIndex, exclusive.
+default void	replaceAll(UnaryOperator<E> operator) Replaces each element of this list with the result of applying the operator to that element.
+default void	sort(Comparator<? super E> c)
+
+SORTEDSET
+        E	            first()                 NoSuchElementException
+        E	            last()                  NoSuchElementException
+        SortedSet<E>	headSet(E toElement)
+        SortedSet<E>	tailSet(E fromElement)
+        SortedSet<E>	subSet(E fromElement, E toElement)
+
+NAVITATIBLESET
+        E	            higher(E e) x > e  or null
+        E	            lower(E e) x <= e or null
+        E	            ceiling(E e) x >= e  or null
+        E	            floor(E e) x <= e or null
+        NavigableSet<E>	headSet(E toElement, boolean inclusive)
+        E	            pollFirst()                                     Retrieves and removes the first (lowest) element, or returns null if this set is empty.
+        E	            pollLast()
+        NavigableSet<E>	subSet(E fromElement, boolean fromInclusive, E toElement, boolean toInclusive)
+        SortedSet<E>	subSet(E fromElement, E toElement)              Returns a view of the portion of this set whose elements range from fromElement, inclusive, to toElement, exclusive.
+        NavigableSet<E>	tailSet(E fromElement, boolean inclusive)
+        NavigableSet<E>	descendingSet()
+        Iterator<E>	    descendingIterator()
+
+QUEUE
+            THROWS EXCEPTION	RETURNS SPECIAL VALUE
+INSERT	    add(e)	            offer(e)
+REMOVE	    remove()	        poll()
+EXAMINE	    element()	        peek()
+
+DEQUE
+            FIRST ELEMENT (HEAD)	            LAST ELEMENT (TAIL)
+            THROWS EXCEPTION	SPECIAL VALUE	THROWS EXCEPTION	SPECIAL VALUE
+INSERT	    addFirst(e)	        offerFirst(e)	addLast(e)	        offerLast(e)
+REMOVE	    removeFirst()	    pollFirst()	    removeLast()	    pollLast()
+EXAMINE	    getFirst()	        peekFirst()	    getLast()	        peekLast()
+
+Comparison of Stack and Deque methods
+STACK METHOD	EQUIVALENT DEQUE METHOD
+push(e)	        addFirst(e)
+pop()	        removeFirst()
+peek()	        peekFirst()
+
+MAP
+default     V	    compute(K key, BiFunction<? super K,? super V,? extends V> remappingFunction) Attempts to compute a mapping for the specified key and its current mapped value (or null if there is no current mapping).
+default     V	    computeIfAbsent(K key, Function<? super K,? extends V> mappingFunction) If the specified key is not already associated with a value (or is mapped to null), attempts to compute its value using the given mapping function and enters it into this map unless null.
+default     V	    computeIfPresent(K key, BiFunction<? super K,? super V,? extends V> remappingFunction) If the value for the specified key is present and non-null, attempts to compute a new mapping given the key and its current mapped value.
+default     void	forEach(BiConsumer<? super K,? super V> action)
+default     V	    getOrDefault(Object key, V defaultValue) Returns the value to which the specified key is mapped, or defaultValue if this map contains no mapping for the key.
+default     V	    merge(K key, V value, BiFunction<? super V,? super V,? extends V> remappingFunction) If the specified key is not already associated with a value or is associated with null, associates it with the given non-null value.
+            void	putAll(Map<? extends K,? extends V> m) Copies all of the mappings from the specified map to this map (optional operation).
+default     V	    putIfAbsent(K key, V value) If the specified key is not already associated with a value (or is mapped to null) associates it with the given value and returns null, else returns the current value.
+default     boolean	remove(Object key, Object value) Removes the entry for the specified key only if it is currently mapped to the specified value.
+default     V	    replace(K key, V value) Replaces the entry for the specified key only if it is currently mapped to some value.
+default     boolean	replace(K key, V oldValue, V newValue) Replaces the entry for the specified key only if currently mapped to the specified value.
+default     void	replaceAll(BiFunction<? super K,? super V,? extends V> function) Replaces each entry's value with the result of invoking the given function on that entry until all entries have been processed or the function throws an exception.
+
+*   Only not sorted collections allows nulls
+
+COMPARING
+*   Remember that numbers sort before letters and uppercase letters sort before lowercase letters.
+
+*   The number zero is returned when the current object is equal to the argument to com-pareTo().
+*   A number less than zero is returned when the current object is smaller than the argu-ment to compareTo().
+*   A number greater than zero is returned when the current object is larger than the argu-ment to compareTo().
+
+*   Be consistent with equals if, and only if, x.equals(y) is true whenever x.compareTo(y) equals 0
+
+
+================STREAMS==================
+
+METHOD REFERENCE
+There are four formats for method references: 
+*	Static methods 
+*	Instance methods on a particular instance 
+*	Instance methods on an instance to be determined at runtime 
+*	Constructors
+
+Common functional interfaces
+Functional Interfaces   #Parameters     Return Type     Single Abstract Method
+Supplier<T>             0               T               get
+Consumer<T>             1 (T)           void            accept
+BiConsumer<T, U>        2 (T, U)        void            accept
+Predicate<T>            1 (T)           boolean         test
+BiPredicate<T, U>       2 (T, U)        boolean         test
+Function<T, R>          1 (T)           R               apply
+BiFunction<T, U, R>     2 (T, U)        R               apply
+UnaryOperator<T>        1 (T)           T               apply
+BinaryOperator<T>       2 (T, T)        T               apply
+
+Optional.empty().get() // Throws java.util.NoSuchElementException пустой Optional бросается исключениями
+Optional.of(null) java.lang.NullPointerException instead you should use Optional.ofNullable(null)
+
+OPTIONAL METHODS
+Method                  When Optional Is Empty                          When Optional Contains a Value
+get()                   Throws an exception                             Returns value
+ifPresent(Consumer c)   Does nothing                                    Calls Consumer c with value
+isPresent()             Returns false                                   Returns true
+orElse(T other)         Returns other parameter                         Returns value
+orElseGet(Supplier s)   Returns result of calling  Supplier             Returns value
+orElseThrow(Supplier s) Throws exception created by calling Supplier    Returns value
+
+TERMINAL STREAM OPERATIONS
+Method                              What Happens for Infinite Streams   Return Value    Reduction
+allMatch()/anyMatch()/noneMatch()   Sometimes terminates                boolean         No
+collect()                           Does not terminate                  Varies          Yes
+count()                             Does not terminate                  long            Yes
+findAny()/findFirst()               Terminates                          Optional<T>     No
+forEach()                           Does not terminate                  void            No
+min()/max()                         Does not terminate                  Optional<T>     Yes
+reduce()                            Does not terminate                  Varies          Yes
+

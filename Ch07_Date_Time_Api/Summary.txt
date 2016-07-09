@@ -1,5 +1,6 @@
 All classes, interfaces, and enums for the Date-Time API are in the java.time package and four of its subpackages:
-    • java.time contains frequently used classes. LocalDate, LocalTime, LocalDateTime, ZonedDateTime, Period, Duration, and Instant classes are in this package. Classes in this package are based on ISO standards.
+    • java.time contains frequently used classes. LocalDate, LocalTime, LocalDateTime, ZonedDateTime, Period, Duration, and Instant
+        classes are in this package. Classes in this package are based on ISO standards.
     • java.time.chrono contains classes supporting non-ISO calendar systems, for example,  Hijrah calendar, ThaiBuddhist calendar, etc.
     • java.time.format contains classes for formatting and parsing dates and times.
     • java.time.temporal contains classes for accessing components of dates and times. It also contains classes that acts like date-time adjusters.
@@ -14,12 +15,31 @@ The atXXX( ) Methods позволяют построить новые дату �
 The plusXXX( ) and minusXXX( ) Methods добавляется удаляет к копии даты
 
 
-A time zone has a unique textual ID, which can be specified in three formats:• In this format, the zone ID is specified in terms of zone offset, which can be “Z” , “+hh:mm:ss” , • or “-hh:mm:ss” , for example, “+06:00” .In this format, the zone ID is prefixed with “UTC” , “GMT” , or “UT” and followed by a zone • offset, for example, “UTC+06:00” .In this format, the zone ID is specified by using a region, for example, “ America/Chicago” .
+A time zone has a unique textual ID, which can be specified in three formats:
+    • In this format, the zone ID is specified in terms of zone offset, which can be “Z” , “+hh:mm:ss” , or “-hh:mm:ss” , for example, “+06:00” .
+    • In this format, the zone ID is prefixed with “UTC” , “GMT” , or “UT” and followed by a zone offset, for example, “UTC+06:00” .
+    • In this format, the zone ID is specified by using a region, for example, “ America/Chicago” .
 
 ZoneId = ZoneOffset + ZoneRules
 LocalDateTime = LocalDate + LocalTime
 OffsetTime = LocalTime + ZoneOffset
 OffsetDateTime = LocalDateTime + ZoneOffset
 ZonedDateTime = LocalDateTime + ZoneId
+Instant is a specific moment in time in the GMT time zone
 
-• amount as the gap. For example, if you want to construct a zoned datetime for the time zone America/Chicago for March 10, 2013 at 02:30:00, you will get March 10, 2013 at 3:30:00. The time is moved forward by an hour, which is equal to the gap of an hour.If the local datetime falls in the middle of the overlap, the time is valid. In the gap, two • zone offsets exist: one the earlier offset that existed before moving the clock backward and one the later offset that exists after moving the clock backward. By default, for the time in the gap, the zone offset that existed earlier is used. The ZonedDateTime class contains withEarlierOffsetAtOverlap() and withLaterOffsetAtOverlap(), which let you select the desired zone offset if the time falls in the overlap.
+• amount as the gap. For example, if you want to construct a zoned datetime for the time zone America/Chicago for March 10, 2013 at 02:30:00,
+    you will get March 10, 2013 at 3:30:00. The time is moved forward by an hour, which is equal to the gap of an hour.
+    If the local datetime falls in the middle of the overlap, the time is valid. In the gap, two
+• zone offsets exist: one the earlier offset that existed before moving the clock backward and one the later offset that exists after moving
+    the clock backward. By default, for the time in the gap, the zone offset that existed earlier is used.
+    The ZonedDateTime class contains withEarlierOffsetAtOverlap() and withLaterOffsetAtOverlap(), which let you select the desired zone offset
+    if the time falls in the overlap.
+
+* Period not work with time
+* Duration begins with "PT" (PT2D24H7M6.000000001S) & Period begins with "P" P1Y2M3D
+* You cannot convert a LocalDateTime to an Instant
+* You cannot add Weak or month to an Instant
+
+* Period is for day, month, and year.
+* Duration is for hour, minute, seconds with nanos
+* GMT-5 = Z -(-5)

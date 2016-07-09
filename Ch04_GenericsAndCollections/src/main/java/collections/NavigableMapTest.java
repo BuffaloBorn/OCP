@@ -1,5 +1,7 @@
 package collections;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
@@ -17,6 +19,11 @@ public class NavigableMapTest {
         System.out.println("The data descending order is: " + examScores.descendingMap());
         System.out.println("Details of those who passed the exam: " + examScores.tailMap(40));
         System.out.println("The lowest mark is: " + examScores.firstEntry());
+
+        Map<Integer, Integer> integerMap = new HashMap<>();
+        System.out.println(integerMap.put(null, null));
+        System.out.println(integerMap.put(1, 1));
+        System.out.println(integerMap.put(1, 2));
     }
 }
 

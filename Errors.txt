@@ -1,0 +1,33 @@
+GENERICS & COLLECTIONS
+* Map<String, List<>> is wrong because of List<> being inside of another < and >. нельзя сдатавить diamond operator внутрь скобок
+* Если метод возвращает List<? super E> то его нельзя кастонуть, только в List<? super E> или List<?> или List. public static <E extends CharSequence> List<? super E> doIt(List<E> nums)
+* books.stream().sorted().forEach(b->System.out.println(b.getIsbn())); // упадет с ClassCastException если Books not implement Comparable
+* Map позвляет хранить null в качестве ключа, а HashTable нет.
+* Map.put(K, V) возвращает предидущее значение или null.
+* Collection.sort можно только Comparable or with external Comparator
+* Sort с null Comparator'ом сортирует в обычном порядке
+* Map->SortedMap->NavigableMap
+* FIFO has methods offer(e)/add(e)||peek()/element()||poll()/remove() for this purpose.
+* LIFO has methods push(e)||peek()/element()||poll()/remove()/pop() for this purpose.
+STREAMS
+* UnaryOperator<Long> ex2 = (Long l) -> 3.14 //NOT COMPILE 3.14 is not a Long
+* Stream.generate(() -> "A").sorted().limit(2).forEach(System.out::println); //Зависает потому что sorted() работает только с finit streams
+* Functional interfaces can't declare checked exceptions
+* Streams can be used only one time!
+* Stream.sum() is incorrect because IntStream.sum()
+* IntStream.average() return optionalDouble
+* Stream.iterate(1, x->x++) = 111111111..... инициализирующее значение передается в функцию
+* forEach method expects a Consumer as an argument. Not a Function.
+JAVA TIME
+* static methods like ofXXX() can not be chained
+*
+*
+*
+LOCALIZATION
+* Java properties class can contain Object values
+* Instant do not contains ZoneId(always in GMT)
+* Properties.get(String key) Properties.getProperty(String key [String default])
+*
+*
+*
+*

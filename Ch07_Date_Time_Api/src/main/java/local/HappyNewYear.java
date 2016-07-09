@@ -2,6 +2,7 @@ package local;
 
 import java.time.MonthDay;
 import java.time.Year;
+import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 
 /**
@@ -15,6 +16,7 @@ public class HappyNewYear {
             System.out.printf("%d: %s%n", i, Year.of(i).atMonthDay(newYear).getDayOfWeek());
         }
 
-        TemporalAdjusters.lastDayOfMonth();
+        TemporalAdjuster x = TemporalAdjusters.lastDayOfMonth();
+        System.out.println(x);
     }
 }

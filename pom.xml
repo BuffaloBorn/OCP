@@ -20,6 +20,7 @@
     <module>Ch12_Concurrency</module>
     <module>Ch06_Exceptions_And_Assertions</module>
     <module>Ch07_Date_Time_Api</module>
+    <module>utils</module>
   </modules>
   <packaging>pom</packaging>
 

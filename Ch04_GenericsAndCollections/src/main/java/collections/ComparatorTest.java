@@ -18,6 +18,7 @@ public class ComparatorTest {
         Comparator<KeyContainer> comparator = (o1, o2) -> Integer.compare(o1.getA(), o2.getA());
         list.sort(comparator.thenComparingInt(KeyContainer::getB));
         System.out.println(list);
+        list.stream().sorted().count();
     }
 }
 
@@ -51,5 +52,36 @@ class KeyContainer {
 
     public int getC() {
         return c;
+    }
+}
+
+class Squirrel {
+    private String species;
+
+    private int weight;
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(String species) {
+        this.species = species;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+}
+
+//Using static methods of Comparator & method chaining
+class ChainingComparator implements Comparator<Squirrel> {
+    @Override
+    public int compare(Squirrel s1, Squirrel s2) {
+        Comparator<Squirrel> c = Comparator.comparing(Squirrel::getSpecies).thenComparing(Squirrel::getWeight);
+        return compare(s1, s2);
     }
 }
