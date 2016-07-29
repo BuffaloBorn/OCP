@@ -31,3 +31,10 @@ LOCALIZATION
 *
 *
 *
+
+EXCEPTIONS & ASSERTIONS
+* if exception throwns it must be declared of handled
+* assert is the reserved word, you cannot use it as a variable name;
+* ParseException, IOException, FileNotFoundException, NotSerializableException, SQLException -- checked
+* если поймал IOException e тогда нельза переприсвоить e = new RuntimeException(); потому что это разные типы
+*

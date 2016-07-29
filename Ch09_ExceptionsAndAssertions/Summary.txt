@@ -1,0 +1,27 @@
+* try with resources is not required catch or finally statement
+
+There are two other rules about the catch clauses:
+    *   Java checks the catch blocks in the order in which they appear. It is illegal to declare a subclass exception in a catch block
+        that is lower down in the list than a superclass exception because it will be unreachable code.
+    *   Java will not allow you to declare a catch block for a checked exception type that cannot potentially be thrown by the try clause body.
+        This is again to avoid unreachable code.
+
+* Remember to pay attention that  throw  and  throws  aren’t reversed in the code that you see on the exam.
+* multi-catch is Effectively final
+* The resources created in the try clause are only in scope within the try block.
+* DateTimeParseException, IOException, and SQLException are common checked exceptions.
+* The multiple exception types are separated by a pipe (|). They are not allowed to have a subclass/superclass relationship.
+
+ASSERTIONS
+* An assertion throws an  AssertionError  if it is false
+
+The three possible outcomes of an  assert  statement are as follows:
+    *   If assertions are disabled, Java skips the assertion and goes on in the code.
+    *   If assertions are enabled and the  boolean  expression is  true, then our assertion has been validated and nothing happens.
+        The program continues to execute in its normal manner.
+    *   If assertions are enabled and the  boolean  expression is  false, then our assertion is invalid and a  java.lang.AssertionError  is thrown.
+* Assertions should not change the state of any variables
+* java -ea Rectangle    enable assertions for all project
+* java -ea:com.wiley.demos... my.programs.Main
+* java -ea:com.wiley.demos... -da:com.wiley.demos.TestColors my.programs.Main
+* можно писать сколькоугодно -ea в одной строке
