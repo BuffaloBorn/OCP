@@ -25,3 +25,8 @@ The three possible outcomes of an  assert  statement are as follows:
 * java -ea:com.wiley.demos... my.programs.Main
 * java -ea:com.wiley.demos... -da:com.wiley.demos.TestColors my.programs.Main
 * можно писать сколькоугодно -ea в одной строке
+
+CONCURRENCY
+*
+*
+*

@@ -19,7 +19,7 @@ public class App
         try {
             throw new DateTimeParseException("sdfasd", "000", 0);
 
-        } catch (ClassCastException | IllegalArgumentException e) {
+        } catch (ClassCastException | IllegalArgumentException | DateTimeParseException e) {
             e.printStackTrace();
 //            e = new ClassCastException();
         }

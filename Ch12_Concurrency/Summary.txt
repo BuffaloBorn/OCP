@@ -1,0 +1,64 @@
+* Do not forget to start thread
+* Можно добавлять одну и ту же лямду в очередь ExecutorService
+* Do not forget to shut down the Executor
+* invokeAll - wait for all
+* invokeAny - returns the faster first task result
+EXECUTOR SERVICE
+void                    execute(Runnable command)       Executes a Runnable task at some point in the future
+Future<?>               submit(Runnable task)       Executes a Runnable task at some point in the future and returns a Future representing the task
+<T> Future<T>           submit(Callable<T> task)    Executes a Callable task at some point in the future and returns a Future representing the pending results of the task
+<T> List<Future<T>>     invokeAll( Collection<? extends Callable<T>> tasks) throws InterruptedException Executes the given tasks, synchro-nously
+                                                    returning the results of all tasks as a Collection of Future objects, in the same order they
+                                                    were in the origi-nal collection
+<T> T                   invokeAny( Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException Executes the given tasks,
+                                                    synchro-nously returning the result of one of finished tasks, cancelling any unfin-ished tasks
+
+FUTURE
+boolean     isDone()                            Returns true if the task was completed, threw an exception, or was cancelled.
+boolean     isCancelled()                       Returns true if the task was cancelled before it completely normally.
+boolean     cancel()                            Attempts to cancel execution of the task.
+V           get()                               Retrieves the result of a task, waiting endlessly if it is not yet available.
+V           get(long timeout, TimeUnit unit)    Retrieves the result of a task, waiting the specified amount of time. If the result is
+                                                not ready by the time the timeout is reached, a checked TimeoutException will be thrown.
+
+* service.submit(() -> {Thread.sleep(1000); return null;}); //COMPILE because Callable throws Exception
+* service.submit(() -> {Thread.sleep(1000);});              //NOT COMPILE Runnable don't throws anything
+
+schedule(Callable<V> callable, long delay, TimeUnit unit)                               Creates and executes a  Callable  task after the given delay
+schedule(Runnable command, long delay, TimeUnit unit)                                   Creates and executes a  Runnable  task after the given delay
+scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)    Creates and executes a  Runnable  task after the given initial delay,
+                                                                                        creating a new task every period value that passes.
+scheduleAtFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit)    Creates and executes a  Runnable  task after the given initial delay
+                                                                                        and subsequently with the given delay between the termination
+                                                                                        of one execution and the com-mencement of the next
+
+* if you'll try to modify regular collection in iterator you'll get ConcurrentModificationException even getSynchronizedList
+
+BLOCKINGQUEUE
+void put(E e) throws InterruptedException;
+E take() throws InterruptedException;
+
+FORK JOIN FRAMEWORK
+* ForkJoinTask<T> - main interface;
+* RecursiveAction - like Runnable do not return value invokes with invoke(ForkJoinTask<?>) method forking with static invokeAll(ForkJoinTask, ForkJoinTask)
+* RecutsiveTask<T> - like Callable return value T invokes with T invoke(ForkJoinTask<?>), forking in new thread with task.fork(),
+                     waiting for result task.join() + and task.compute();
+* Be careful with invocation order (fork->compute->join) = multithread (fork->join->compute) = singlethread!!!
+
+TIPS FOR REVIEWING A FORK/JOIN CLASS
+	*	The class should extend RecursiveAction or RecursiveTask.
+	*	If the class extends RecursiveAction, then it should override a protected compute() method that takes no arguments and returns void.
+	*	If the class extends RecursiveTask, then it should override a protected compute() method that takes no arguments and
+	    returns a generic type listed in the class definition.
+	*	The invokeAll() method takes two instances of the fork/join class and does not return a result.
+	*	The fork() method causes a new task to be submitted to the pool and is similar to the thread executor submit() method.
+	*	The join() method is called after the fork() method and causes the current thread to wait for the results of a subtask.
+	*	Unlike fork(), calling compute() within a compute() method causes the task to wait for the results of the subtask.
+	*	The fork() method should be called before the current thread performs a compute() operation, with join() called to read the results afterward.
+	*	Since compute() takes no arguments, the constructor of the class is often used to pass instructions to the task. 
+
+HERE ARE THREE TYPES OF LIVENESS ISSUES
+    *   Deadlock occurs when two or more threads are blocked forever, each waiting on the other.
+    *   Starvation occurs when a single thread is perpetually denied access to a shared resource or lock.
+    *   Livelock occurs when two or more threads are conceptually blocked forever, although they are each still active and trying to complete their task.
+    *   Race condition is an undesirable result that occurs when two tasks, which should be completed sequentially, are completed at the same time.
