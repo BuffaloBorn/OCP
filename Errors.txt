@@ -23,7 +23,7 @@ JAVA TIME
 *
 *
 *
-LOCALIZATION
+LOCALIZATION 85%
 * Java properties class can contain Object values
 * Instant do not contains ZoneId(always in GMT)
 * Properties.get(String key) Properties.getProperty(String key [String default])
@@ -32,9 +32,41 @@ LOCALIZATION
 *
 *
 
-EXCEPTIONS & ASSERTIONS
+EXCEPTIONS & ASSERTIONS 80%
 * if exception throwns it must be declared of handled
 * assert is the reserved word, you cannot use it as a variable name;
 * ParseException, IOException, FileNotFoundException, NotSerializableException, SQLException -- checked
 * если поймал IOException e тогда нельза переприсвоить e = new RuntimeException(); потому что это разные типы
-*
+
+CONCURRENCY 50%
+* scheduleWithFixedDelay() accepts only Runnable
+* если T compute() - тогда класс наследует RecursiveTask
+* в reduce() все параметры имеют один тип
+* не бывает program hangs & run without issue
+* new stream is always not parallel even if all streams in flatMap is parallel
+* ()->{return null} incorrect lambda, becouse missing semicolon(;)
+* newSingleThreadExecutor() is thread safe ;)
+* Нужно быть внимательнее когда блокируется this и static method - это разные объекты
+* Concurrent tasks can share the same memory
+* Сраный вопро про возможные варианты возврата метода Integer performCount(int number) может вернуть число, null, exception или зависнуть нахуй! Че за пиздец!?
+
+JAVA IO 82%
+* PtintWriter.append() not throws IOExceptions & Writer.append() throws IOExceptions
+* All instance variables must be serializable OR TRANSIENT
+* new File("D:/Java/OCP/Ch06_JavaIOFundamentals/src/main/java/OCP\\AppCopy.java")); при указании пути можно смешивать прямые и обратные слеши
+* Console -> format() printf(), readline(), readPassword()
+* inputStream.mark() запоминает позицию, markLimit - непонятная хуйня :/
+
+JAVA NIO.2 50%
+* Обратить внимание на PATHS VS PATH!!!
+* path.relativize() принимает Path а не String
+* Path is immutable
+* путь Path обрабатывается поочереди вплоть до символических ссылок если /foo ссылка на /bar тогда /foo/1.txt = /bar/1.txt - the same file
+* Attention to use BiPredicate in Files.walk().filter() instead of Predicate
+* Изучить какие методы Files бросаются checked IOException
+* почему-то не проверяют на возможность бросить ексепшены
+* Files.resolve(absolutePath) = absolutePath если передана абсолютный путь тогда вернет этот путь!!!
+* Files.move()(Rename) всегда копирует атрибуты
+* Если сказали что файл существует и доступен для чтения, значит чтение не бросит исключений, если нихера не сказано тогда может бросить исключение
+* java.io.File не поддерживает SymbolicLinc!!!
+* Path.normalize не преобразовует относительный путь в постоянный ".".normalize() = "."

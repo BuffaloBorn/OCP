@@ -1,0 +1,58 @@
+* Paths.get("/") указывает на корень текущего диска
+
+* If a path starts with a forward slash, it is an absolute path, such as /bird/parrot.
+* If a path starts with a drive letter, it is an absolute path, such as C:\bird\emu.
+* Otherwise, it is a relative path, such as ..\eagle.
+* URIs must reference absolute paths at runtime.
+* URI(String) does throw a checked URISyntaxException
+* Path.toRealPath() throws IOException; NoSuchFileException if file not exists
+
+COMMON OPTIONAL ARGUMENTS
+NOFOLLOW_LINKS      Test file existing          If provided, symbolic links when encountered will not be traversed.
+                    Read file data              Useful for performing operations on symbolic links themselves rather than their target.
+                    Copy file
+                    Move file
+
+FOLLOW_LINKS        Traverse a directory tree   If provided, symbolic links when encountered will be traversed.
+
+COPY_ATTRIBUTES     Copy file                   If provided, all metadata about a file will be copied with it.
+
+REPLACE_EXISTING    Copy file                   If provided and the target file exists, it will be replaced;
+                    Move file                   otherwise, if it is not provided, an exception will be thrown if the file already exists.
+
+ATOMIC_MOVE         Move file                   The operation is performed in an atomic manner within the file system,
+                                                ensuring that any process using the file sees only a complete record.
+                                                Method using it may throw an exception if the feature is unsupported by the file system.
+
+* Path.getName(0) - начинается с нуля, не учитывает корень
+* Path.iterator<Path>() Создает новые относительные путу, если их преобразовать в абсолютные, будут добавлены к текущему каталогу
+* Path.sAbsolute(), returns true if the path the object references is absolute
+* Paths.get("too").equals(Paths.get("foo/../too")) = false; true only if ivoke .normalize() method on the second path
+* Path.subpath(0, 3) возвращает path без корня
+
+FILE SYSTEM SYMBOLS
+.   A reference to the current directory
+..  A reference to the parent of the current directory
+
+* Path.relativize(path) возвращает path с помощью которого можно открыть переданую папку из текущей
+    Paths.get("foo/bar/1.txt").relativize(Paths.get("foo/2.txt")) -> ..\..\2.txt
+    IllegalArgumentException: if 'other' has different root or mix the absolute and relative paths
+* path.resolve(path2) joining paths. if path2.isAbsolute() then return path2
+* path.resolveSibling(path2) replace fileName() to the path2, if path2 isAbsolute() then return path2
+
+* most of the options within the  Files  class will throw an exception if the fi le to which the  Path  refers does not exist.
+* Files.copy() не копирует рекурсивно, по умолчанию не заменяет существующий файл и не копирует атрибуты. Бросает Ексепшн если папка не существует
+  Также есть перегруженые копии для работы с I/O Streams
+* Files.move() перемещает/переименовует файл. копирует атрибуты по умолчанию бросает исключение если файл существует, и не применяет atomic move
+  бросит исключение если предвигается полная директория между дисками
+* Files.delete() бросит истключение если директория не пустая или отсутвтвует
+* Files.readAllLines() method reads all of the lines of a text file and returns the results as an ordered List of String values.
+* Files.readAttributes(appFile, BasicFileAttributes.class) - returns all available attributes
+* view.setTimes(lastModifiedTime,null,null) if null then don't modify the time(FileTime)
+* DFS - Поиск в глубину через стек BFS - поиск в ширину через очередь(как тотал коммандере)
+* Files.walk(Path, FileVisitOption) - travers folder for DFS(Max int)
+* FOLLOW_LINKS в Files.walk() может привести к зависанию
+* Stream<Path> Files.find(Path,int,BiPredicate<Path, BasicFileAttributes>)
+* Stream<Path> Files.list(rootPath) - returns stream of directory content isRegularFile() throws NotDirectoryException
+* Stream<String> Files.lines(path) - read lines of file content and returns Stream<String>
+* For the exam, you should be familiar with both readAllLines() and lines() and with which one returns a List and which one returns a Stream.

@@ -1,0 +1,14 @@
+* In order to serialize objects using the  java.io  API, the class they belong to must implement the  java.io.Serializable  interface.
+* Note that the requirement for properly marking an object as  Serializable  may involve nested objects.
+* A process attempting to serialize an object will throw a  NotSerializableException
+* static & transient class members will also be ignored during the serialization and deserialization process.
+* readObject() returns Object & throws the checked exception, ClassNotFoundException
+* to find end of input stream use catch EOFException
+* don't use is.available()
+* to deserialize Object In fact, Java calls the first no-arg constructor for the first nonserializable parent class, skipping the constructors of any serialized class in between.
+* For the exam, make sure that you understand that the constructor and any default initializations are ignored during the deserialization process.
+* For the exam, you should be familiar with the  print(),  println(),  format(), and  printf()  methods. Unlike the underlying  write()  method, which throws a checked IOException
+* format() does not automatically insert a line break after the text.
+* java.io.Console is now the recommended technique for interacting with and displaying information to the user in a text-based environment.
+* Unlike the readLine() method, though, the readPassword() method returns an array of characters instead of a String.
+* Not all java.io input stream classes support the mark() and reset() operations.
