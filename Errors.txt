@@ -70,3 +70,8 @@ JAVA NIO.2 50%
 * Если сказали что файл существует и доступен для чтения, значит чтение не бросит исключений, если нихера не сказано тогда может бросить исключение
 * java.io.File не поддерживает SymbolicLinc!!!
 * Path.normalize не преобразовует относительный путь в постоянный ".".normalize() = "."
+
+JDBC 90%
+* проверить stmt.absolute() на SCROLL_FORWARD_ONLY работает, но previous() должен бросаться исключениями, хотя не бросается :/
+* DriverManager.getConnection() throws SQLException
+* Mandatory parts of JDBC URL is jdbc:vendorName:databaseSpecificName(ip & port is optional)

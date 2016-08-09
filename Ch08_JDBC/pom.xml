@@ -29,5 +29,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.36</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.12.1.1</version>
+        </dependency>
+
     </dependencies>
 </project>

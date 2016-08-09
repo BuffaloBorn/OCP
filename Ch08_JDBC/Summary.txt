@@ -16,6 +16,47 @@ Types of drivers:
         These drivers are the most flexible database drivers among all other database types. These drivers perform better than other driver types. However,
         these drivers may be lacking in covering the security aspects of database access.
 
+JDBC INTERFACES
+    * Driver: Knows how to get a connection to the database
+    * Connection: Knows how to communicate with the database
+    * Statement: Knows how to run the SQL
+    * ResultSet: Knows what was returned by a SELECT query
+
+* conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+ * TYPE_FORWARD_ONLY - move forward for the one time
+ * TYPE_SCROLL_ INSENSITIVE allow you to go through the data in any order do not depend from data changes
+ * TYPE_SCROLL_SENSITIVE allow you to go through the data in any order update data if it will change
+
+ * CONCUR_READ_ONLY - you can’t update the result set
+ * CONCUR_UPDATABLE - lets you modify the database through the  ResultSet
+
+* int stmt.executeUpdate()
+* ResultSet stmt.executeQuery()
+* boolean stmt.execute()
+* Always use an if statement or while loop when calling rs.next().
+* Column indexes begin with 1.
+
+esultSet get methods
+Method Name     Return Type         Example Database Type
+getBoolean      boolean             BOOLEAN
+getDate         java.sql.Date       DATE
+getDouble       double              DOUBLE
+getInt          int                 INTEGER
+getLong         long                BIGINT
+getObject       Object              Any type
+getString       String              CHAR, VARCHAR
+getTime         java.sql.Time       TIME
+getTimeStamp    java.sql.TimeStamp  TIMESTAMP
+
+* Make sure that the type is scrollable whenever you see methods other than next().
+* absolute() - takes the row number to which you want to move the cursor as a parameter. 0 - before first; 1 - to first; -1 - to last
+* relative() - moves forward or backward the requested number of rows, returns a boolean if the cursor is pointing to a row with data.
+
+Closing the resources:
+ * Closing a Connection also closes the Statement and ResultSet.
+ * Closing a Statement also closes the ResultSet.
+ * JDBC automatically closes a ResultSet when you run another SQL statement from the same Statement.
+
 Points to Remember:
 
     • The boolean absolute(int) method in ResultSet moves the cursor to the passed row number in that ResultSet object.
@@ -38,10 +79,11 @@ Points to Remember:
         Hence, you have to use column index in this case to retrieve values associated with both columns.
     • You might remember that the PreparedStatement interface inherits from Statement. However, PreparedStatement overrides all flavors of execute() methods.
         For instance, the behavior of executeUpdate() might be different from its base method.
-    • It is your responsibility to issue a correct SQL command; a JDBC Statement will not check for its correctness. For example, if there is a syntax error in the SQL command string,
-    then you will not get a compiler error. Rather, you’ll get a MySQLSyntaxErrorException at runtime.
+    • It is your responsibility to issue a correct SQL command; a JDBC Statement will not check for its correctness.
+    For example, if there is a syntax error in the SQL command string, then you will not get a compiler error. Rather, you’ll get a MySQLSyntaxErrorException at runtime.
     • You may call the appropriate get() method immediately after inserting a row using the insertRow() method. However, the values of the row are undefined.
-    • You may cancel any update you made using the method cancelRowUpdates(). However, you must call this method before calling the method updateRow(). In all other cases, it has no impact on the row.
+    • You may cancel any update you made using the method cancelRowUpdates(). However, you must call this method before calling the method updateRow().
+    In all other cases, it has no impact on the row.
     • While connecting to the database, you need to specify the correct username and password. If the provided username or password is not correct,
         you will get a SQLException.
     • JDBC 4.1 introduces the capability to use try-with-resources statement to close resources (Connection, ResultSet, and Statement) automatically.
