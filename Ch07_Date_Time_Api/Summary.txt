@@ -35,8 +35,8 @@ Instant is a specific moment in time in the GMT time zone
     The ZonedDateTime class contains withEarlierOffsetAtOverlap() and withLaterOffsetAtOverlap(), which let you select the desired zone offset
     if the time falls in the overlap.
 
-* Period not work with time
-* Duration begins with "PT" (PT2D24H7M6.000000001S) & Period begins with "P" P1Y2M3D
+* Period not work with time (P1Y1M1D)
+* Duration begins with "PT" (PT24H7M6.000000001S) & Period begins with "P" P1Y2M3D
 * You cannot convert a LocalDateTime to an Instant
 * You cannot add Weak or month to an Instant
 

@@ -14,6 +14,8 @@ public class MyFirstDatabaseConnection {
             rs.next();
             rs.previous();
             rs.previous();
+            App app = new App();
+//            Enum e = app/.e;
 //            printName(rs, 2);
 //            printName(rs, 1);
 //            printName(rs, -2);

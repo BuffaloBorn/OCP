@@ -4,14 +4,14 @@
 * invokeAll - wait for all
 * invokeAny - returns the faster first task result
 EXECUTOR SERVICE
-void                    execute(Runnable command)       Executes a Runnable task at some point in the future
+void                    execute(Runnable command)   Executes a Runnable task at some point in the future
 Future<?>               submit(Runnable task)       Executes a Runnable task at some point in the future and returns a Future representing the task
 <T> Future<T>           submit(Callable<T> task)    Executes a Callable task at some point in the future and returns a Future representing the pending results of the task
-<T> List<Future<T>>     invokeAll( Collection<? extends Callable<T>> tasks) throws InterruptedException Executes the given tasks, synchro-nously
+<T> List<Future<T>>     invokeAll( Collection<? extends Callable<T>> tasks) throws InterruptedException Executes the given tasks, synchronously
                                                     returning the results of all tasks as a Collection of Future objects, in the same order they
-                                                    were in the origi-nal collection
+                                                    were in the original collection
 <T> T                   invokeAny( Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException Executes the given tasks,
-                                                    synchro-nously returning the result of one of finished tasks, cancelling any unfin-ished tasks
+                                                    synchronously returning the result of one of finished tasks, cancelling any unfinished tasks
 
 FUTURE
 boolean     isDone()                            Returns true if the task was completed, threw an exception, or was cancelled.

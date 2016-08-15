@@ -4,7 +4,8 @@ There are four different kinds of locale codes in this output:
 • Three codes separated by underscores, as in no_NO_NY where no stands for Norway, NO for Norwegian, and NY for Nynorsk.
 • Two or three initial codes separated by underscores and the final one by # or _#, as in th_TH_TH_#u-nu-thai, which we’ll discuss now.
 •  Here is how these locale names are encoded:language + "_" + country + "_" + (variant + "_#" | "#") + script + "-" + extensionsFor the locale
-    code of th_TH_TH_#u-nu-thai, The language code is th (Thai) and it is always written in lowercase.
+    code of th_TH_TH_#u-nu-thai,
+• The language code is th (Thai) and it is always written in lowercase.
 • The country code is TH (Thailand) and it is always written in uppercase.
 • The variant name is TH; here it repeats the country code, but it could be any string.
 • The script name is an empty string here; if given, it will be a four-letter string with the first letter in uppercase and the rest in lowercase (e.g., Latn).
@@ -21,6 +22,7 @@ packagequalifier.bundlename + "_" + language + "_" + country + "_" + (variant + 
 * if line begins with # or !, it is a comment.
 
 Picking a resource bundle for French in France with default locale US English
+(java->Properties)(locale->default->noLocale)
 Step    Looks for File          Reason
 1       Zoo_fr_FR.java          The requested locale
 2       Zoo_fr_FR.properties    The requested locale
@@ -35,3 +37,7 @@ Step    Looks for File          Reason
 11      If still not found, throw MissingResourceException.
 
 * The parse method parses only the beginning of a string. After it reaches a character that cannot be parsed, the parsing stops and the value is returned.
+* Определение источкника для ключа:
+    1 Zoo_fr_FR.properties
+    2 Zoo_fr.properties
+    3 Zoo.properties

@@ -90,16 +90,16 @@ LIST
 default void	replaceAll(UnaryOperator<E> operator) Replaces each element of this list with the result of applying the operator to that element.
 default void	sort(Comparator<? super E> c)
 
-SORTEDSET
+SORTED SET
         E	            first()                 NoSuchElementException
         E	            last()                  NoSuchElementException
         SortedSet<E>	headSet(E toElement)
         SortedSet<E>	tailSet(E fromElement)
         SortedSet<E>	subSet(E fromElement, E toElement)
 
-NAVITATIBLESET
+NAVIGABLE SET
         E	            higher(E e) x > e  or null
-        E	            lower(E e) x <= e or null
+        E	            lower(E e) x < e or null
         E	            ceiling(E e) x >= e  or null
         E	            floor(E e) x <= e or null
         NavigableSet<E>	headSet(E toElement, boolean inclusive)

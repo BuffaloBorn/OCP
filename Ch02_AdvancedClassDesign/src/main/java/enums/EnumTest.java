@@ -5,6 +5,7 @@ package enums;
  */
 public class EnumTest {
     private final PrinterType printerType;
+    private static enum T{A,B,C,}
 
     public EnumTest(PrinterType printerType) {
         this.printerType = printerType;

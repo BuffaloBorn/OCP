@@ -36,8 +36,8 @@ JDBC INTERFACES
 * Always use an if statement or while loop when calling rs.next().
 * Column indexes begin with 1.
 
-esultSet get methods
-Method Name     Return Type         Example Database Type
+RESULT SET GET METHODS:
+METHOD NAME     RETURN TYPE         EXAMPLE DATABASE TYPE
 getBoolean      boolean             BOOLEAN
 getDate         java.sql.Date       DATE
 getDouble       double              DOUBLE

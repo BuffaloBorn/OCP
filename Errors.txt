@@ -1,4 +1,25 @@
+ADVANCED CLASS DESIGN
+* switch по енумам должен содержать только имена перечислений, без класса
+* Могут попытаться наебать с внутренними классами в вопросе по другому пункту
+* перепутал if и switch
+* switch требует break чтоб не проваливаться дальше
+* local inner classes not allowed to have static members
+* нельзя делать static import по private классам, даже в том же классе
+* (String) new Object();
+
+DESIGN PATTERNS AND PRINCIPLES
+* A implements I - это тоже A is-a I
+* Object composition requires class variable declared public to be used from the class from another package
+* Singleton can manage a reusable cache of objects
+
 GENERICS & COLLECTIONS
+* Collection boolean	contains(Object o)
+** raw generic можно передавать или присваивать куда угодно
+* List<? super RuntimeException> l = new ArrayList<Throwable>() создавать с любым родителем, а ложить только потомков
+* Обратить внимание на Comparator в обратном порядке (b.compareTo(a))
+* BinarySearch работает только когда список отсортирован в НАТУРАЛЬНОМ порядке или с соответственным компаратором
+* Comparable is in the java.lang package
+* Внимательно когда используется одинаковое имя для Класса и Type Parameter
 * Map<String, List<>> is wrong because of List<> being inside of another < and >. нельзя сдатавить diamond operator внутрь скобок
 * Если метод возвращает List<? super E> то его нельзя кастонуть, только в List<? super E> или List<?> или List. public static <E extends CharSequence> List<? super E> doIt(List<E> nums)
 * books.stream().sorted().forEach(b->System.out.println(b.getIsbn())); // упадет с ClassCastException если Books not implement Comparable
@@ -9,36 +30,58 @@ GENERICS & COLLECTIONS
 * Map->SortedMap->NavigableMap
 * FIFO has methods offer(e)/add(e)||peek()/element()||poll()/remove() for this purpose.
 * LIFO has methods push(e)||peek()/element()||poll()/remove()/pop() for this purpose.
+* Если работать с BlockingDeque с задержками то она может заблокироваться и результат будет неопределен
+* если Map.merge вернет null тогда удаляется ключ, если ключь уже null или отсутствует, тогда просто ставит новое значение
+* foo(T obj) и foo(Object o) -> ambiguous method
+
 STREAMS
+* () -> exec.submit() не является Consumer<T>
+* Collectors.groupingBy(Function<T, R> f) нельзя передать переменную Predicate типа, а лямбду предиката можно
+* allMatch, noneMatch - Значение по умолчанию true, anyMatch - false
+** Lambda can't redefine the local variable & parameter
+* в partitioningBy(Predicate, Collector) Вторым параметром передается коллектор
+* partitioningBy(Predicate) всегда возвращает мапу с двумя ключами, даже если стрим пустой
 * UnaryOperator<Long> ex2 = (Long l) -> 3.14 //NOT COMPILE 3.14 is not a Long
 * Stream.generate(() -> "A").sorted().limit(2).forEach(System.out::println); //Зависает потому что sorted() работает только с finit streams
 * Functional interfaces can't declare checked exceptions
-* Streams can be used only one time!
-* Stream.sum() is incorrect because IntStream.sum()
-* IntStream.average() return optionalDouble
+*** Streams can be used only one time!
+** Stream.sum() is incorrect because IntStream.sum()
+** IntStream.average() return optionalDouble
 * Stream.iterate(1, x->x++) = 111111111..... инициализирующее значение передается в функцию
 * forEach method expects a Consumer as an argument. Not a Function.
+
 JAVA TIME
+* Instant do not contains ZoneId(always in GMT)
+* Instant можно создать только из ZonedDateTime (тот у кого есть зона)
+* Перевод вперед 1:59 -> 3:00
+* Перевод назад 1:59 -> 1:00
+* Duration при создании сокращается до часов, минут, секунд...
 * static methods like ofXXX() can not be chained
 *
-*
-*
+
 LOCALIZATION 85%
 * Java properties class can contain Object values
-* Instant do not contains ZoneId(always in GMT)
 * Properties.get(String key) Properties.getProperty(String key [String default])
-*
+* ResourceBungle.getBungle("Bungle") - отработает с default Locale
 *
 *
 *
 
 EXCEPTIONS & ASSERTIONS 80%
-* if exception throwns it must be declared of handled
+* Могут подъебать с фигурными скобками в try{}{} вместо круглых
+* if exception throws it must be declared of handled
 * assert is the reserved word, you cannot use it as a variable name;
 * ParseException, IOException, FileNotFoundException, NotSerializableException, SQLException -- checked
-* если поймал IOException e тогда нельза переприсвоить e = new RuntimeException(); потому что это разные типы
+* если поймал IOException e тогда нельзя переприсвоить e = new RuntimeException(); потому что это разные типы
 
 CONCURRENCY 50%
+* CyclicBarrier может быть сломан несколько раз
+* Для полного Thread Safe нужна полная синхронизация чтения и записи
+* обратить внимане на то чтоб всегда закрывался ExecutorService
+* Consumer = () -> {}, Math.sqrt(x) но не return x; можно вставлять функцию возврат которой игнорируется
+* Future.get(long, TimeUnit)
+* ExecutorService.execute() returns void but nut Future!!!
+* Если RecursiveAction зависает в рекурсии тогда можно получить StackOverflowError
 * scheduleWithFixedDelay() accepts only Runnable
 * если T compute() - тогда класс наследует RecursiveTask
 * в reduce() все параметры имеют один тип
@@ -48,30 +91,50 @@ CONCURRENCY 50%
 * newSingleThreadExecutor() is thread safe ;)
 * Нужно быть внимательнее когда блокируется this и static method - это разные объекты
 * Concurrent tasks can share the same memory
-* Сраный вопро про возможные варианты возврата метода Integer performCount(int number) может вернуть число, null, exception или зависнуть нахуй! Че за пиздец!?
+* Сраный вопрос про возможные варианты возврата метода Integer performCount(int number) может вернуть число, null, exception или зависнуть нахуй! Че за пиздец!?
+* CyclicBarrier.await() должен быть дернут разными потоками! Обратить внимание на количество потоков в ExecutorService
 
 JAVA IO 82%
-* PtintWriter.append() not throws IOExceptions & Writer.append() throws IOExceptions
+* mark(int readlimit) при привышении readlimit может ругаться, а может и нет
+* натупил с mark() потому что не вчитывался в код
+* Writer.append() ничего не запишет пока не вызовется метод flush()
+* PrintWriter.append() not throws IOExceptions & Writer.append() throws IOExceptions
 * All instance variables must be serializable OR TRANSIENT
 * new File("D:/Java/OCP/Ch06_JavaIOFundamentals/src/main/java/OCP\\AppCopy.java")); при указании пути можно смешивать прямые и обратные слеши
-* Console -> format() printf(), readline(), readPassword()
+* Console -> format() printf(), readLine(), readPassword()
 * inputStream.mark() запоминает позицию, markLimit - непонятная хуйня :/
+* ois.readObject() returns Object
+* new BufferedInputStream(new FileReader(file)); -> ERROR
+* getRoot().getParent() возвращает null
 
 JAVA NIO.2 50%
+* getRoot() на относительном пути дает null
+* нельзя миксовать относительные и абсолютные пути в relativize()
+* Недопустим одиночный обратный слеш в пути "\"
+* если метод описан полностью, тогда Files.copy() бросает Exceptions
+* FileVisitResult = CONTINUE, TERMINATE, SKIP_SUBTREE, SKIP_SIBLINGS
+* Paths.get("/a/b").getName(5) throw IllegalArgumentException
+* Path.relativize() считает . и .. как пути которые тоже нужно анигилировать в итоге получается хуйня
 * Обратить внимание на PATHS VS PATH!!!
 * path.relativize() принимает Path а не String
 * Path is immutable
 * путь Path обрабатывается поочереди вплоть до символических ссылок если /foo ссылка на /bar тогда /foo/1.txt = /bar/1.txt - the same file
 * Attention to use BiPredicate in Files.walk().filter() instead of Predicate
-* Изучить какие методы Files бросаются checked IOException
+* Изучить какие методы Files бросаются checked IOException (только isXXX не бросаются исключениями)
 * почему-то не проверяют на возможность бросить ексепшены
-* Files.resolve(absolutePath) = absolutePath если передана абсолютный путь тогда вернет этот путь!!!
+* Path.resolve(absolutePath) = absolutePath если передана абсолютный путь тогда вернет этот путь!!!
 * Files.move()(Rename) всегда копирует атрибуты
 * Если сказали что файл существует и доступен для чтения, значит чтение не бросит исключений, если нихера не сказано тогда может бросить исключение
 * java.io.File не поддерживает SymbolicLinc!!!
-* Path.normalize не преобразовует относительный путь в постоянный ".".normalize() = "."
+* Path.normalize не преобразовует относительный путь в абсолютный, а только сокращает лишнее ".".normalize() = "."
+* Files.find(Path, int, BiPredicate<Path, BasicFilterAttribute>) второй параметр - глубина
 
 JDBC 90%
-* проверить stmt.absolute() на SCROLL_FORWARD_ONLY работает, но previous() должен бросаться исключениями, хотя не бросается :/
+* Проверить stmt.absolute() на SCROLL_FORWARD_ONLY работает, но previous() должен бросаться исключениями, хотя не бросается :/
 * DriverManager.getConnection() throws SQLException
 * Mandatory parts of JDBC URL is jdbc:vendorName:databaseSpecificName(ip & port is optional)
+* con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY) не путать местами параметры
+
+test1 70
+test2 73
+test3 65

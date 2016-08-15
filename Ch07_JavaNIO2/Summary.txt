@@ -40,7 +40,7 @@ FILE SYSTEM SYMBOLS
 * path.resolve(path2) joining paths. if path2.isAbsolute() then return path2
 * path.resolveSibling(path2) replace fileName() to the path2, if path2 isAbsolute() then return path2
 
-* most of the options within the  Files  class will throw an exception if the fi le to which the  Path  refers does not exist.
+* most of the options within the Files class will throw an exception if the file to which the Path refers does not exist.
 * Files.copy() не копирует рекурсивно, по умолчанию не заменяет существующий файл и не копирует атрибуты. Бросает Ексепшн если папка не существует
   Также есть перегруженые копии для работы с I/O Streams
 * Files.move() перемещает/переименовует файл. копирует атрибуты по умолчанию бросает исключение если файл существует, и не применяет atomic move
