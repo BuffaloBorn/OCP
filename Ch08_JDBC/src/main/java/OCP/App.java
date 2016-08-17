@@ -35,25 +35,27 @@ public class App
         return x - y;
     }
     public static void main(String[] args) {
-        Consumer<Path> c = Files::exists;
-        System.out.println("Hello World!");
-        System.out.println(Stream.of(",,,")
-                .flatMap(s -> Stream.of(s.split(",")))
-                .filter(s -> s.trim().length() > 0)
-                .allMatch(s -> args.length > 3));
-        System.out.println(Stream.empty().noneMatch(o -> false));
-        System.out.println(Stream.empty().anyMatch(o -> false));
-//        String s = (String) new Object();
-        System.out.println(compareTo( Integer.MIN_VALUE,Integer.MAX_VALUE));
-        System.out.println(compareTo( 1,2));
-        System.out.println(Integer.MAX_VALUE);
+//        Consumer<Path> c = Files::exists;
+//        System.out.println("Hello World!");
+//        System.out.println(Stream.of(",,,")
+//                .flatMap(s -> Stream.of(s.split(",")))
+//                .filter(s -> s.trim().length() > 0)
+//                .allMatch(s -> args.length > 3));
+//        System.out.println(Stream.empty().noneMatch(o -> false));
+//        System.out.println(Stream.empty().anyMatch(o -> false));
+////        String s = (String) new Object();
+//        System.out.println(compareTo( Integer.MIN_VALUE,Integer.MAX_VALUE));
+//        System.out.println(compareTo( 1,2));
+//        System.out.println(Integer.MAX_VALUE);
+//        System.out.println(Integer.MIN_VALUE);
+//        CyclicBarrier cb = new CyclicBarrier(4, () -> System.out.println("Done"));
+//        ExecutorService exec = Executors.newFixedThreadPool(4);
+//        for (int i = 0; i < 12; i++) {
+//            exec.submit((Callable<Integer>) cb::await);
+//        }
+//        exec.shutdown();
+        System.out.println(Integer.MAX_VALUE+1);
         System.out.println(Integer.MIN_VALUE);
-        CyclicBarrier cb = new CyclicBarrier(4, () -> System.out.println("Done"));
-        ExecutorService exec = Executors.newFixedThreadPool(4);
-        for (int i = 0; i < 12; i++) {
-            exec.submit((Callable<Integer>) cb::await);
-        }
-        exec.shutdown();
 //        Queue<Integer> q =
 //        System.out.println(Stream.empty().anyMatch(o -> true));
     }

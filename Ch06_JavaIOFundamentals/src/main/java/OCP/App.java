@@ -28,6 +28,7 @@ public class App {
         Path relativize = p1.relativize(p2);
         System.out.println(relativize);
         System.out.println(p1.resolve(relativize).normalize());
+
     }
 }
 

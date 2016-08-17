@@ -1,0 +1,798 @@
+============================================================================================================================================================================
+JAVA CLASS DESIGN
+============================================================================================================================================================================
+SUMMARY
+
+FOUNDATIONS OF OOP
+• Encapsulation: Combining data and the functions operating on it as a single unit.
+• Abstraction: Hiding lower-level details and exposing only the essential and relevant details to the users.
+• Inheritance: Creating hierarchical relationships between related classes.
+• Polymorphism: Interpreting the same message (i.e., method call) with different meanings depending on the context.
+
+CLASS FOUNDATIONS
+• A “class” is a template (or blueprint) and an “object” is an instance of a class.
+• A constructor does not have a return type.
+• You cannot access the private methods of the base class in the derived class.
+• You can access the protected method either from a class in the same package (just like package private or default) as well as from a derived class.
+• You can also access a method with a default access modifier if it is in the same package.
+• You can access public methods of a class from any other class.
+
+OVERLOADING
+• Method overloading: Creating methods with same name but different types and/or numbers of parameters.
+• You can have overloaded constructors. You can call a constructor of the same class in another constructor using the this keyword.
+• Overload resolution is the process by which the compiler looks to resolve a call when overloaded definitions of a method are available.
+
+INHERITANCE
+• Inheritance is also called an “is-a” relationship.
+• Resolving a method call based on the dynamic type of the object is referred to as runtime polymorphism.
+• In overriding, the name of the method, number of arguments, types of arguments, and return type should match exactly.
+• In covariant return types, you can provide the derived class of the return type in the overriding method.
+• You use the super keyword to call base class methods.
+• Overloading is an example of static polymorphism (early binding) while overriding is an example of dynamic polymorphism (late binding).
+• You don’t need to do an explicit cast for doing an upcast. An upcast will always succeed.
+• You need to do an explicit cast for doing a downcast. A downcast may fail. So you can use the instanceof operator to see if a downcast is valid.
+
+JAVA PACKAGES
+• A package is a scoping construct to categorize your classes and to provide namespace management.
+
+============================================================================================================================================================================
+ADVANCED CLASS DESIGN
+============================================================================================================================================================================
+Abstract Classes
+Master the following points about abstract classes and abstract methods, as they might well come up in the OCPJP 7 exam:
+		•	The abstract keyword can be applied to a class or a method but not to a field.
+		•	An abstract class cannot be instantiated. You can, however, create reference variables of an abstract class type.
+		    In fact, you can create objects of the classes derived from an abstract class and make the abstract class references refer to the created derived class objects.
+		•   An abstract class can extend another abstract class or can implement an interface.
+		•	An abstract class can be derived from a concrete class! Although the language allows it, it is not a good idea to do so.
+		•	An abstract class need not declare an abstract method, which means it is not necessary for an abstract class to have methods declared as abstract.
+		    However, if a class has an abstract method, it should be declared as an abstract class.
+		•	A subclass of an abstract class needs to provide implementation of all the abstract methods;
+		    otherwise you need to declare that subclass as an abstract class.
+		•   An abstract class may have methods or fields declared static.
+
+Final Methods and Variables
+Master the following points, as they might well come up in the OCPJP 7 exam:
+        •   The final modifier can be applied to a class, method, or variable.
+		•	All methods of a final class are implicitly final (hence non-overridable).
+		•	A final variable can be assigned only once. If a variable declaration defines a variable as final but did not initialize it, then it is referred to as blank final.
+		    You need to initialize a blank final all the constructors you have defined in the class; otherwise the compiler will complain.
+		•	The keyword final can even be applied to parameters. The value of a final parameter cannot be changed once assigned.
+		    Here, it is important to note that the “value” is implicitly understood for primitive types.
+		    However, the “value” for an object refers to the object reference, not its state.
+		    Therefore, you can change the internal state of the passed final object, but you cannot change the reference itself.
+
+Static Block
+		•	The main() method, where the main execution of the program starts, is always declared static.
+            Why? If it were an instance method, it would be impossible to invoke it. You’d have to start the program to be able to create an instance and then call the method, right?
+		•	You cannot override a static method provided in a base class. Why? Based on the instance type, the method call is resolved with runtime polymorphism.
+		    Since static methods are associated with a class (and not with an instance), you cannot override static methods, and runtime polymorphism is not possible with static methods.
+		•	A static method cannot use the this keyword in its body. Why? Remember that static methods are associated with a class and not an instance.
+		    Only instance methods have an implicit reference associated with them; hence class methods do not have a this reference associated with them.
+		•	A static method cannot use the super keyword in its body. Why? You use the super keyword for invoking the base class method from the overriding method in the derived class.
+		    Since you cannot override static methods, you cannot use the super keyword in its body.
+		•	Since static methods cannot access instance variables (non-static variables), they are most suited for utility functions.
+		    For example, all methods in the java.util.math library are static.
+		•	Calling a static method is considered to be slightly more efficient compared to calling an instance method.
+		    This is because the complier need not pass the implicit this object reference while calling a static method, unlike an instance method.
+
+ ________________________________________________________
+|           |               |           |               |
+|           |     Static    |Non-static |   Anonymus    |
+|___________|_______________|___________|_______________|
+|           | Static nested |           |               |
+| Non-local |     class     |Inner class| (Not posible) |
+|___________|_______________|___________|_______________|
+|           |               |Local inner|   Anonimus    |
+|   Local   | (Not posible) |   class   |   inner class |
+|___________|_______________|___________|_______________|
+
+
+Static Nested Classes (or Interfaces)
+	Here are some notable aspects of static nested classes (and interfaces) that will help you on the OCPJP 7 exam:
+		•	The accessibility (public, protected, etc.) of the static nested class is defined by the outer class.
+		•	The name of the static nested class is expressed withOuterClassName.NestedClassNamesyntax.
+		•	When you define an inner nested class (or interface) inside an interface, the nested class is declared implicitly public and static.
+			This point is easy to remember: any field in an interface is implicitly declared public and static, and static nested classes have this same behavior.
+		•	Static nested classes can be declared abstract or final.
+		•	Static nested classes can extend another class or it can be used as a base class.
+		•	Static nested classes can have static members. (As you’ll see shortly, this statement does not apply to other kinds of nested classes.)
+		•	Static nested classes can access the members of the outer class (only static members, obviously).
+		•	The outer class can also access the members (even private members) of the nested class through an object of nested class.
+			If you don’t declare an instance of the nested class, the outer class cannot access nested class elements directly.
+
+Every inner class is associated with an instance of the outer class. in other words, an inner class is always associated with an enclosing object.
+
+Inner Classes
+	Here are some important rules about inner classes and interfaces that might prove useful in the OCPJP 7 exam:
+		•	The accessibility (public, protected, etc.) of the inner class is defined by the outer class.
+		•	Just like top-level classes, an inner class can extend a class or can implement interfaces.
+		    Similarly, an inner class can be extended by other classes, and an inner interface can be implemented or extended by other classes or interfaces.
+		•	An inner class can be declared final or abstract.
+		•	Inner classes can have inner classes, but you’ll have a hard time reading or understanding
+		    such complex nesting of classes. (Meaning: Avoid them!)
+		•	A local class can have static members provided that they are constant variables.
+        •	You cannot declare static initializers or member interfaces in a local class.
+
+Local Inner Classes
+	The following points about local classes are apt to come up in the OCPJP 7 exam:
+		•	You can create a non-static local class inside a body of code. Interfaces can have local classes in default methods, and you cannot create local interfaces.
+		•	Local classes are accessible only from the body of the code in which the class is defined.
+		    The local classes are completely inaccessible outside the body of the code in which the class is defined.
+		•	You can extend a class or implement interfaces while defining a local class.
+		•	A local class can access all the variables available in the body of the code in which it is defined.
+		    You can pass only final(effectively final) variables to a local inner class.
+        •	A local class can be static or member! It depends from method declaration.
+        •	A local class can have static members provided that they are constant variables.
+        •	You cannot declare static initializers or member interfaces in a local class.
+
+
+Anonymous Classes
+	These points about anonymous classes concern questions that might be asked on the OPCJP 7 exam:
+		•	Anonymous classes are defined in the new expression itself, so you cannot create multiple objects of an anonymous class.
+		•	You cannot explicitly extend a class or explicitly implement interfaces when defining an anonymous class.
+
+
+Enum Data Types
+		•	Enums are implicitly declared public, static, and final, which means you cannot extend them.
+		•	When you define an enumeration, it implicitly inherits from java.lang.Enum. Internally, enumerations are converted to classes.
+		 	Further, enumeration constants are instances of the enumeration class for which the constant is declared as a member.
+		•	You can apply the valueOf() and name() methods to the enum element to return the name of the enum element.
+		•	If you declare an enum within a class, then it is by default static.
+		•	You cannot use the new operator on enum data types, even inside the enum class.
+		•	You can compare two enumerations for equality using == operator.
+		•	When an enumeration constant’s toString() method is invoked, it prints the name of the enumeration constant.
+		•	The static values() method in the Enum class returns an array of the enumeration constants when called on an enumeration type.
+		•	Enumeration constants cannot be cloned. An attempt to do so will result in a CloneNotSupportedException.
+		•	If enumeration constants are from two different enumerations, the equals() method does not return true.
+		•	A constructor in an enum class can only be specified as private.
+		•	Перечесление элеметнов должно быть объявлено перед всеми отсальными элементами.
+
+============================================================================================================================================================================
+OBJECT ORIENTED PRINCIPLES
+============================================================================================================================================================================
+INTERFACES
+Points to RememberHere are some key rules about interfaces that will help you in the OCPJP 7 exam:
+
+•	An interface cannot be instantiated.
+•	An interface can extend another interface. Use the extends (and not the implements) keyword for this.
+•	Interfaces cannot contain instance variables. If you declare a data member in an interface,
+    it should be initialized, and all such data members are implicitly treated as “public static final” members.
+•	An interface can declare static methods, instance methods and default methods.
+•	You cannot declare members as protected or private. Only public access is allowed for members of an interface.
+•	All methods declared in an interface are not implicitly considered to be abstract becouse it can be default.
+    If you want, you can explicitly use the abstract qualifier for the method.
+•   You can only declare abstract and define default and static methods in an interface.
+•   An interface can be declared with empty body (i.e., an interface without any members. Such interfaces are known as tagging interfaces (or marker interfaces).
+    Such interfaces are useful for defining a common parent, so that runtime polymorphism can be used. For example, java.util defines the interface EventListner without a body.
+•	An interface can be declared within another interface or class; such interfaces are known as nested interfaces.
+•	Unlike top-level interfaces that can have only public or default access, a nested interface can be declared as public, protected, or private.
+
+COMPOSITION VS. INHERITANCE
+•	A circle is-a shape.
+•	A circle has-a point.
+•	A laptop is-a computer.
+•	A vector is-a list.
+•   Class inheritance implies an is-a relationship, interface inheritance implies an is-like-a relationship, and composition implies a has-a relationship.
+•   A rule of thumb is to use has-a and is-a phrases for composition and inheritance, respectively. For instance,A computer has-a CPU.
+•   Use inheritance when a subclass specifies a base class, so that you can exploit dynamic polymorphism.
+    In other cases, use composition to get code that is easy to change and loosely coupled. in summary, favor composition over inheritance.
+
+Points to Remember
+Here are some design principles and terminological nuances you should have under your belt when you take the OCPJP 7 exam:
+•	Adhere to the OO design principle of “favor composition over inheritance.” Composition encourages you to follow another useful OO design principle:
+    “program to an interface, not to an implementation.” This second injunction means that the functionality of a class should depend
+    only on the interface of another abstraction and not on the specific implementation details of that abstraction.
+    In other words, implementation of a class should not depend on the internal implementation aspects of the other class.
+    Wherever suitable, composition is the technique of choice.
+•	In OOP, there are many terms related to composition, such as association and aggregation. Association is the most general form of a relationship between two objects,
+    whereas composition and aggregation are special forms of association. In general, the terms aggregation and composition are used interchangeably.
+    Although these two terms are very similar, they do have a subtle difference. In composition, the lifetime of the contained object and the container object is the same,
+    whereas that is not the case with aggregation. For example, a computer object and a CPU object share a composition relationship,
+    while a library object and a book object share an aggregation relationship.
+
+DESIGN PATTERNS
+TYPES OF DESIGN PATTERNS
+Broadly, GoF design patterns can be classified into the following three categories:
+•	Creational patterns offer the flexibility to decide who is responsible for object creation, how the object will be created, which object will be created, and when the creation will take place.
+    In essence, creational patterns provide an abstraction for object instantiation.
+    examples: Singleton, Factory, Abstract Factory, and Prototype.
+•	Structural patterns are focused on how related classes (and objects) are composed together to form a larger structure.
+    examples: Composite, Decorator, Proxy, and Façade.
+•	Behavioral patterns define the communication among the objects and control the flow within the participating objects.
+    examples: Mediator, Chain of responsibility, Observer, State, and Strategy
+
+
+============================================================================================================================================================================
+GENERICS & COLLECTIONS
+============================================================================================================================================================================
+
+WILDCARD GUIDELINES:
+1.  An "in" variable serves up data to the code. Imagine a copy method with two arguments: copy(src, dest). The src argument provides the data to be copied, so it is the "in" parameter.
+2.  An "out" variable holds data for use elsewhere. In the copy example, copy(src, dest), the dest argument accepts data, so it is the "out" parameter.
+    *   An "in" variable is defined with an upper bounded wildcard, using the extends keyword.
+    *   An "out" variable is defined with a lower bounded wildcard, using the super keyword.
+    *   In the case where the "in" variable can be accessed using methods defined in the Object class, use an unbounded wildcard.
+    *   In the case where the code needs to access the variable as both an "in" and an "out" variable, do not use a wildcard.
+
+These guidelines do not apply to a method's return type. Using a wildcard as a return type should be avoided because it forces programmers using the code to deal with wildcards.
+
+A list defined by List<? extends ...> can be informally thought of as read-only,
+    *   You can add null.
+    *   You can invoke clear.
+    *   You can get the iterator and invoke remove.
+    *   You can capture the wildcard and write elements that you've read from the list.
+
+During the type erasure process, the Java compiler erases all type parameters and replaces each with its first bound if the type parameter is bounded, or Object if the type parameter is unbounded.
+
+RESTRICTIONS ON GENERICS
+    *   When creating a Pair object, you cannot substitute a primitive type for the type parameter A<int, char>
+    *   You cannot create an instance of a type parameter new T().
+    *   As a workaround, you can create an object of a type parameter through reflection
+    *   Cannot Declare Static Fields Whose Types are Type Parameters
+    *   Cannot Use Casts or instanceof with Parameterized Types
+    *   Typically, you cannot cast to a parameterized type unless it is parameterized by unbounded wildcards.
+    *   You cannot create arrays of parameterized types.
+    *   Cannot Create, Catch, or Throw Objects of Parameterized Types
+    *   A method cannot catch an instance of a type parameter:
+    *   Cannot Overload a Method Where the Formal Parameter Types of Each Overload Erase to the Same Raw Type
+    *   Avoid mixing raw types with generic types.
+
+GENERICS
+    •   It’s possible to define or declare generic methods in an interface or a class even if the class or the interface itself is not generic.
+    •   A generic class used without type arguments is known as a raw type. Of course, raw  types are not type safe.
+        Java supports raw types so that it is possible to use the generic  type in code that is older than Java 5 (note that generics were introduced in Java 5).
+        The compiler generates a warning when you use raw types in your code. You may use  @SuppressWarnings({"unchecked"}) to suppress the warning associated with raw types.
+    •   List<?> is a supertype of any List type, which means you can pass List<Integer>, or List<String>, or even List<Object> where List<?> is expected.
+    •   Implementation of generics is static in nature, which means that the Java compiler interprets the generics specified in the source code and replaces the generic code with concrete types.
+        This is referred to as type erasure. After compilation, the code looks similar to what a developer would have written with concrete types.
+        Essentially, the use of generics offers two advantages: first, it introduces an abstraction, which enables you to write generic implementation;
+        second, it allows you to write generic implementation with type safety.
+    •   There are many limitations of generic types due to type erasure. A few important ones are as follows:
+
+        •   You cannot instantiate a generic type using new operator. For example, assuming mem is a field, the following statement will result in a compiler error:
+              T mem = new T(); // wrong usage - compiler error
+        •   You cannot instantiate an array of a generic type. For example, assuming mem is a field, the following statement will result in a compiler error:
+              T[] amem = new T[100]; // wrong usage - compiler error
+        •   You can declare non-static fields of type T , but not of static fields of type T . For example,
+              class X<T> {
+                  T instanceMem; // okay
+                  static T statMem; // wrong usage - compiler error
+              }
+        •   It is not possible to have generic exception classes; as a result, the following will not compile:
+              class GenericException<T> extends Throwable { } // wrong usage - compiler error
+        •   You cannot instantiate a generic type with primitive types—in other words, List<int> cannot be instantiated. However, you can use boxed primitive types.
+        •   The meaning of "extends" and "super" changes in the context of generics. For instance, when you say <? extends X>, you refer to all types that extend X and the type X itself.
+
+COLLECTIONS
+
+COLLECTION
+        boolean	add(E e)
+        boolean	addAll(Collection<? extends E> c)
+        void	clear()
+        boolean	contains(Object o)
+        boolean	containsAll(Collection<?> c)
+        boolean	isEmpty()
+        boolean	remove(Object o)
+        boolean	removeAll(Collection<?> c)
+        boolean	retainAll(Collection<?> c) Retains only the elements in this collection that are contained in the specified collection (optional operation).
+        int	size()
+        Object[]	toArray()
+        <T> T[]	toArray(T[] a)
+default boolean	removeIf(Predicate<? super E> filter)
+default Stream<E>	parallelStream()
+default Spliterator<E>	spliterator()
+default Stream<E>	stream()
+
+LIST
+        void	add(int index, E element)
+        boolean	addAll(int index, Collection<? extends E> c)
+        E	get(int index)
+        int	indexOf(Object o)
+        int	lastIndexOf(Object o)
+        ListIterator<E>	listIterator()
+        ListIterator<E>	listIterator(int index) Returns a list iterator over the elements in this list (in proper sequence), starting at the specified position in the list.
+        E	remove(int index)
+        E	set(int index, E element)
+        List<E>	subList(int fromIndex, int toIndex) Returns a view of the portion of this list between the specified fromIndex, inclusive, and toIndex, exclusive.
+default void	replaceAll(UnaryOperator<E> operator) Replaces each element of this list with the result of applying the operator to that element.
+default void	sort(Comparator<? super E> c)
+
+SORTED SET
+        E	            first()                 NoSuchElementException
+        E	            last()                  NoSuchElementException
+        SortedSet<E>	headSet(E toElement)
+        SortedSet<E>	tailSet(E fromElement)
+        SortedSet<E>	subSet(E fromElement, E toElement)              Returns a view of the portion of this set whose elements range from fromElement, inclusive, to toElement, exclusive.
+
+NAVIGABLE SET
+        E	            higher(E e) x > e  or null
+        E	            lower(E e) x < e or null
+        E	            ceiling(E e) x >= e  or null
+        E	            floor(E e) x <= e or null
+        NavigableSet<E>	headSet(E toElement, boolean inclusive)
+        E	            pollFirst()                                     Retrieves and removes the first (lowest) element, or returns null if this set is empty.
+        E	            pollLast()
+        NavigableSet<E>	subSet(E fromElement, boolean fromInclusive, E toElement, boolean toInclusive)
+        NavigableSet<E>	tailSet(E fromElement, boolean inclusive)
+        NavigableSet<E>	descendingSet()
+        Iterator<E>	    descendingIterator()
+
+QUEUE
+            THROWS EXCEPTION	RETURNS SPECIAL VALUE
+INSERT	    add(e)	            offer(e)
+REMOVE	    remove()	        poll()
+EXAMINE	    element()	        peek()
+
+DEQUE
+            FIRST ELEMENT (HEAD)	            LAST ELEMENT (TAIL)
+            THROWS EXCEPTION	SPECIAL VALUE	THROWS EXCEPTION	SPECIAL VALUE
+INSERT	    addFirst(e)	        offerFirst(e)	addLast(e)	        offerLast(e)
+REMOVE	    removeFirst()	    pollFirst()	    removeLast()	    pollLast()
+EXAMINE	    getFirst()	        peekFirst()	    getLast()	        peekLast()
+
+Comparison of Stack and Deque methods
+STACK METHOD	EQUIVALENT DEQUE METHOD
+push(e)	        addFirst(e)
+pop()	        removeFirst()
+peek()	        peekFirst()
+
+MAP
+default     V	    compute(K key, BiFunction<? super K,? super V,? extends V> remappingFunction) Находит запись с ключом K если ключа нет создает,
+                        выполняет бифункцию и передает в нее ключ и старое значение, новое значение присваевается в мапу и возвращает это же значение, если бифункция вернула null, ключ удаляется
+default     V	    computeIfAbsent(K key, Function<? super K,? extends V> mappingFunction) If the specified key is not already associated with a value (or is mapped to null),
+                        attempts to compute its value using the given mapping function and enters it into this map unless null. возвращает предидущее значение, если оно было или новое, при возврате null ничего не делает
+default     V	    computeIfPresent(K key, BiFunction<? super K,? super V,? extends V> remappingFunction) If the value for the specified key is present and non-null,
+                        attempts to compute a new mapping given the key and its current mapped value. если ключа нет или значение null возвращает null и ничего не меняет
+default     V	    merge(K key, V value, BiFunction<? super V,? super V,? extends V> remappingFunction) If the specified key is not already associated with a value or is
+                        associated with null, associates it with the given non-null value. Если бифункция вернет null ключ удаляется
+
+default     void	forEach(BiConsumer<? super K,? super V> action)
+default     V	    getOrDefault(Object key, V defaultValue) Returns the value to which the specified key is mapped, or defaultValue if this map contains no mapping for the key.
+            void	putAll(Map<? extends K,? extends V> m) Copies all of the mappings from the specified map to this map (optional operation).
+default     V	    putIfAbsent(K key, V value) If the specified key is not already associated with a value (or is mapped to null) associates it with the given value and returns null, else returns the current value.
+default     boolean	remove(Object key, Object value) Removes the entry for the specified key only if it is currently mapped to the specified value.
+default     V	    replace(K key, V value) Replaces the entry for the specified key only if it is currently mapped to some value.
+default     boolean	replace(K key, V oldValue, V newValue) Replaces the entry for the specified key only if currently mapped to the specified value.
+default     void	replaceAll(BiFunction<? super K,? super V,? extends V> function) Replaces each entry's value with the result of invoking the given function on that entry until all entries have been processed or the function throws an exception.
+
+*   Only not sorted collections allows nulls
+
+COMPARING
+*   Remember that numbers sort before letters and uppercase letters sort before lowercase letters.
+
+*   The number zero is returned when the current object is equal to the argument to compareTo().
+*   A number less than zero is returned when the current object is smaller than the argument to compareTo().
+*   A number greater than zero is returned when the current object is larger than the argument to compareTo().
+
+*   Be consistent with equals if, and only if, x.equals(y) is true whenever x.compareTo(y) equals 0
+
+
+================STREAMS==================
+
+METHOD REFERENCE
+There are four formats for method references:
+*	Static methods
+*	Instance methods on a particular instance
+*	Instance methods on an instance to be determined at runtime
+*	Constructors
+
+Common functional interfaces
+Functional Interfaces   #Parameters     Return Type     Single Abstract Method
+Supplier<T>             0               T               get
+Consumer<T>             1 (T)           void            accept
+BiConsumer<T, U>        2 (T, U)        void            accept
+Predicate<T>            1 (T)           boolean         test
+BiPredicate<T, U>       2 (T, U)        boolean         test
+Function<T, R>          1 (T)           R               apply
+BiFunction<T, U, R>     2 (T, U)        R               apply
+UnaryOperator<T>        1 (T)           T               apply
+BinaryOperator<T>       2 (T, T)        T               apply
+
+Optional.empty().get() // Throws java.util.NoSuchElementException пустой Optional бросается исключениями
+Optional.of(null) java.lang.NullPointerException instead you should use Optional.ofNullable(null)
+
+OPTIONAL METHODS
+Method                  When Optional Is Empty                          When Optional Contains a Value
+get()                   Throws an exception                             Returns value
+ifPresent(Consumer c)   Does nothing                                    Calls Consumer c with value
+isPresent()             Returns false                                   Returns true
+orElse(T other)         Returns other parameter                         Returns value
+orElseGet(Supplier s)   Returns result of calling  Supplier             Returns value
+orElseThrow(Supplier s) Throws exception created by calling Supplier    Returns value
+
+TERMINAL STREAM OPERATIONS
+Method                              What Happens for Infinite Streams   Return Value    Reduction
+allMatch()/anyMatch()/noneMatch()   Sometimes terminates                boolean         No
+collect()                           Does not terminate                  Varies          Yes
+count()                             Does not terminate                  long            Yes
+findAny()/findFirst()               Terminates                          Optional<T>     No
+forEach()                           Does not terminate                  void            No
+min()/max()                         Does not terminate                  Optional<T>     Yes
+reduce()                            Does not terminate                  Varies          Yes
+
+============================================================================================================================================================================
+JAVA TIME
+============================================================================================================================================================================
+All classes, interfaces, and enums for the Date-Time API are in the java.time package and four of its subpackages:
+    • java.time contains frequently used classes. LocalDate, LocalTime, LocalDateTime, ZonedDateTime, Period, Duration, and Instant
+        classes are in this package. Classes in this package are based on ISO standards.
+    • java.time.chrono contains classes supporting non-ISO calendar systems, for example,  Hijrah calendar, ThaiBuddhist calendar, etc.
+    • java.time.format contains classes for formatting and parsing dates and times.
+    • java.time.temporal contains classes for accessing components of dates and times. It also contains classes that acts like date-time adjusters.
+    • java.time.zone contains classes supporting time zones and zone rules.
+
+The ofXXX() Methods создают экземпляр класса на основании введеных данных
+The from() Methods создает экземпляр на основании другого экземпляра
+The withXXX() Methods создает копию с установлеными данными
+The getXXX( ) Methods Просто геттеры
+The toXXX( ) Methods методы для конвертации даты в что-то другое
+The atXXX( ) Methods позволяют построить новые дату время на основании уже существующего + определенные уточнения
+The plusXXX( ) and minusXXX( ) Methods добавляется удаляет к копии даты
+
+
+A time zone has a unique textual ID, which can be specified in three formats:
+    • In this format, the zone ID is specified in terms of zone offset, which can be “Z” , “+hh:mm:ss” , or “-hh:mm:ss” , for example, “+06:00” .
+    • In this format, the zone ID is prefixed with “UTC” , “GMT” , or “UT” and followed by a zone offset, for example, “UTC+06:00” .
+    • In this format, the zone ID is specified by using a region, for example, “ America/Chicago” .
+
+ZoneId = ZoneOffset + ZoneRules
+LocalDateTime = LocalDate + LocalTime
+OffsetTime = LocalTime + ZoneOffset
+OffsetDateTime = LocalDateTime + ZoneOffset
+ZonedDateTime = LocalDateTime + ZoneId
+Instant is a specific moment in time in the GMT time zone
+
+• amount as the gap. For example, if you want to construct a zoned datetime for the time zone America/Chicago for March 10, 2013 at 02:30:00,
+    you will get March 10, 2013 at 3:30:00. The time is moved forward by an hour, which is equal to the gap of an hour.
+    If the local datetime falls in the middle of the overlap, the time is valid. In the gap, two
+• zone offsets exist: one the earlier offset that existed before moving the clock backward and one the later offset that exists after moving
+    the clock backward. By default, for the time in the gap, the zone offset that existed earlier is used.
+    The ZonedDateTime class contains withEarlierOffsetAtOverlap() and withLaterOffsetAtOverlap(), which let you select the desired zone offset
+    if the time falls in the overlap.
+
+* Period not work with time (P1Y1M1D)
+* Duration begins with "PT" (PT24H7M6.000000001S) & Period begins with "P" P1Y2M3D
+* You cannot convert a LocalDateTime to an Instant
+* You cannot add Weak or month to an Instant
+
+* Period is for day, month, and year.
+* Duration is for hour, minute, seconds with nanos
+* GMT-5 = Z -(-5)
+
+============================================================================================================================================================================
+LOCALIZATION
+============================================================================================================================================================================
+There are four different kinds of locale codes in this output:
+• Just one code, as in the last entry shown above: hu for Hungarian.
+• Two codes separated by underscore, as in the first locale shown, ms_MY, where ms stands for Malaysia and MY stands for Malay.
+• Three codes separated by underscores, as in no_NO_NY where no stands for Norway, NO for Norwegian, and NY for Nynorsk.
+• Two or three initial codes separated by underscores and the final one by # or _#, as in th_TH_TH_#u-nu-thai, which we’ll discuss now.
+•  Here is how these locale names are encoded:language + "_" + country + "_" + (variant + "_#" | "#") + script + "-" + extensionsFor the locale
+    code of th_TH_TH_#u-nu-thai,
+• The language code is th (Thai) and it is always written in lowercase.
+• The country code is TH (Thailand) and it is always written in uppercase.
+• The variant name is TH; here it repeats the country code, but it could be any string.
+• The script name is an empty string here; if given, it will be a four-letter string with the first letter in uppercase and the rest in lowercase (e.g., Latn).
+• The extension follows the # or _# character; it is u-nu-thai in this example.
+
+packagequalifier.bundlename + "_" + language + "_" + country + "_" + (variant + "_#" | "#") + script + "-" + extensionsHere is the description of the elements in this fully qualified name:
+• packagequalifier: The name of the package (or the subpackages) in which the resource bundle is provided.
+• bundlename: The name of the resource bundle that you’ll use in the program to refer and  load it.
+• language: A two-letter abbreviation typically given in lowercase for the locale’s language  (in rare cases, it could be three letters as well).
+• country: A two letter abbreviation typically given in uppercase for the locale’s country (in rare cases, it could be three letters as well).
+• variant: An arbitrary list of variants (in lowercase or uppercase) to differentiate locales when you need more than one locale for a language and country combination.
+
+* разделители для properties files "=" ":" " "
+* if line begins with # or !, it is a comment.
+
+Picking a resource bundle for French in France with default locale US English
+(java->Properties)(locale->default->noLocale)
+Step    Looks for File          Reason
+1       Zoo_fr_FR.java          The requested locale
+2       Zoo_fr_FR.properties    The requested locale
+3       Zoo_fr.java             The language we requested with no country
+4       Zoo_fr.properties       The language we requested with no country
+5       Zoo_en_US.java          The default locale
+6       Zoo_en_US.properties    The default locale
+7       Zoo_en.java             The default language with no country
+8       Zoo_en.properties       The default language with no country
+9       Zoo.java                No locale at all—the default bundle
+10      Zoo.properties          No locale at all—the default bundle
+11      If still not found, throw MissingResourceException.
+
+* The parse method parses only the beginning of a string. After it reaches a character that cannot be parsed, the parsing stops and the value is returned.
+* Определение источкника для ключа:
+    1 Zoo_fr_FR.properties
+    2 Zoo_fr.properties
+    3 Zoo.properties
+
+============================================================================================================================================================================
+EXCEPTIONS & ASSERTIONS
+============================================================================================================================================================================
+A try-with-resources statement can have catch and finally blocks just like an ordinary try statement.
+In a try-with-resources statement, any catch or finally block is run after the resources declared have been closed.
+
+f an exception is thrown from the try block and one or more exceptions are thrown from the try-with-resources statement,
+then those exceptions thrown from the try-with-resources statement are suppressed, and the exception thrown by the block is the one that is thrown by the writeToFileZipFileContents method.
+You can retrieve these suppressed exceptions by calling the Throwable.getSuppressed method from the exception thrown by the try block.
+
+REASONS TO CREATE OWN EXCEPTION:
+    *   Do you need an exception type that isn't represented by those in the Java platform?
+    *   Would it help users if they could differentiate your exceptions from those thrown by classes written by other vendors?
+    *   Does your code throw more than one related exception?
+    *   If you use someone else's exceptions, will users have access to those exceptions? A similar question is, should your package be independent and self-contained?
+
+If a client can reasonably be expected to recover from an exception, make it a checked exception. If a client cannot do anything to recover from the exception, make it an unchecked exception.
+
+* try with resources is not required catch or finally statement
+
+There are two other rules about the catch clauses:
+    *   Java checks the catch blocks in the order in which they appear. It is illegal to declare a subclass exception in a catch block
+        that is lower down in the list than a superclass exception because it will be unreachable code.
+    *   Java will not allow you to declare a catch block for a checked exception type that cannot potentially be thrown by the try clause body.
+        This is again to avoid unreachable code.
+
+* Remember to pay attention that  throw  and  throws  aren’t reversed in the code that you see on the exam.
+* multi-catch is Effectively final
+* The resources created in the try clause are only in scope within the try block.
+* IOException, and SQLException are common checked exceptions.
+* The multiple exception types are separated by a pipe (|). They are not allowed to have a subclass/superclass relationship.
+
+ASSERTIONS
+* An assertion throws an  AssertionError  if it is false
+
+The three possible outcomes of an  assert  statement are as follows:
+    *   If assertions are disabled, Java skips the assertion and goes on in the code.
+    *   If assertions are enabled and the  boolean  expression is  true, then our assertion has been validated and nothing happens.
+        The program continues to execute in its normal manner.
+    *   If assertions are enabled and the  boolean  expression is  false, then our assertion is invalid and a  java.lang.AssertionError  is thrown.
+* Assertions should not change the state of any variables
+* java -ea Rectangle    enable assertions for all project
+* java -ea:com.wiley.demos... my.programs.Main
+* java -ea:com.wiley.demos... -da:com.wiley.demos.TestColors my.programs.Main
+* можно писать сколькоугодно -ea в одной строке
+
+
+============================================================================================================================================================================
+JAVA IO
+============================================================================================================================================================================
+* In order to serialize objects using the  java.io  API, the class they belong to must implement the  java.io.Serializable  interface.
+* Note that the requirement for properly marking an object as  Serializable  may involve nested objects.
+* A process attempting to serialize an object will throw a  NotSerializableException
+* static & transient class members will also be ignored during the serialization and deserialization process.
+* readObject() returns Object & throws the checked exception, ClassNotFoundException
+* to find end of input stream use catch EOFException
+* don't use is.available()
+* to deserialize Object In fact, Java calls the first no-arg constructor for the first nonserializable parent class,
+  skipping the constructors of any serialized class in between.
+* For the exam, make sure that you understand that the constructor and any default initializations are ignored during the deserialization process.
+* For the exam, you should be familiar with the  print(),  println(),  format(), and  printf()  methods. Unlike the underlying  write()  method, which throws a checked IOException
+* format() does not automatically insert a line break after the text.
+* java.io.Console is now the recommended technique for interacting with and displaying information to the user in a text-based environment.
+* Unlike the readLine() method, though, the readPassword() method returns an array of characters instead of a String.
+* Not all java.io input stream classes support the mark() and reset() operations.
+
+
+============================================================================================================================================================================
+JAVA NIO.2
+============================================================================================================================================================================
+* Paths.get("/") указывает на корень текущего диска
+
+* If a path starts with a forward slash, it is an absolute path, such as /bird/parrot.
+* If a path starts with a drive letter, it is an absolute path, such as C:\bird\emu.
+* Otherwise, it is a relative path, such as ..\eagle.
+* URIs must reference absolute paths at runtime.
+* URI(String) does throw a checked URISyntaxException
+* Path.toRealPath() throws IOException; NoSuchFileException if file not exists
+
+COMMON OPTIONAL ARGUMENTS
+NOFOLLOW_LINKS      Test file existing          If provided, symbolic links when encountered will not be traversed.
+                    Read file data              Useful for performing operations on symbolic links themselves rather than their target.
+                    Copy file
+                    Move file
+
+FOLLOW_LINKS        Traverse a directory tree   If provided, symbolic links when encountered will be traversed.
+
+COPY_ATTRIBUTES     Copy file                   If provided, all metadata about a file will be copied with it.
+
+REPLACE_EXISTING    Copy file                   If provided and the target file exists, it will be replaced;
+                    Move file                   otherwise, if it is not provided, an exception will be thrown if the file already exists.
+
+ATOMIC_MOVE         Move file                   The operation is performed in an atomic manner within the file system,
+                                                ensuring that any process using the file sees only a complete record.
+                                                Method using it may throw an exception if the feature is unsupported by the file system.
+
+* Path.getName(0) - начинается с нуля, не учитывает корень
+* Path.iterator<Path>() Создает новые относительные пути, если их преобразовать в абсолютные, будут добавлены к текущему каталогу
+* Path.isAbsolute(), returns true if the path the object references is absolute
+* Paths.get("too").equals(Paths.get("foo/../too")) = false; true only if ivoke .normalize() method on the second path
+* Path.subpath(0, 3) возвращает path без корня
+
+FILE SYSTEM SYMBOLS
+.   A reference to the current directory
+..  A reference to the parent of the current directory
+
+* Path.relativize(path) возвращает path с помощью которого можно открыть переданую папку из текущей
+    Paths.get("foo/bar/1.txt").relativize(Paths.get("foo/2.txt")) -> ..\..\2.txt
+    IllegalArgumentException: if 'other' has different root or mix the absolute and relative paths
+* path.resolve(path2) joining paths. if path2.isAbsolute() then return path2
+* path.resolveSibling(path2) replace fileName() to the path2, if path2 isAbsolute() then return path2
+
+* most of the options within the Files class will throw an exception if the file to which the Path refers does not exist.
+* Files.copy() не копирует рекурсивно, по умолчанию не заменяет существующий файл и не копирует атрибуты. Бросает Ексепшн если папка не существует
+  Также есть перегруженые копии для работы с I/O Streams
+* Files.move() перемещает/переименовует файл. копирует атрибуты по умолчанию бросает исключение если файл существует, и не применяет atomic move
+  бросит исключение если предвигается полная директория между дисками
+* Files.delete() бросит истключение если директория не пустая или отсутвтвует
+* Files.readAllLines() method reads all of the lines of a text file and returns the results as an ordered List of String values.
+* Files.readAttributes(appFile, BasicFileAttributes.class) - returns all available attributes
+* view.setTimes(lastModifiedTime,null,null) if null then don't modify the time(FileTime)
+* DFS - Поиск в глубину через стек BFS - поиск в ширину через очередь(как тотал коммандере)
+* Files.walk(Path, FileVisitOption) - travers folder for DFS(Max int)
+* FOLLOW_LINKS в Files.walk() может привести к зависанию
+* Stream<Path> Files.find(Path, int, BiPredicate<Path, BasicFileAttributes>)
+* Stream<Path> Files.list(rootPath) - returns stream of directory content isRegularFile() throws NotDirectoryException
+* Stream<String> Files.lines(path) - read lines of file content and returns Stream<String>
+* For the exam, you should be familiar with both readAllLines() and lines() and with which one returns a List and which one returns a Stream.
+
+============================================================================================================================================================================
+CONCURRENCY
+============================================================================================================================================================================
+* Do not forget to start thread
+* Можно добавлять одну и ту же лямду в очередь ExecutorService
+* Do not forget to shut down the Executor
+* invokeAll - wait for all
+* invokeAny - returns the faster first task result
+EXECUTOR SERVICE
+void                    execute(Runnable command)   Executes a Runnable task at some point in the future
+Future<?>               submit(Runnable task)       Executes a Runnable task at some point in the future and returns a Future representing the task
+<T> Future<T>           submit(Callable<T> task)    Executes a Callable task at some point in the future and returns a Future representing the pending results of the task
+<T> List<Future<T>>     invokeAll( Collection<? extends Callable<T>> tasks) throws InterruptedException Executes the given tasks, synchronously
+                                                    returning the results of all tasks as a Collection of Future objects, in the same order they
+                                                    were in the original collection
+<T> T                   invokeAny( Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException Executes the given tasks,
+                                                    synchronously returning the result of one of finished tasks, cancelling any unfinished tasks
+
+FUTURE
+boolean     isDone()                            Returns true if the task was completed, threw an exception, or was cancelled.
+boolean     isCancelled()                       Returns true if the task was cancelled before it completely normally.
+boolean     cancel()                            Attempts to cancel execution of the task.
+V           get()                               Retrieves the result of a task, waiting endlessly if it is not yet available.
+V           get(long timeout, TimeUnit unit)    Retrieves the result of a task, waiting the specified amount of time. If the result is
+                                                not ready by the time the timeout is reached, a checked TimeoutException will be thrown.
+
+* service.submit(() -> {Thread.sleep(1000); return null;}); //COMPILE because Callable throws Exception
+* service.submit(() -> {Thread.sleep(1000);});              //NOT COMPILE Runnable don't throws anything
+
+schedule(Callable<V> callable, long delay, TimeUnit unit)                               Creates and executes a  Callable  task after the given delay
+schedule(Runnable command, long delay, TimeUnit unit)                                   Creates and executes a  Runnable  task after the given delay
+scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)    Creates and executes a  Runnable  task after the given initial delay,
+                                                                                        creating a new task every period value that passes.
+scheduleAtFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit)    Creates and executes a  Runnable  task after the given initial delay
+                                                                                        and subsequently with the given delay between the termination
+                                                                                        of one execution and the com-mencement of the next
+
+* if you'll try to modify regular collection in iterator you'll get ConcurrentModificationException even getSynchronizedList
+
+BLOCKINGQUEUE
+void put(E e) throws InterruptedException;
+E take() throws InterruptedException;
+
+FORK JOIN FRAMEWORK
+* ForkJoinTask<T> - main abstract class;
+* RecursiveAction - like Runnable do not return value invokes with invoke(ForkJoinTask<?>) method forking with static invokeAll(ForkJoinTask, ForkJoinTask)
+* RecutsiveTask<T> - like Callable return value T invokes with T invoke(ForkJoinTask<?>), forking in new thread with task.fork(),
+                     waiting for result task.join() + and task.compute();
+* Be careful with invocation order (fork->compute->join) = multithread (fork->join->compute) = singlethread!!!
+
+TIPS FOR REVIEWING A FORK/JOIN CLASS
+	*	The class should extend RecursiveAction or RecursiveTask.
+	*	If the class extends RecursiveAction, then it should override a protected compute() method that takes no arguments and returns void.
+	*	If the class extends RecursiveTask, then it should override a protected compute() method that takes no arguments and
+	    returns a generic type listed in the class definition.
+	*	The invokeAll() method takes two instances of the fork/join class and does not return a result.
+	*	The fork() method causes a new task to be submitted to the pool and is similar to the thread executor submit() method.
+	*	The join() method is called after the fork() method and causes the current thread to wait for the results of a subtask.
+	*	Unlike fork(), calling compute() within a compute() method causes the task to wait for the results of the subtask.
+	*	The fork() method should be called before the current thread performs a compute() operation, with join() called to read the results afterward.
+	*	Since compute() takes no arguments, the constructor of the class is often used to pass instructions to the task.
+
+HERE ARE THREE TYPES OF LIVENESS ISSUES
+    *   Deadlock occurs when two or more threads are blocked forever, each waiting on the other.
+    *   Starvation occurs when a single thread is perpetually denied access to a shared resource or lock.
+    *   Livelock occurs when two or more threads are conceptually blocked forever, although they are each still active and trying to complete their task.
+    *   Race condition is an undesirable result that occurs when two tasks, which should be completed sequentially, are completed at the same time.
+
+============================================================================================================================================================================
+JDBC
+============================================================================================================================================================================
+Types of drivers:
+
+    • JDBC-ODBC bridge drivers (type 1): You may already know about ODBC (Open Database Connectivity), which is a portable middleware API written in C for accessing databases.
+        The first category belongs to the drivers that are designed to work with ODBC drivers; they play the role of a bridge from a Java application to an ODBC driver .
+        Such drivers are useful especially in cases when the ODBC driver for the DBMS is available. The JDBC driver calls the ODBC native calls using Java Native Interface (JNI).
+        The drivers from this category might not be suitable for applets since often client-side software and an ODBC driver are required for this bridge to work properly.
+    • Native-API driver (type 2): The database drivers belonging to this category use client-side libraries of a specific database and convert JDBC calls to native database calls.
+        Mostly, these drivers are not written entirely in Java, and hence are not portable. These drivers are not suitable for Java applets since they require proprietary
+        client software installed on client machines. However, these drivers are typically faster than type 1 drivers.
+    • The network-protocol driver (type 3): This type of database driver implements a three-tier  architecture where JDBC calls are converted to native database calls via a middleware implementation.
+        In other words, the driver calls database middleware and the middleware actually converts JDBC calls to database specific native calls.
+        Typically, the driver is implemented in Java, which does not require any other client implementation at client side; hence they could be employed in Internet-based applications.
+        However, these drivers are typically slower than type 2 drivers.
+    • Native-protocol driver (type 4): Such drivers are implemented in Java completely, so they are platform independent.
+        Drivers belonging to this category directly make database specific calls over the network without any support of additional client side libraries.
+        These drivers are the most flexible database drivers among all other database types. These drivers perform better than other driver types. However,
+        these drivers may be lacking in covering the security aspects of database access.
+
+JDBC INTERFACES
+    * Driver: Knows how to get a connection to the database
+    * Connection: Knows how to communicate with the database
+    * Statement: Knows how to run the SQL
+    * ResultSet: Knows what was returned by a SELECT query
+
+* conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+ * TYPE_FORWARD_ONLY - move forward for the one time
+ * TYPE_SCROLL_ INSENSITIVE allow you to go through the data in any order do not depend from data changes
+ * TYPE_SCROLL_SENSITIVE allow you to go through the data in any order update data if it will change
+
+ * CONCUR_READ_ONLY - you can’t update the result set
+ * CONCUR_UPDATABLE - lets you modify the database through the  ResultSet
+
+* int stmt.executeUpdate()
+* ResultSet stmt.executeQuery()
+* boolean stmt.execute()
+* Always use an if statement or while loop when calling rs.next().
+* Column indexes begin with 1.
+
+RESULT SET GET METHODS:
+METHOD NAME     RETURN TYPE         EXAMPLE DATABASE TYPE
+getBoolean      boolean             BOOLEAN
+getDate         java.sql.Date       DATE
+getDouble       double              DOUBLE
+getInt          int                 INTEGER
+getLong         long                BIGINT
+getObject       Object              Any type
+getString       String              CHAR, VARCHAR
+getTime         java.sql.Time       TIME
+getTimeStamp    java.sql.TimeStamp  TIMESTAMP
+
+* Make sure that the type is scrollable whenever you see methods other than next().
+* absolute() - takes the row number to which you want to move the cursor as a parameter. 0 - before first; 1 - to first; -1 - to last
+* relative() - moves forward or backward the requested number of rows, returns a boolean if the cursor is pointing to a row with data.
+
+Closing the resources:
+ * Closing a Connection also closes the Statement and ResultSet.
+ * Closing a Statement also closes the ResultSet.
+ * JDBC automatically closes a ResultSet when you run another SQL statement from the same Statement.
+
+Points to Remember:
+
+    • The boolean absolute(int) method in ResultSet moves the cursor to the passed row number in that ResultSet object.
+        If the row number is positive, it moves to that position from the beginning of the ResultSet object;
+        if  the row number is negative, it moves to that position from the end of the ResultSet object.
+        Assume that there are 10 entries in the ResultSet object. Calling absolute(3) will move the cursor to the third row. Calling absolute(−3) will move the cursor to  the 10–3, 7-th row.
+        If you give out of range values, the cursor will move to either beginning or end.
+    • In a ResultSet object, calling absolute(1) is equivalent to calling first(), and calling absolute(−1) is equivalent to calling last().
+
+Points to Remember:
+    • You can use column name or column index with ResultSet methods. The index you use is the index of the ResultSet object, not the column number in the database table.
+    • A Statement object closes the current ResultSet object if
+        a) the Statement object is closed,
+        b) is re-executed, or
+        c) is made to retrieve the next set of result.
+        That means it is not necessary to call close() explicitly with ResultSet object; however, it is good practice to call close() once you are done with the object.
+    • You may use the column name of a ResultSet object without worrying about the case:  getXXX() methods accept case insensitive column names to retrieve the associated value.
+    • Think of a case when you have two columns in a ResultSet object with the same name. How you can retrieve the associated values using the column name?
+        If you use a column name to retrieve the value, it will always point to the first column that matches with the given name.
+        Hence, you have to use column index in this case to retrieve values associated with both columns.
+    • You might remember that the PreparedStatement interface inherits from Statement. However, PreparedStatement overrides all flavors of execute() methods.
+        For instance, the behavior of executeUpdate() might be different from its base method.
+    • It is your responsibility to issue a correct SQL command; a JDBC Statement will not check for its correctness.
+    For example, if there is a syntax error in the SQL command string, then you will not get a compiler error. Rather, you’ll get a MySQLSyntaxErrorException at runtime.
+    • You may call the appropriate get() method immediately after inserting a row using the insertRow() method. However, the values of the row are undefined.
+    • You may cancel any update you made using the method cancelRowUpdates(). However, you must call this method before calling the method updateRow().
+    In all other cases, it has no impact on the row.
+    • While connecting to the database, you need to specify the correct username and password. If the provided username or password is not correct,
+        you will get a SQLException.
+    • JDBC 4.1 introduces the capability to use try-with-resources statement to close resources (Connection, ResultSet, and Statement) automatically.

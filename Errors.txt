@@ -1,11 +1,17 @@
 ADVANCED CLASS DESIGN
+* Overriding позволяет возвращать ковариантные типы, но это не отностится к примитивам
+* When a programmer does not define ANY constructor, the compiler inserts one automatically, the access modifier of which is same as that of the class.
+* In case of primitives, the return type of the overriding method must be the same as that of the overridden method.
+* B class is inner class of A если вызвать в методе внутреннего класса B.this.x = this.x а A.this.x = A.this.x
 * switch по енумам должен содержать только имена перечислений, без класса
+* (String) new Object();
 * Могут попытаться наебать с внутренними классами в вопросе по другому пункту
 * перепутал if и switch
 * switch требует break чтоб не проваливаться дальше
-* local inner classes not allowed to have static members
+* local inner classes not allowed to have static members кроме static final variables
 * нельзя делать static import по private классам, даже в том же классе
-* (String) new Object();
+* static void test(ColoredPoint p, Point q) & static void test(Point p, ColoredPoint q) test(cp, cp); is ambiguous
+
 
 DESIGN PATTERNS AND PRINCIPLES
 * A implements I - это тоже A is-a I
@@ -13,6 +19,10 @@ DESIGN PATTERNS AND PRINCIPLES
 * Singleton can manage a reusable cache of objects
 
 GENERICS & COLLECTIONS
+* Map.foreEach(BiConsumer)
+* Так можно делать и дженерик будет можно модифицироватьCollection<  E  > returnValue = new ArrayList< E >();
+* Map.computeIfAbsent(T, Function<T, V>) V
+* Iterator of HashMap - Невозможно определить порядок
 * Collection boolean	contains(Object o)
 ** raw generic можно передавать или присваивать куда угодно
 * List<? super RuntimeException> l = new ArrayList<Throwable>() создавать с любым родителем, а ложить только потомков
@@ -35,8 +45,14 @@ GENERICS & COLLECTIONS
 * foo(T obj) и foo(Object o) -> ambiguous method
 
 STREAMS
+* findAny() может вернуть любое значение, хоть паралельно, хоть нет
+* String s = Arrays.asList("a", "b", "c").parallelStream().reduce("_", String::concat) когда редуцирование выполняется паралельно, может получится такая фигня "_a_b_c"
+* Collectors.counting() returns Long
 * () -> exec.submit() не является Consumer<T>
+** forEach method expects a Consumer as an argument. Not a Function.
 * Collectors.groupingBy(Function<T, R> f) нельзя передать переменную Predicate типа, а лямбду предиката можно
+* ()->{return null} incorrect lambda, becouse missing semicolon(;)
+* в reduce() все параметры имеют один тип
 * allMatch, noneMatch - Значение по умолчанию true, anyMatch - false
 ** Lambda can't redefine the local variable & parameter
 * в partitioningBy(Predicate, Collector) Вторым параметром передается коллектор
@@ -48,26 +64,24 @@ STREAMS
 ** Stream.sum() is incorrect because IntStream.sum()
 ** IntStream.average() return optionalDouble
 * Stream.iterate(1, x->x++) = 111111111..... инициализирующее значение передается в функцию
-* forEach method expects a Consumer as an argument. Not a Function.
 
 JAVA TIME
+* Note that if the second date is before the first date, a minus sign is included in the output.
 * Instant do not contains ZoneId(always in GMT)
 * Instant можно создать только из ZonedDateTime (тот у кого есть зона)
 * Перевод вперед 1:59 -> 3:00
 * Перевод назад 1:59 -> 1:00
 * Duration при создании сокращается до часов, минут, секунд...
 * static methods like ofXXX() can not be chained
-*
 
 LOCALIZATION 85%
+* Locale myLocale = Locale.getDefault();
 * Java properties class can contain Object values
 * Properties.get(String key) Properties.getProperty(String key [String default])
 * ResourceBungle.getBungle("Bungle") - отработает с default Locale
-*
-*
-*
 
 EXCEPTIONS & ASSERTIONS 80%
+* javac -source 1.3 Assertions.java позволяет использовать assert как идинтификатор
 * Могут подъебать с фигурными скобками в try{}{} вместо круглых
 * if exception throws it must be declared of handled
 * assert is the reserved word, you cannot use it as a variable name;
@@ -75,19 +89,19 @@ EXCEPTIONS & ASSERTIONS 80%
 * если поймал IOException e тогда нельзя переприсвоить e = new RuntimeException(); потому что это разные типы
 
 CONCURRENCY 50%
+* volatile позаоляет видить переменную всем потокам, но не гарантируют атомарного поведения
+* concurrentHashMap  не подддерживает null
 * CyclicBarrier может быть сломан несколько раз
 * Для полного Thread Safe нужна полная синхронизация чтения и записи
 * обратить внимане на то чтоб всегда закрывался ExecutorService
-* Consumer = () -> {}, Math.sqrt(x) но не return x; можно вставлять функцию возврат которой игнорируется
+* Consumer = (x) -> {}, Math.sqrt(x) но не return x; можно вставлять функцию возврат которой игнорируется
 * Future.get(long, TimeUnit)
-* ExecutorService.execute() returns void but nut Future!!!
+* ExecutorService.execute() returns void but not a Future!!!
 * Если RecursiveAction зависает в рекурсии тогда можно получить StackOverflowError
 * scheduleWithFixedDelay() accepts only Runnable
 * если T compute() - тогда класс наследует RecursiveTask
-* в reduce() все параметры имеют один тип
 * не бывает program hangs & run without issue
 * new stream is always not parallel even if all streams in flatMap is parallel
-* ()->{return null} incorrect lambda, becouse missing semicolon(;)
 * newSingleThreadExecutor() is thread safe ;)
 * Нужно быть внимательнее когда блокируется this и static method - это разные объекты
 * Concurrent tasks can share the same memory
@@ -95,6 +109,10 @@ CONCURRENCY 50%
 * CyclicBarrier.await() должен быть дернут разными потоками! Обратить внимание на количество потоков в ExecutorService
 
 JAVA IO 82%
+* OutputStream.writeInt(99) нет такого метода
+* Для кастомизации сериализачции можно переопределить методы private void readObject и writeObject
+* BufferedWriter не имеет метода writeUTF -> (ObjectOutputStream)
+* Reader тоже имеет skip & mark
 * mark(int readlimit) при привышении readlimit может ругаться, а может и нет
 * натупил с mark() потому что не вчитывался в код
 * Writer.append() ничего не запишет пока не вызовется метод flush()
@@ -105,31 +123,34 @@ JAVA IO 82%
 * inputStream.mark() запоминает позицию, markLimit - непонятная хуйня :/
 * ois.readObject() returns Object
 * new BufferedInputStream(new FileReader(file)); -> ERROR
-* getRoot().getParent() возвращает null
+* java.io.File не поддерживает SymbolicLinc!!!
 
 JAVA NIO.2 50%
 * getRoot() на относительном пути дает null
+* getRoot().getParent() возвращает null
 * нельзя миксовать относительные и абсолютные пути в relativize()
+* Path.relativize() считает . и .. как пути которые тоже нужно анигилировать в итоге получается хуйня
+* path.relativize() принимает Path а не String
 * Недопустим одиночный обратный слеш в пути "\"
 * если метод описан полностью, тогда Files.copy() бросает Exceptions
 * FileVisitResult = CONTINUE, TERMINATE, SKIP_SUBTREE, SKIP_SIBLINGS
 * Paths.get("/a/b").getName(5) throw IllegalArgumentException
-* Path.relativize() считает . и .. как пути которые тоже нужно анигилировать в итоге получается хуйня
 * Обратить внимание на PATHS VS PATH!!!
-* path.relativize() принимает Path а не String
 * Path is immutable
 * путь Path обрабатывается поочереди вплоть до символических ссылок если /foo ссылка на /bar тогда /foo/1.txt = /bar/1.txt - the same file
 * Attention to use BiPredicate in Files.walk().filter() instead of Predicate
 * Изучить какие методы Files бросаются checked IOException (только isXXX не бросаются исключениями)
-* почему-то не проверяют на возможность бросить ексепшены
 * Path.resolve(absolutePath) = absolutePath если передана абсолютный путь тогда вернет этот путь!!!
 * Files.move()(Rename) всегда копирует атрибуты
 * Если сказали что файл существует и доступен для чтения, значит чтение не бросит исключений, если нихера не сказано тогда может бросить исключение
-* java.io.File не поддерживает SymbolicLinc!!!
 * Path.normalize не преобразовует относительный путь в абсолютный, а только сокращает лишнее ".".normalize() = "."
 * Files.find(Path, int, BiPredicate<Path, BasicFilterAttribute>) второй параметр - глубина
 
 JDBC 90%
+* A JDBC API implementation must support Entry Level SQL92 plus the SQL command Drop Table.
+* ResultSetMetaData gives you the information about the result of executing a query. You can retrieve this object by calling getMetaData() on ResultSet.
+* A Connection is always in auto-commit mode when it is created.  As per the problem statement, an update was fired without explicitly disabling the auto-commit mode,
+  the changes will be committed right after the update statement has finished execution.
 * Проверить stmt.absolute() на SCROLL_FORWARD_ONLY работает, но previous() должен бросаться исключениями, хотя не бросается :/
 * DriverManager.getConnection() throws SQLException
 * Mandatory parts of JDBC URL is jdbc:vendorName:databaseSpecificName(ip & port is optional)
