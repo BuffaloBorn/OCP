@@ -1,7 +1,17 @@
 ADVANCED CLASS DESIGN
+* An empty catch block is not a good coding practice.
+* sort order ->spaces < numbers < uppercase < lowercase
+* 128 does not fit into a byte.
+* You cannot override a static method with a non-static method and vice-versa.
+  You can, however, redeclare a static method of a super interface as a default method in the sub interface.
+* Remember that static method of an interface can only be accessed by using the name of that interface. i.e. Boiler.shutdown()
+* Although, class B extends class A and 'i' is a protected member of A, B still cannot access i through a reference of type A because A's i does not belong to B or, in other words, B is not involved in the implementation of A. B can access i through a reference of type B or its subclass.
+* An enum cannot be defined inside any method or constructor.
+* Unlike a regular java class, you cannot access a non-final static field from an enum's constructor
+* while(true){}; sout() is unreachable
 * Overriding позволяет возвращать ковариантные типы, но это не отностится к примитивам
 * When a programmer does not define ANY constructor, the compiler inserts one automatically, the access modifier of which is same as that of the class.
-* In case of primitives, the return type of the overriding method must be the same as that of the overridden method.
+* static void test(ColoredPoint p, Point q) & static void test(Point p, ColoredPoint q) test(cp, cp); is ambiguous
 * B class is inner class of A если вызвать в методе внутреннего класса B.this.x = this.x а A.this.x = A.this.x
 * switch по енумам должен содержать только имена перечислений, без класса
 * (String) new Object();
@@ -10,7 +20,6 @@ ADVANCED CLASS DESIGN
 * switch требует break чтоб не проваливаться дальше
 * local inner classes not allowed to have static members кроме static final variables
 * нельзя делать static import по private классам, даже в том же классе
-* static void test(ColoredPoint p, Point q) & static void test(Point p, ColoredPoint q) test(cp, cp); is ambiguous
 
 
 DESIGN PATTERNS AND PRINCIPLES
@@ -19,12 +28,13 @@ DESIGN PATTERNS AND PRINCIPLES
 * Singleton can manage a reusable cache of objects
 
 GENERICS & COLLECTIONS
+* subs = (TreeSet) s.subSet(326, true, 328, true );         subs.add(329); throws IllegalArgumentException
 * Map.foreEach(BiConsumer)
-* Так можно делать и дженерик будет можно модифицироватьCollection<  E  > returnValue = new ArrayList< E >();
+* Так можно делать и дженерик будет можно модифицироватьCollection<E> returnValue = new ArrayList<E>();
 * Map.computeIfAbsent(T, Function<T, V>) V
-* Iterator of HashMap - Невозможно определить порядок
+* Iterator of HashSet - Невозможно определить порядок
 * Collection boolean	contains(Object o)
-** raw generic можно передавать или присваивать куда угодно
+*** raw generic можно передавать или присваивать куда угодно
 * List<? super RuntimeException> l = new ArrayList<Throwable>() создавать с любым родителем, а ложить только потомков
 * Обратить внимание на Comparator в обратном порядке (b.compareTo(a))
 * BinarySearch работает только когда список отсортирован в НАТУРАЛЬНОМ порядке или с соответственным компаратором
@@ -33,7 +43,7 @@ GENERICS & COLLECTIONS
 * Map<String, List<>> is wrong because of List<> being inside of another < and >. нельзя сдатавить diamond operator внутрь скобок
 * Если метод возвращает List<? super E> то его нельзя кастонуть, только в List<? super E> или List<?> или List. public static <E extends CharSequence> List<? super E> doIt(List<E> nums)
 * books.stream().sorted().forEach(b->System.out.println(b.getIsbn())); // упадет с ClassCastException если Books not implement Comparable
-* Map позвляет хранить null в качестве ключа, а HashTable нет.
+* Map позвляет хранить null в качестве ключа, а HashTable, ConcurrentHashMap нет.
 * Map.put(K, V) возвращает предидущее значение или null.
 * Collection.sort можно только Comparable or with external Comparator
 * Sort с null Comparator'ом сортирует в обычном порядке
@@ -45,6 +55,11 @@ GENERICS & COLLECTIONS
 * foo(T obj) и foo(Object o) -> ambiguous method
 
 STREAMS
+* toMap(K, V) - бросает Exception при дублировании ключа toMap(K, V, M)  - мерджит ключи toMap(K, V, M, S) - можно задать конкретную мапу
+* Optional<String> grade = Optional.empty(); grade.of("FAIL"); - Это вызов статического метода
+* Stream<Integer> strm2 = strm1.filter(i>5).filter(i<15); This will not compile because i>5 and i<15 are invalid lambda expressions.
+* Predicate even = (Integer i)-> i%2==0; так нельзя, а так можно Predicate even =  i-> ((Integer)i)%2==0;
+* Collectors.groupingBy() в лист пихает элементы
 * findAny() может вернуть любое значение, хоть паралельно, хоть нет
 * String s = Arrays.asList("a", "b", "c").parallelStream().reduce("_", String::concat) когда редуцирование выполняется паралельно, может получится такая фигня "_a_b_c"
 * Collectors.counting() returns Long
@@ -66,6 +81,7 @@ STREAMS
 * Stream.iterate(1, x->x++) = 111111111..... инициализирующее значение передается в функцию
 
 JAVA TIME
+* A Timezone of GMT+2 means that in that time zone, the time is 2 hours ahead of GMT. Thus, when it is 17:13 in GMT, it is 19:13 in GMT+2.
 * Note that if the second date is before the first date, a minus sign is included in the output.
 * Instant do not contains ZoneId(always in GMT)
 * Instant можно создать только из ZonedDateTime (тот у кого есть зона)
@@ -75,20 +91,30 @@ JAVA TIME
 * static methods like ofXXX() can not be chained
 
 LOCALIZATION 85%
+* String[] vals =  bungle.getStringArray("key2");
 * Locale myLocale = Locale.getDefault();
 * Java properties class can contain Object values
 * Properties.get(String key) Properties.getProperty(String key [String default])
 * ResourceBungle.getBungle("Bungle") - отработает с default Locale
 
 EXCEPTIONS & ASSERTIONS 80%
+* java -enablesystemassertions
+* The type of the resource must be specified in the try itself. i.e. it should be: try(Statement stmt = c.createStatement())
+* The auto-closeable variables defined in the try-with-resources statement are implicitly final. Thus, they cannot be reassigned.
+* assert <boolean_expression> : <any_expression_but_void>;
+* Input params of a public(NOT PRIVATE) method should not be validated using assertions.
+* java -ea:... myPackage.myProgram enables assertions in the root package
 * javac -source 1.3 Assertions.java позволяет использовать assert как идинтификатор
+* assert is the reserved word, you cannot use it as a variable name;
 * Могут подъебать с фигурными скобками в try{}{} вместо круглых
 * if exception throws it must be declared of handled
-* assert is the reserved word, you cannot use it as a variable name;
 * ParseException, IOException, FileNotFoundException, NotSerializableException, SQLException -- checked
 * если поймал IOException e тогда нельзя переприсвоить e = new RuntimeException(); потому что это разные типы
 
 CONCURRENCY 50%
+* If a Thread is created with a Runnable, Thread class's run() method calls the run() method of the given Runnable.
+  So you would expect it to execute Threader's run() method. However, Pooler is overriding Thread class's run() method and so the default behavior of Thread's run() is lost.
+* One worker thread may steal work from another worker thread.
 * volatile позаоляет видить переменную всем потокам, но не гарантируют атомарного поведения
 * concurrentHashMap  не подддерживает null
 * CyclicBarrier может быть сломан несколько раз
@@ -109,6 +135,8 @@ CONCURRENCY 50%
 * CyclicBarrier.await() должен быть дернут разными потоками! Обратить внимание на количество потоков в ExecutorService
 
 JAVA IO 82%
+* To serialize the object using the default behavior, you must call objectOutputStream.defaultWriteObject(); or objectOutputStream.writeFields();. This will ensure that instance fields of Portfolio object are serialized.
+* To deserialize the object using the default behavior, you must call objectInputStream.defaultReadObject(); or objectInputStream.readFields();. This will ensure that instance fields of Portfolio object are deserialized.
 * OutputStream.writeInt(99) нет такого метода
 * Для кастомизации сериализачции можно переопределить методы private void readObject и writeObject
 * BufferedWriter не имеет метода writeUTF -> (ObjectOutputStream)
@@ -126,11 +154,16 @@ JAVA IO 82%
 * java.io.File не поддерживает SymbolicLinc!!!
 
 JAVA NIO.2 50%
+* java.nio.file.NoSuchFileException: test.txt когда нет такого файла
+* public static Path get(URI uri)
+    IllegalArgumentException - if preconditions on the uri parameter do not hold. The format of the URI is provider specific.
+    FileSystemNotFoundException - The file system, identified by the URI, does not exist and cannot be created automatically, or the provider identified by the URI's scheme component is not installed
+    SecurityException - if a security manager is installed and it denies an unspecified permission to access the file system
 * getRoot() на относительном пути дает null
 * getRoot().getParent() возвращает null
 * нельзя миксовать относительные и абсолютные пути в relativize()
 * Path.relativize() считает . и .. как пути которые тоже нужно анигилировать в итоге получается хуйня
-* path.relativize() принимает Path а не String
+** path.relativize() принимает Path а не String
 * Недопустим одиночный обратный слеш в пути "\"
 * если метод описан полностью, тогда Files.copy() бросает Exceptions
 * FileVisitResult = CONTINUE, TERMINATE, SKIP_SUBTREE, SKIP_SIBLINGS
@@ -147,6 +180,16 @@ JAVA NIO.2 50%
 * Files.find(Path, int, BiPredicate<Path, BasicFilterAttribute>) второй параметр - глубина
 
 JDBC 90%
+* 1. Call rs.moveToInsertRow(); first. You can't insert a row without calling this method first.
+  2. Use rs.updateXXX methods to update all column values. You must set values for all the columns.
+  3. Call rs.insertRow();
+  4. Call rs.moveToCurrentRow(); to go back to the row where you were before calling moveToInsertRow.
+  5. Call rs.updateRow(); If you call rs.refreshRow() without calling updateRow(), the updates will be lost.
+* In JDBC 4.0, the drivers are loaded automatically based on the information provided by the driver's META-INF/services/java.sql.Driver file.
+  Therefore, no java code in necessary to load the driver classes.
+* The actual classes for Connection, Statement, and ResultSet interfaces are provided by the JDBC driver and are therefore driver dependent.
+* Statement.setMaxRows(int) - Ограничивает количество считываемых строк
+* поучить транзакции
 * A JDBC API implementation must support Entry Level SQL92 plus the SQL command Drop Table.
 * ResultSetMetaData gives you the information about the result of executing a query. You can retrieve this object by calling getMetaData() on ResultSet.
 * A Connection is always in auto-commit mode when it is created.  As per the problem statement, an update was fired without explicitly disabling the auto-commit mode,

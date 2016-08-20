@@ -25,7 +25,7 @@ public class TestClass {
 
     public static void main(String[] args) { List<String> fnames = Arrays.asList("a", "b", "c");
         Tiger t = new Tiger();
-//        process(fnames, Tiger::eat);
+        process(fnames, List::size);
 //        Arrays.asList(Arrays.asList("F")).stream().mapToInt(Carnivore::calories)
     }
 }
