@@ -9,17 +9,11 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.spi.FileSystemProvider;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.Period;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.*;
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -31,6 +25,8 @@ import static java.util.stream.Collectors.*;
  * Hello world!
  */
 interface A {
+    int i = 5;
+
     default void foo() {
 
     }
@@ -40,17 +36,7 @@ interface A {
     }
 }
 
-interface B extends A {
-    default void bar() {
-
-    }
-
-    default void foo() {
-
-    }
-}
-
-class TestClass1 {
+class TestClass1 implements A {
     static {
         System.out.println("in static");
     }
@@ -67,6 +53,7 @@ public class App implements Serializable {
         System.out.println("non static");
         X<String> x = System.out::println;
     }
+
     public App(int i) {
         this.i = i;
     }
@@ -103,6 +90,26 @@ public class App implements Serializable {
         Console c = System.console();
         TestClass1 t;
         t = new TestClass1();
+        NavigableSet<Integer> set = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+        NavigableSet<Integer> subSet = set.subSet(2, true, 5, true);
+        subSet.add(5);
+        TestClass1 testClass1 = new TestClass1();
+        System.out.println(testClass1.i);
+        OCP.A.bar();
+        PrintUtils.printDelimiterString();
+        LocalDateTime ld1 = LocalDateTime.of(2015, Month.MARCH, 8, 2, 0);
+        ZonedDateTime zd1 = ZonedDateTime.of(ld1, ZoneId.of("US/Eastern"));
+        LocalDateTime ld2 = LocalDateTime.of(2015, Month.MARCH, 8, 3, 0);
+        ZonedDateTime zd2 = ZonedDateTime.of(ld2, ZoneId.of("US/Eastern"));
+        long x = ChronoUnit.HOURS.between(zd1, zd2);
+        d = Duration.between(zd1, zd1.plus(1,ChronoUnit.HOURS));
+        System.out.println(x);
+        System.out.println(d);
+//        class A extends ArrayList<String> {
+//            public boolean add(Object o) {
+//                return false;
+//            }
+//        }
 //        while (true) { }
 //        for (;;){}
 //        System.out.println("");
@@ -144,6 +151,20 @@ public class App implements Serializable {
 //        System.out.println(Period.of());
     }
 
+    public double foo(int i) {
+        return new Float(5);
+    }
+
+    public void m1() {
+        int i = 0;
+        //code that initializes i goes here  
+        try {
+            assert i == 20;
+        } catch (Exception e) {
+            i = 20;
+        }
+        System.out.println(i);
+    }
 //    public void foo() {
 //        class A {
 //            static final String name = "";

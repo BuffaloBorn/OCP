@@ -1,10 +1,14 @@
 ADVANCED CLASS DESIGN
+* Autoboxing не работает для int->Double а для Integer->double работает
+* Внимательнее смотреть на public методы в ананимных классах, особенно если они не определены у родетеля ;)
+* Если предок имеет метод foo(T t) а потомок пытается определить метод foo(Object o) тогда получим compile time exception the same erasure, yet neither overrides the other.
 * An empty catch block is not a good coding practice.
 * sort order ->spaces < numbers < uppercase < lowercase
 * 128 does not fit into a byte.
 * You cannot override a static method with a non-static method and vice-versa.
   You can, however, redeclare a static method of a super interface as a default method in the sub interface.
 * Remember that static method of an interface can only be accessed by using the name of that interface. i.e. Boiler.shutdown()
+* А вот к статическим константам интерфейса через класс можно достучатся(если они не Ambiguous)
 * Although, class B extends class A and 'i' is a protected member of A, B still cannot access i through a reference of type A because A's i does not belong to B or, in other words, B is not involved in the implementation of A. B can access i through a reference of type B or its subclass.
 * An enum cannot be defined inside any method or constructor.
 * Unlike a regular java class, you cannot access a non-final static field from an enum's constructor
@@ -39,19 +43,19 @@ GENERICS & COLLECTIONS
 * Обратить внимание на Comparator в обратном порядке (b.compareTo(a))
 * BinarySearch работает только когда список отсортирован в НАТУРАЛЬНОМ порядке или с соответственным компаратором
 * Comparable is in the java.lang package
+* Sort с null Comparator'ом сортирует в обычном порядке
+* Collection.sort можно только Comparable or with external Comparator
 * Внимательно когда используется одинаковое имя для Класса и Type Parameter
 * Map<String, List<>> is wrong because of List<> being inside of another < and >. нельзя сдатавить diamond operator внутрь скобок
 * Если метод возвращает List<? super E> то его нельзя кастонуть, только в List<? super E> или List<?> или List. public static <E extends CharSequence> List<? super E> doIt(List<E> nums)
 * books.stream().sorted().forEach(b->System.out.println(b.getIsbn())); // упадет с ClassCastException если Books not implement Comparable
 * Map позвляет хранить null в качестве ключа, а HashTable, ConcurrentHashMap нет.
 * Map.put(K, V) возвращает предидущее значение или null.
-* Collection.sort можно только Comparable or with external Comparator
-* Sort с null Comparator'ом сортирует в обычном порядке
 * Map->SortedMap->NavigableMap
 * FIFO has methods offer(e)/add(e)||peek()/element()||poll()/remove() for this purpose.
 * LIFO has methods push(e)||peek()/element()||poll()/remove()/pop() for this purpose.
 * Если работать с BlockingDeque с задержками то она может заблокироваться и результат будет неопределен
-* если Map.merge вернет null тогда удаляется ключ, если ключь уже null или отсутствует, тогда просто ставит новое значение
+* если Map.merge вернет null тогда удаляется ключ, если ключ уже null или отсутствует, тогда просто ставит новое значение
 * foo(T obj) и foo(Object o) -> ambiguous method
 
 STREAMS
@@ -81,6 +85,7 @@ STREAMS
 * Stream.iterate(1, x->x++) = 111111111..... инициализирующее значение передается в функцию
 
 JAVA TIME
+* 45m != 1h
 * A Timezone of GMT+2 means that in that time zone, the time is 2 hours ahead of GMT. Thus, when it is 17:13 in GMT, it is 19:13 in GMT+2.
 * Note that if the second date is before the first date, a minus sign is included in the output.
 * Instant do not contains ZoneId(always in GMT)
@@ -98,6 +103,7 @@ LOCALIZATION 85%
 * ResourceBungle.getBungle("Bungle") - отработает с default Locale
 
 EXCEPTIONS & ASSERTIONS 80%
+* Throwable.getSuppressed().length == 0
 * java -enablesystemassertions
 * The type of the resource must be specified in the try itself. i.e. it should be: try(Statement stmt = c.createStatement())
 * The auto-closeable variables defined in the try-with-resources statement are implicitly final. Thus, they cannot be reassigned.
@@ -135,10 +141,13 @@ CONCURRENCY 50%
 * CyclicBarrier.await() должен быть дернут разными потоками! Обратить внимание на количество потоков в ExecutorService
 
 JAVA IO 82%
+* Если класс имеет поле private static final long serialVersionUID = 1L; тогда при добавлении новых полей они будут инициализироваться дефортными значениями
+  Но если этого поля нет, тогда оно будет генерироваться при каждом новом изменении класса(implementation, fields)
+* File[] files = File.files();
 * To serialize the object using the default behavior, you must call objectOutputStream.defaultWriteObject(); or objectOutputStream.writeFields();. This will ensure that instance fields of Portfolio object are serialized.
 * To deserialize the object using the default behavior, you must call objectInputStream.defaultReadObject(); or objectInputStream.readFields();. This will ensure that instance fields of Portfolio object are deserialized.
 * OutputStream.writeInt(99) нет такого метода
-* Для кастомизации сериализачции можно переопределить методы private void readObject и writeObject
+* Для кастомизации сериализации можно переопределить методы private void readObject и writeObject
 * BufferedWriter не имеет метода writeUTF -> (ObjectOutputStream)
 * Reader тоже имеет skip & mark
 * mark(int readlimit) при привышении readlimit может ругаться, а может и нет

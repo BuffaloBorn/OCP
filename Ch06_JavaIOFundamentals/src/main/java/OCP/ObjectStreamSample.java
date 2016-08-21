@@ -13,9 +13,10 @@ public class ObjectStreamSample {
         animals.add(new Animal("Tommy Tiger", 5, 'T'));
         animals.add(new Animal("Peter Penguin", 8, 'P'));
         File dataFile = new File("Ch06_JavaIOFundamentals\\src\\main\\java\\OCP\\animal.data");
-        createAnimalsFile(animals, dataFile);
+//        createAnimalsFile(animals, dataFile);
         System.out.println(getAnimals(dataFile));
         System.out.format("String %d%n", 5);
+        //local class serialVersionUID = 3355554329470159922
 
     }
 
@@ -28,6 +29,11 @@ public class ObjectStreamSample {
                     o = ois.readObject();
                 } catch (EOFException e) {
                     break;
+                } catch (InvalidClassException e) {
+                    ObjectStreamClass osc = ObjectStreamClass.lookup(Animal.class);
+                    long serialVersionUID = osc.getSerialVersionUID();
+                    System.out.println(serialVersionUID);
+                    throw e;
                 }
                 if (o instanceof Animal) {
                     animals.add((Animal) o);

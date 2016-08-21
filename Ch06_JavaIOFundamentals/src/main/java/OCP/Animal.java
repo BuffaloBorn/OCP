@@ -5,12 +5,15 @@ package OCP;
  */
 
 import java.io.Serializable;
+import java.util.RandomAccess;
 
 public class Animal implements Serializable {
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     private transient String name;
+    private  String name1;
     private transient int age = 10;
     private static char type = 'C';
+//    private static char type1 = 'C';
 
     {
         this.age = 14;
