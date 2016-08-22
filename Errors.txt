@@ -1,6 +1,6 @@
 ADVANCED CLASS DESIGN
 * Autoboxing не работает для int->Double а для Integer->double работает
-* Внимательнее смотреть на public методы в ананимных классах, особенно если они не определены у родетеля ;)
+* Внимательнее смотреть на public методы в анонимных классах, особенно если они не определены у родетеля ;)
 * Если предок имеет метод foo(T t) а потомок пытается определить метод foo(Object o) тогда получим compile time exception the same erasure, yet neither overrides the other.
 * An empty catch block is not a good coding practice.
 * sort order ->spaces < numbers < uppercase < lowercase
@@ -9,7 +9,8 @@ ADVANCED CLASS DESIGN
   You can, however, redeclare a static method of a super interface as a default method in the sub interface.
 * Remember that static method of an interface can only be accessed by using the name of that interface. i.e. Boiler.shutdown()
 * А вот к статическим константам интерфейса через класс можно достучатся(если они не Ambiguous)
-* Although, class B extends class A and 'i' is a protected member of A, B still cannot access i through a reference of type A because A's i does not belong to B or, in other words, B is not involved in the implementation of A. B can access i through a reference of type B or its subclass.
+* Although, class B extends class A and 'i' is a protected member of A, B still cannot access i through a reference of type A because A's i does not belong to B or,
+  in other words, B is not involved in the implementation of A. B can access i through a reference of type B or its subclass.
 * An enum cannot be defined inside any method or constructor.
 * Unlike a regular java class, you cannot access a non-final static field from an enum's constructor
 * while(true){}; sout() is unreachable
@@ -46,7 +47,7 @@ GENERICS & COLLECTIONS
 * Sort с null Comparator'ом сортирует в обычном порядке
 * Collection.sort можно только Comparable or with external Comparator
 * Внимательно когда используется одинаковое имя для Класса и Type Parameter
-* Map<String, List<>> is wrong because of List<> being inside of another < and >. нельзя сдатавить diamond operator внутрь скобок
+* Map<String, List<>> is wrong because of List<> being inside of another < and >. нельзя ставить diamond operator внутрь скобок
 * Если метод возвращает List<? super E> то его нельзя кастонуть, только в List<? super E> или List<?> или List. public static <E extends CharSequence> List<? super E> doIt(List<E> nums)
 * books.stream().sorted().forEach(b->System.out.println(b.getIsbn())); // упадет с ClassCastException если Books not implement Comparable
 * Map позвляет хранить null в качестве ключа, а HashTable, ConcurrentHashMap нет.
@@ -77,7 +78,7 @@ STREAMS
 * в partitioningBy(Predicate, Collector) Вторым параметром передается коллектор
 * partitioningBy(Predicate) всегда возвращает мапу с двумя ключами, даже если стрим пустой
 * UnaryOperator<Long> ex2 = (Long l) -> 3.14 //NOT COMPILE 3.14 is not a Long
-* Stream.generate(() -> "A").sorted().limit(2).forEach(System.out::println); //Зависает потому что sorted() работает только с finit streams
+* Stream.generate(() -> "A").sorted().limit(2).forEach(System.out::println); //Зависает потому что sorted() работает только с finite streams
 * Functional interfaces can't declare checked exceptions
 *** Streams can be used only one time!
 ** Stream.sum() is incorrect because IntStream.sum()
